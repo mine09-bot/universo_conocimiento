@@ -95,7 +95,7 @@
             <!-- Empieza aqui -->
 
             <div class="d-grid gap-4">
-                <div class="card" style="max-width: 8rem">
+                <div class="card m-0" style="max-width: 8rem">
                     <div class="row g-0">
                         <img
                             src="fotoperfil.jpg"
@@ -112,11 +112,11 @@
                         <div class="col-md-6">
                             <div class="card-body">
                                 <p class="card-text">
-                                    <strong> Nombre: </strong>Minerva Benitez
+                                    <strong></strong>Minerva Benitez
                                     Perez
                                 </p>
                                 <p class="card-text">
-                                    <strong>Universidad:</strong> Benemerita
+                                    <strong></strong> Benemerita
                                     Universidad Autonoma de Puebla
                                 </p>
                                 <p class="card-text">
