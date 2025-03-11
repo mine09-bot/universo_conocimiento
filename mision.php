@@ -1,3 +1,10 @@
+<?php
+session_start();
+
+require "utils.php";
+verificarSesion();
+
+?>
 <!DOCTYPE html>
 <html lang="es-MX" data-bs-theme="dark">
     <head>

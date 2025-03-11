@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+// Si ya hay una sesión activa, redirige a inicio.php
+if (isset($_SESSION['idUsuario'])) {
+    header("Location: inicio.php");
+    exit();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="es-MX" data-bs-theme="dark">
     <head>
