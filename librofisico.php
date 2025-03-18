@@ -141,9 +141,10 @@ verificarSesion();
                     <h6>Creado por: Minerva Benítez Pérez 2025</h6>
                 </div>
                 <div class="col-6 d-flex flex-column">
-                    <a class="btn" href="#" role="button">Inicio</a>
-                    <button type="button" class="btn">Ayuda</button>
-                    <button type="button" class="btn">Misión</button>
+                <a class="btn" href="inicio.php" role="button">Inicio</a>
+                    <a class="btn" href="ayuda.php" role="button">Ayuda</a>
+                    <a class="btn" href="mision.php" role="button">Mision</a>
+                    
                 </div>
             </div>
         </div>

@@ -17,11 +17,15 @@ $respuesta=$query->fetch(PDO::FETCH_ASSOC);
 if($respuesta) {
     // Existe
     echo "Usuario existe";
+
+    // Guardar las variables de sesión
     $_SESSION['idUsuario']=$respuesta['idUsuario'];
     $_SESSION['correoElectronico']=$respuesta['correoElectronico'];
     $_SESSION['nombre']=$respuesta['nombre'];
     $_SESSION['apellidoPaterno']=$respuesta['apellidoPaterno'];
     $_SESSION['apellidoMaterno']=$respuesta['apellidoMaterno'];
+
+    // Enviar a inicio
     header("Location: inicio.php");
     exit;
 }

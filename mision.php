@@ -62,24 +62,24 @@ verificarSesion();
                             <a
                                 class="nav-link active"
                                 aria-current="page"
-                                href="#"
+                                href="inicio.php"
                                 >Inicio</a
                             >
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Perfil</a>
+                            <a class="nav-link" href="perfil.php">Perfil</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Ver Libros</a>
+                            <a class="nav-link" href="listado.php">Ver Libros</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Categorias</a>
+                            <a class="nav-link" href="categorias.php">Categorias</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Editor de Libros</a>
+                            <a class="nav-link" href="editor.php">Editor de Libros</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search">
@@ -175,9 +175,10 @@ verificarSesion();
                     <h6>Creado por: Minerva Benítez Pérez 2025</h6>
                 </div>
                 <div class="col-6 d-flex flex-column">
-                    <a class="btn" href="#" role="button">Inicio</a>
-                    <button type="button" class="btn">Ayuda</button>
-                    <button type="button" class="btn">Misión</button>
+                <a class="btn" href="inicio.php" role="button">Inicio</a>
+                    <a class="btn" href="ayuda.php" role="button">Ayuda</a>
+                    <a class="btn" href="mision.php" role="button">Mision</a>
+                    
                 </div>
             </div>
         </div>
