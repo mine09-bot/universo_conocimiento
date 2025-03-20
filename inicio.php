@@ -245,7 +245,7 @@ verificarSesion();
                     </h4>
                     <h5>Redes sociales</h5>
                     <i class="fa-brands fa-facebook"></i>
-                    <a class="btn" href="#" role="button">facebook</a>
+                    <a class="btn" href="https://www.facebook.com/" role="button">facebook</a>
                     <h6>Creado por: Minerva Benítez Pérez 2025</h6>
                 </div>
                 <div class="col-6 d-flex flex-column">
