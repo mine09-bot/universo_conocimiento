@@ -17,6 +17,63 @@
     </head>
 
     <body>
+        <div
+            class="d-none position-absolute w-100 h-100 left-0 top-0 page-loader flex-column bg-dark bg-opacity-50 d-flex justify-content-center align-items-center"
+            id="contenedor-carga"
+            style="z-index: 1021">
+            <div class="flipping">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+
+            <style>
+                .flipping {
+                    height: 22.4px;
+                    display: grid;
+                    grid-template-columns: repeat(5, 22.4px);
+                    grid-gap: 5.6px;
+                }
+
+                .flipping div {
+                    animation: flipping-owie1ymd 1.25s calc(var(--delay) * 1s) infinite ease;
+                    background-color: var(--bs-primary);
+                }
+
+                .flipping div:nth-of-type(1) {
+                    --delay: 0.25;
+                }
+
+                .flipping div:nth-of-type(2) {
+                    --delay: 0.5;
+                }
+
+                .flipping div:nth-of-type(3) {
+                    --delay: 0.75;
+                }
+
+                .flipping div:nth-of-type(4) {
+                    --delay: 1;
+                }
+
+                .flipping div:nth-of-type(5) {
+                    --delay: 1.25;
+                }
+
+                @keyframes flipping-owie1ymd {
+                    0% {
+                        transform: perspective(44.8px) rotateY(-180deg);
+                    }
+
+                    50% {
+                        transform: perspective(44.8px) rotateY(0deg);
+                    }
+                }
+            </style>
+            <span class="text-gray-800 fs-6 fw-semibold mt-5">Guardando libro...</span>
+        </div>
         <div class="container-fluid" style="height: 100vh" id="main-container">
             <div class="row d-flex flex-nowrap" style="min-height: 100vh">
                 <div class="col p-0 d-flex flex-column">
