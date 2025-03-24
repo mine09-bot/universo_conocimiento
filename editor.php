@@ -80,34 +80,34 @@ verificarSesion();
                 <div class="container-sm flex-grow-1 mt-lg-4">
                     <div class="row">
                         <div class="col-12 gap-3">
-                            <form class="row g-4">
+                            <form class="row g-4" id="formulario">
                                 <div class="col-12 col-md-6 d-flex flex-column gap-1">
                                     <div class="mb-3">
                                         <label for="formFile" class="form-label">Portada</label>
-                                        <input class="form-control" type="file" id="formFile" accept="image/*" required name="portada" id="portada" />
+                                        <input class="form-control" type="file" accept="image/*" required name="portada" id="portada" />
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleFormControlTextarea1" class="form-label">Titulo</label>
-                                        <input type="text" class="form-control" id="exampleFormControlTextarea1" rows="1" minlength="5" maxlength="64" required name="titulo" id="titulo" />
+                                        <input type="text" class="form-control" rows="1" minlength="5" maxlength="64" required name="titulo" id="titulo" />
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="exampleFormControlTextarea1" class="form-label">Autor</label>
-                                        <input type="text" class="form-control" id="exampleFormControlTextarea1" rows="1" maxlength="64" minlength="10" name="autor" id="autor" />
+                                        <input type="text" class="form-control" rows="1" maxlength="64" minlength="10" name="autor" id="autor" />
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="exampleFormControlTextarea1" class="form-label">ISBN</label>
-                                        <input type="text" class="form-control" id="exampleFormControlTextarea1" rows="1" maxlength="32" name="isbn" id="isbn" />
+                                        <input type="text" class="form-control" rows="1" maxlength="32" name="isbn" id="isbn" />
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="exampleFormControlTextarea1" class="form-label"> Editorial </label>
-                                        <input type="text" class="form-control" id="exampleFormControlTextarea1" rows="1" maxlength="64" minlength="10" name="editorial" id="editorial" />
+                                        <input type="text" class="form-control" rows="1" maxlength="64" minlength="10" name="editorial" id="editorial" />
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleFormControlTextarea1" class="form-label">Numero de Páginas </label>
-                                        <input type="number" min="10" max="10000" class="form-control" id="inputnumber" name="numpaginas" id="numpaginas" />
+                                        <input type="number" min="10" max="10000" class="form-control" name="numpaginas" id="numpaginas" />
                                     </div>
                                     <div class="mb-3">
                                         <label for="categoria" class="form-label">Categoría</label>
@@ -147,7 +147,6 @@ verificarSesion();
                                         <input
                                             type="number"
                                             class="form-control"
-                                            id="year"
                                             min="1800"
                                             max="2099"
                                             placeholder="Ejemplo: 2024"
@@ -158,12 +157,12 @@ verificarSesion();
                                 <div class="col-12 col-md-6 d-flex flex-column gap-1">
                                     <div class="mb-3">
                                         <label for="exampleFormControlTextarea1" class="form-label">Pais</label>
-                                        <input type="text" class="form-control" id="exampleFormControlTextarea1" rows="1" maxlength="64" minlength="5" name="pais" id="pais" />
+                                        <input type="text" class="form-control" rows="1" maxlength="64" minlength="5" name="pais" id="pais" />
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="exampleFormControlTextarea1" class="form-label">Idioma</label>
-                                        <input type="text" class="form-control" id="exampleFormControlTextarea1" rows="1" maxlength="16" minlength="5" name="idioma" id="idioma" />
+                                        <input type="text" class="form-control" rows="1" maxlength="16" minlength="5" name="idioma" id="idioma" />
                                     </div>
                                     <!-- <div class="mb-3">
                                         <label for="exampleFormControlTextarea1" class="form-label">Disponibilidad </label>
@@ -172,13 +171,13 @@ verificarSesion();
 
                                     <div class="mb-3">
                                         <label for="exampleFormControlTextarea1" class="form-label">Sinopsis </label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="sinopsis" id="sinopsis"></textarea>
+                                        <textarea class="form-control" rows="5" name="sinopsis" id="sinopsis"></textarea>
 
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="formFile" class="form-label">Cargar Libro</label>
-                                        <input class="form-control" type="file" id="formFile" accept=".epub,.pdf,.azw,.azw3" name="cargarlibro" id="cargarlibro" />
+                                        <input class="form-control" type="file" accept=".epub,.pdf,.azw,.azw3" name="cargarlibro" id="cargarlibro" />
                                     </div>
                                     <div class="d-grid gap-2 col-6 mx-auto">
                                         <button class="btn btn-primary" type="submit">Guardar</button>
