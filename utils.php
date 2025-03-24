@@ -8,7 +8,6 @@ function verificarSesion() {
 
 function generarEncabezado($titulo) {
     return <<<HTML
-    <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>$titulo - UDC 📙</title>
@@ -22,7 +21,6 @@ function generarEncabezado($titulo) {
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/4ff96bfcc8.js" crossorigin="anonymous"></script>
-    </head>
     HTML;
 }
  

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="es-MX" data-bs-theme="dark">
+<head>  
 <?php echo generarEncabezado('Recuperar Contraseña'); ?>
-    
+</head>    
 
     <body>
         <div class="container-md mt-2">

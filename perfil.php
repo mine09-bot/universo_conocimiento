@@ -5,8 +5,9 @@ verificarSesion();
 ?>
 <!DOCTYPE html>
 <html lang="es-MX" data-bs-theme="dark">
+<head>  
 <?php echo generarEncabezado('Perfil'); ?>
-
+</head>
 <body>
     <div class="container-fluid" style="height: 100vh" id="main-container">
         <div class="row d-flex flex-nowrap" style="min-height: 100vh">

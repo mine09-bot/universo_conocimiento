@@ -7,7 +7,9 @@ verificarSesion();
 ?>
 <!DOCTYPE html>
 <html lang="es-MX" data-bs-theme="dark">
+<head>  
 <?php echo generarEncabezado('Descargar'); ?>
+</head>
     <body>
         <!-- Barra Superior -->
         <?php echo generarBarraNav(); ?>
