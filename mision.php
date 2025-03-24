@@ -8,14 +8,16 @@ verificarSesion();
 <!DOCTYPE html>
 <html lang="es-MX" data-bs-theme="dark">
 <?php echo generarEncabezado('Mision'); ?>
-    
-    <body>
-        <!-- Barra Superior -->
-        <?php echo generarBarraNav(); ?>
-        <!-- Contenido -->
-        <div class="container-md mt-2">
-            <!-- Empieza aqui -->
-            <div class="container-md mt-2">
+
+<body>
+    <!-- Barra Superior -->
+    <?php echo generarBarraNav(); ?>
+    <!-- Contenido -->
+
+    <div class="container-sm flex-grow-1 mt-lg-4">
+        <div class="row">
+            <div class="col-12 gap-3">
+                <!-- Comienza aquí -->
                 <form class="row g-1">
                     <div class="col-4 d-flex flex-column gap-2">
                         <img
@@ -23,8 +25,7 @@ verificarSesion();
                             class="img-fluid"
                             alt="Bootstrap"
                             width="300"
-                            height="300"
-                        />
+                            height="300" />
                     </div>
                     <div class="col-8 d-grid gap-3">
                         <div class="container">
@@ -72,7 +73,9 @@ verificarSesion();
                 </form>
             </div>
         </div>
+    </div>
 
-        <?php echo generarFooter(); ?>
-    </body>
+    <?php echo generarFooter(); ?>
+</body>
+
 </html>
