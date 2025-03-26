@@ -11,27 +11,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // $box = json_decode(file_get_contents('php://input'), true);
 
     try {
-        $res = ['status' => 1, 'recibidos' => var_dump($_POST)];
+        // Paquete
+        $paquete = $_POST;
+
+        $titulo = $paquete['titulo'];
+        $autor = $paquete['autor'];
+        //TODO Poner todos los campos
+
+
+        //TODO Declarar la instruccion SQL en una variable
+
+
+        //* Aqui ya no
+        //TODO Preparar la conexion
+
+
+
+
+
 
         /*
         // Guardar variables
         $usuario = $box['user'];
         $password = $box['pass'];
-
+        
         // Convertir el password a MD5
         $md5pass = md5($password);
-
+        
         // Verificar si el usuario ingreso un ID o un email
         $instruccion = "SELECT 
-                        p.id AS user_id,
-                        p.email,
-                        p.password,
-                        p.active,
-                        p.idLevel,
-                        p.idCitizen,
-                        c.id,
-                        c.name,
-                        c.lastName,
+        p.id AS user_id,
+        p.email,
+        p.password,
+        p.active,
+        p.idLevel,
+        p.idCitizen,
+        c.id,
+        c.name,
+        c.lastName,
                         c.lastNameMat,
                         c.dob,
                         c.gender,
@@ -86,6 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
             */
+        $res = ['status' => 1, 'paquete' => $_POST];
     } catch (Exception $e) { // Something happened!
         $res = ['status' => 0, 'msg' => "Error de servidor", "error" => $e->getMessage()];
     }
