@@ -94,4 +94,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Send the response back with the info
-echo json_encode($response);
+echo json_encode($res);
