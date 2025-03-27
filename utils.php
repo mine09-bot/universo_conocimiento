@@ -46,7 +46,7 @@ function generarBarraNav() {
                 <!-- Icono y Nombre -->
                 <a class="navbar-brand text-brand" href="#">
                     <img
-                        src="/assets/images/icono_barra.svg"
+                        src="assets/images/icono_barra.svg"
                         alt="Logo"
                         width="24"
                         height="24"
