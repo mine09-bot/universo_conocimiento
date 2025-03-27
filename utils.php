@@ -1,6 +1,6 @@
 <?php
 function verificarSesion() {
-    if(!isset($_SESSION['idUsuario'])) {
+    if (!isset($_SESSION['idUsuario'])) {
         header('Location: login.php');
         exit;
     }
@@ -10,21 +10,14 @@ function generarEncabezado($titulo) {
     return <<<HTML
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>$titulo - UDC 📙</title>
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-            crossorigin="anonymous" />
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
+        <title>$titulo - 📖 Bookia</title>
+        <link rel="stylesheet" href="assets/css/tema.css" />
+        <script src="assets/bootstrap/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/4ff96bfcc8.js" crossorigin="anonymous"></script>
     HTML;
 }
- 
-function generarFooter(){
+
+function generarFooter() {
     return <<<HTML
     <div class="container-fluid">
         <div class="row bg-secondary">
@@ -46,19 +39,19 @@ function generarFooter(){
     </div>
     HTML;
 }
-function generarBarraNav(){
+function generarBarraNav() {
     return <<<HTML
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <!-- Icono y Nombre -->
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand text-brand" href="#">
                     <img
-                        src="logoproyecto.webp"
-                        alt="Bootstrap"
-                        width="30"
-                        height="30"
-                    />
-                    UDC
+                        src="/assets/images/icono_barra.svg"
+                        alt="Logo"
+                        width="24"
+                        height="24"
+                        class="d-inline-block align-text-top" />
+                    BOOKIA
                 </a>
                 <button
                     class="navbar-toggler"
@@ -122,4 +115,3 @@ function generarBarraNav(){
         </nav>
     HTML;
 }
-?>
