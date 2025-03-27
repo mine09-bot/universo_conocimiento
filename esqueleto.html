@@ -3,16 +3,9 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>[] - UDC 📙</title>
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-            crossorigin="anonymous" />
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
+        <title>[] - 📖 Bookia</title>
+        <link rel="stylesheet" href="/assets/css/tema.css" />
+        <script src="/assets/bootstrap/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/4ff96bfcc8.js" crossorigin="anonymous"></script>
     </head>
 
@@ -28,50 +21,6 @@
                 <div></div>
                 <div></div>
             </div>
-
-            <style>
-                .flipping {
-                    height: 22.4px;
-                    display: grid;
-                    grid-template-columns: repeat(5, 22.4px);
-                    grid-gap: 5.6px;
-                }
-
-                .flipping div {
-                    animation: flipping-owie1ymd 1.25s calc(var(--delay) * 1s) infinite ease;
-                    background-color: var(--bs-primary);
-                }
-
-                .flipping div:nth-of-type(1) {
-                    --delay: 0.25;
-                }
-
-                .flipping div:nth-of-type(2) {
-                    --delay: 0.5;
-                }
-
-                .flipping div:nth-of-type(3) {
-                    --delay: 0.75;
-                }
-
-                .flipping div:nth-of-type(4) {
-                    --delay: 1;
-                }
-
-                .flipping div:nth-of-type(5) {
-                    --delay: 1.25;
-                }
-
-                @keyframes flipping-owie1ymd {
-                    0% {
-                        transform: perspective(44.8px) rotateY(-180deg);
-                    }
-
-                    50% {
-                        transform: perspective(44.8px) rotateY(0deg);
-                    }
-                }
-            </style>
             <span class="text-gray-800 fs-6 fw-semibold mt-5">Guardando libro...</span>
         </div>
         <div class="container-fluid" style="height: 100vh" id="main-container">
@@ -81,9 +30,9 @@
                     <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
                         <div class="container-fluid">
                             <!-- Icono y Nombre -->
-                            <a class="navbar-brand" href="#">
+                            <a class="navbar-brand text-brand" href="#">
                                 <img src="logoproyecto.webp" alt="Bootstrap" width="30" height="30" />
-                                UDC
+                                BOOKIA
                             </a>
                             <button
                                 class="navbar-toggler"
@@ -131,6 +80,7 @@
                         <div class="row">
                             <div class="col-12 gap-3">
                                 <!-- Comienza aquí -->
+                                <div class="btn btn-primary">S</div>
                             </div>
                         </div>
                     </div>
