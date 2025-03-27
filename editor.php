@@ -89,7 +89,7 @@ function generarIdioma() {
 
 <head>
     <?php echo generarEncabezado('Editor de Libros'); ?>
-    <script src="js/editor.js?v=1.1" defer></script>
+    <script src="js/editor.js?v=1.8" defer></script>
 </head>
 
 <body>
@@ -279,7 +279,8 @@ function generarIdioma() {
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Error</h1>
                 </div>
-                <div class="modal-body">Ha ocurrido un error al cargar el libro: [error]</div>
+                <div class="modal-body"  id="mensajeError">Ha ocurrido un error al cargar el libro: [error]</div>
+                
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
                 </div>

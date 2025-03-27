@@ -16,12 +16,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $titulo = $paquete['titulo'];
         $autor = $paquete['autor'];
+        $anoedicion =$paquete['anoedicion'];
+        $categoria = $paquete['categoria'];
+        $editorial = $paquete['editorial'];
+        $formato = $paquete['formato'];
+        $idioma = $paquete['idioma'];
+        $isbn = $paquete['isbn'];
+        $numpaginas = $paquete['numpaginas'];
+        $pais = $paquete['pais'];
+        $sinopsis =$paquete['sinopsis'];
         //TODO Poner todos los campos
 
 
-        //TODO Declarar la instruccion SQL en una variable
+        $instruccion = "INSERT INTO libro(tituloLibro, Editorial_idEditorial, Formato_idFormatos, Idioma_idIdioma, Categoria_idCategoria, numeroPaginas, isbn, añoEdicion, sinopsis, Pais_idPais )
+                    VALUES (:titulo, :editorial, :formato, :idioma, :categoria, :numpaginas, :isbn, :anoedicion, :sinopsis, :pais)";
+        
+        //* Portada
+        // Generar 
+        // Subir portada
+        // Obtener el nombre
+
+        //Archivo
 
 
+
+        //* Autor
+        // Verificar que ya exista el autor
+        $instruccion= "SELECT * FROM autor where nombre=:nombre";
+        // Si si existe, agarrar su ID
+
+
+        // Si no existe, darlo de alta y tomar su nuevo ID
+        $instruccion = "INSERT INTO autor (nombre, paisProcdencia) VALUES (:nombre, NULL)";
+
+
+        // Crear el libro en BD y tomar el ID
+
+        // Crear el registro en autorlibro
+
+        $instruccion = "INSERT INTO autorlibro (idLibro, idAutor)
+        VALUES (:libro, :autor)" ;
         //* Aqui ya no
         //TODO Preparar la conexion
 
