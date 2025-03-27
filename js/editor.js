@@ -22,13 +22,44 @@ const formPais = document.querySelector("#pais");
 const formIdioma = document.querySelector("#idioma");
 const formSinopsis = document.querySelector("#sinopsis");
 const formCargarlibro = document.querySelector("#cargarlibro");
+const mensajeError = document.querySelector("#mensajeError");
 
-formulario.addEventListener("submit", e => handleSubmit(e));
+formulario.addEventListener("submit", (e) => handleSubmit(e));
 
-function handleSubmit(event) {
+async function handleSubmit(event) {
     // Previene que la página se recargue
     event.preventDefault();
 
-    
-    console.log("EXITO")
+    dialogoCarga.classList.remove("d-none");
+
+    // Empaquetar
+
+    const paquete = new FormData(formulario);
+
+    const opciones = {
+        method: "post",
+        body: paquete,
+    };
+
+    // Enviar
+
+    fetch("api/cargar.php", opciones)
+        .then((response) => {
+            if (response.ok) return response.json();
+            else throw new Error(response.status);
+        })
+        .then((retrievedData) => {
+            // Si hubo respuesta
+            console.log(retrievedData);
+            dialogoExito.show();
+        })
+        .catch((error) => {
+            mensajeError.innerHTML =
+                "Ha ocurrido un error al cargar el libro: " + error;
+            dialogoError.show();
+        })
+        .finally(() => {
+            // Oculta el loading
+            dialogoCarga.classList.add("d-none");
+        });
 }
