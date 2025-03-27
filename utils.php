@@ -41,10 +41,10 @@ function generarFooter() {
 }
 function generarBarraNav() {
     return <<<HTML
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
             <div class="container-fluid">
                 <!-- Icono y Nombre -->
-                <a class="navbar-brand text-brand" href="#">
+                <a class="navbar-brand text-brand" href="inicio.php">
                     <img
                         src="assets/images/icono_barra.svg"
                         alt="Logo"
@@ -70,14 +70,6 @@ function generarBarraNav() {
                     id="navbarSupportedContent"
                 >
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a
-                                class="nav-link active"
-                                aria-current="page"
-                                href="inicio.php"
-                                >Inicio</a
-                            >
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="perfil.php">Perfil</a>
                         </li>
