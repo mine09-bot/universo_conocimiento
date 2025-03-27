@@ -4,6 +4,7 @@
 // Anular colores predeterminados del tema
 $primary: #97c93d;
 $secondary: #3e587c;
+$tertiary: #006938;
 $light: #f8f9fa;
 $dark: #1c2837;
 
@@ -12,6 +13,7 @@ $theme-colors: map-merge(
     (
         "primary": $primary,
         "secondary": $secondary,
+        "tertiary": $tertiary,
         "light": $light,
         "dark": $dark,
     )
