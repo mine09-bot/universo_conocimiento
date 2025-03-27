@@ -61,3 +61,12 @@ $theme-colors: map-merge(
         transform: perspective(44.8px) rotateY(0deg);
     }
 }
+
+@font-face {
+    font-family: "Tommy";
+    src: url("tommy.otf") format("opentype");
+}
+
+.text-brand {
+    font-family: "Tommy", sans-serif !important;
+}
