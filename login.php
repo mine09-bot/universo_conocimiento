@@ -21,15 +21,15 @@ if (isset($_SESSION['idUsuario'])) {
         <form class="row g-1" method="post" action="login_manejador.php">
             <div class="col-6 d-flex flex-column gap-2">
                 <img
-                    src="logoproyecto.webp"
+                    src="assets/images/logo.svg"
                     alt="Bootstrap"
                     width="300"
                     height="300" />
-                <h1>¡Bienvenido a UDC!</h1>
-                <p>Unidos por el saber, desde cualquier rincón del planeta</p>
+                <h1>¡Bienvenido a Bookia!</h1>
+                <p>Unidos por el saber</p>
                 <p>En esta página podrás encontrar una gran variedad de libros de diferentes categorías, además de poder subir tus propios libros y compartirlos con el mundo.</p>
                 <p>Si ya tienes una cuenta, inicia sesión para comenzar a disfrutar de la lectura.</p>
-                <p>Si no tienes una cuenta, puedes registrarte <a href="registro.php">aquí</a>.</p>
+                
 
             </div>
             <div class="col-6 d-grid gap-3">
