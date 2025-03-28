@@ -25,7 +25,7 @@ verificarSesion();
                             <form class="row g-1">
                                 <div class="col-4 d-flex flex-column gap-2">
                                     <img
-                                        src="logoproyecto.webp"
+                                        src="assets/images/logo.svg"
                                         class="img-fluid"
                                         alt="Bootstrap"
                                         width="300"
