@@ -8,15 +8,13 @@ include('../config.php');
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // $box = json_decode(file_get_contents('php://input'), true);
-
     try {
         // Paquete
         $paquete = $_POST;
 
         $titulo = $paquete['titulo'];
         $autor = $paquete['autor'];
-        $anoedicion =$paquete['anoedicion'];
+        $anoedicion = $paquete['anoedicion'];
         $categoria = $paquete['categoria'];
         $editorial = $paquete['editorial'];
         $formato = $paquete['formato'];
@@ -24,13 +22,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $isbn = $paquete['isbn'];
         $numpaginas = $paquete['numpaginas'];
         $pais = $paquete['pais'];
-        $sinopsis =$paquete['sinopsis'];
+        $sinopsis = $paquete['sinopsis'];
+
+
         //TODO Poner todos los campos
 
 
         $instruccion = "INSERT INTO libro(tituloLibro, Editorial_idEditorial, Formato_idFormatos, Idioma_idIdioma, Categoria_idCategoria, numeroPaginas, isbn, añoEdicion, sinopsis, Pais_idPais )
                     VALUES (:titulo, :editorial, :formato, :idioma, :categoria, :numpaginas, :isbn, :anoedicion, :sinopsis, :pais)";
-        
+
         //* Portada
         // Generar 
         // Subir portada
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         //* Autor
         // Verificar que ya exista el autor
-        $instruccion= "SELECT * FROM autor where nombre=:nombre";
+        $instruccion = "SELECT * FROM autor where nombre=:nombre";
         // Si si existe, agarrar su ID
 
 
@@ -55,11 +55,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Crear el registro en autorlibro
 
         $instruccion = "INSERT INTO autorlibro (idLibro, idAutor)
-        VALUES (:libro, :autor)" ;
+        VALUES (:libro, :autor)";
         //* Aqui ya no
         //TODO Preparar la conexion
 
+        //* Ejercicios de lógica de programación
+        /*
+            1) Enlista los pasos para preparar un sándwich
+            -
+            -
+            -
+            ...
+            -
 
+
+            Verifica que cada uno de los pasos se pueda realizar antes de continuar
+            Recuerda reducir los pasos a su forma más simple
+            
+
+            2) Enlista los pasos que debes hacer para poder usar la app de BBVA si no eres cliente de ese banco (por ejemplo, para ayudar a un familiar)
+            -
+            -
+            -
+            ...
+            -
+            -
+
+
+
+            3) Enlista los pasos que debes hacer para ordenar un grupo de personas en una fila de menor a mayor edad
+            -
+            -
+            -
+            -
+            ...
+            -
+
+        */
 
 
 
