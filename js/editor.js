@@ -45,13 +45,18 @@ async function handleSubmit(event) {
 
     fetch("api/cargar.php", opciones)
         .then((response) => {
-            if (response.ok) return response.json();
+            if (response.ok) return response.text();
             else throw new Error(response.status);
         })
-        .then((retrievedData) => {
+        .then((textData) => {
+            console.log(textData);
+
+            const retrievedData = JSON.parse(textData);
             // Si hubo respuesta
             console.log(retrievedData);
-            dialogoExito.show();
+
+            if (retrievedData.status == 1) dialogoExito.show();
+            else throw new Error(retrievedData.error);
         })
         .catch((error) => {
             mensajeError.innerHTML =

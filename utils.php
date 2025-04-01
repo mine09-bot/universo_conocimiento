@@ -136,3 +136,17 @@ function generarBarraNav() {
         </nav>
     HTML;
 }
+
+function aMinusculas($texto) {
+    $texto = trim($texto);
+
+    $texto = strtolower($texto);
+
+    return $texto;
+}
+
+function primeraMayus($texto){
+    $texto = aMinusculas($texto);
+    $texto = ucwords($texto);
+    return $texto;
+}
