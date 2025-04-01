@@ -19,22 +19,51 @@ function generarEncabezado($titulo) {
 
 function generarFooter() {
     return <<<HTML
-    <div class="container-fluid">
-        <div class="row bg-secondary">
-            <!-- Columnas Responsivas -->
-            <!-- Van divididas en 12 partes, la sm(small) sólo va dividida en 4  -->
-            <div class="col-6">
-                <h4>"Unidos por el saber"</h4>
-                <h5>Redes sociales</h5>
-                <i class="fa-brands fa-facebook"></i>
-                <a class="btn" href="https://www.facebook.com/" role="button">facebook</a>
-                <h6>Creado por: Minerva Benítez Pérez 2025</h6>
+    <div class="container-fluid position-relative bg-secondary">
+        <div
+            class="position-absolute h-100 w-100 d-flex justify-content-end align-items-start z-1"
+            style="overflow: hidden">
+            <img
+                class="img-fluid w-50"
+                src="/assets/images/icono_barra.svg"
+                alt="Bookia Logo"
+                style="
+                    filter: invert(1) brightness(1000%);
+                    clip-path: inset(0 0 0 0);
+                    mask-image: linear-gradient(to left, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+                    -webkit-mask-image: linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 50%);
+                " />
+        </div>
+        <div class="container-sm py-4 z-2 position-relative">
+            <div class="row py-5">
+                <div class="col-md-6 col-lg-4 d-flex flex-column align-items-start">
+                    <h4>Enlaces de Interés</h4>
+                    <a class="btn btn-secondary" href="inicio.php" role="button">Listado de Libros</a>
+                    <a class="btn btn-secondary" href="ayuda.php" role="button">Categorías</a>
+                    <a class="btn btn-secondary" href="mision.php" role="button">Misión</a>
+                </div>
+                <div class="col-md-6 col-lg-4 d-flex flex-column align-items-start">
+                    <h4>Conócenos</h4>
+                    <a class="btn btn-secondary" href="ayuda.php" role="button">Ayuda</a>
+                    <a class="btn btn-secondary" href="mision.php" role="button">Misión</a>
+                </div>
             </div>
-            <div class="col-6 d-flex flex-column">
-                <a class="btn" href="inicio.php" role="button">Inicio</a>
-                <a class="btn" href="ayuda.php" role="button">Ayuda</a>
-                <a class="btn" href="mision.php" role="button">Mision</a>
+            <div class="row py-3">
+                <div class="col-12 col-md-5 col-lg-3">
+                    <img src="/assets/images/logo.svg" alt="Logo Bookia" class="img-fluid" />
+                </div>
             </div>
+            <hr />
+            <div class="row">
+                <div class="col-12 d-flex flex-row justify-content-end align-items-center">
+                    <p class="mb-0">
+                        <small>Síguenos</small>
+                        <a class="btn" href="#" role="button"><i class="fa-brands fa-facebook"></i></a>
+                    </p>
+                </div>
+            </div>
+            <hr />
+            <span>© 2025 Minerva Benítez Pérez. Todos los derechos reservados.</span>
         </div>
     </div>
     HTML;
