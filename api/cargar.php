@@ -23,75 +23,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $numpaginas = $paquete['numpaginas'];
         $pais = $paquete['pais'];
         $sinopsis = $paquete['sinopsis'];
+        $nombre = $paquete['nombre'];
+        $libro = $paquete['libro'];
+        $autor = $paquete['autor'];
+        
+
+        //* Crear el libro en BD y tomar el ID
+        $instruccion = "INSERT INTO libro(tituloLibro, Editorial_idEditorial, Formato_idFormatos, Idioma_idIdioma, Categoria_idCategoria, numeroPaginas, isbn, anioEdicion, sinopsis, Pais_idPais ) VALUES (:tit, :edit, :form, :idi, :cat, :numpag, :isbn, :ano, :sinop, :pa)";
+
+        $query = $connection->prepare($instruccion);
+        $query->bindParam("tit", $titulo, PDO::PARAM_STR);
+        $query->bindParam("edit", $editorial, PDO::PARAM_STR);
+        $query->bindParam("form", $formato, PDO::PARAM_STR);
+        $query->bindParam("idi", $idioma, PDO::PARAM_STR);
+        $query->bindParam("cat", $categoria, PDO::PARAM_STR);
+        $query->bindParam("numpag", $numpaginas, PDO::PARAM_STR);
+        $query->bindParam("isbn", $isbn, PDO::PARAM_STR);
+        $query->bindParam("ano", $anoedicion, PDO::PARAM_STR);
+        $query->bindParam("sinop", $sinopsis, PDO::PARAM_STR);
+        $query->bindParam("pa", $pais, PDO::PARAM_STR);
+        $query->execute();
+        $respuesta=$query->fetch(PDO::FETCH_ASSOC);
 
 
-        //TODO Poner todos los campos
-
-
-        $instruccion = "INSERT INTO libro(tituloLibro, Editorial_idEditorial, Formato_idFormatos, Idioma_idIdioma, Categoria_idCategoria, numeroPaginas, isbn, añoEdicion, sinopsis, Pais_idPais )
-                    VALUES (:titulo, :editorial, :formato, :idioma, :categoria, :numpaginas, :isbn, :anoedicion, :sinopsis, :pais)";
-
+        
         //* Portada
-        // Generar 
+        // Generar nombre unico
+
         // Subir portada
         // Obtener el nombre
 
         //Archivo
-
-
+        
+        
 
         //* Autor
         // Verificar que ya exista el autor
-        $instruccion = "SELECT * FROM autor where nombre=:nombre";
+        $instruccion = "SELECT * FROM autor where nombre=:nomb";
         // Si si existe, agarrar su ID
-
-
+        $query = $connection->prepare($instruccion);
+        $query->bindParam("nomb", $nombre, PDO::PARAM_STR);
+        $query->execute();
+        $respuesta=$query->fetch(PDO::FETCH_ASSOC);
+        
         // Si no existe, darlo de alta y tomar su nuevo ID
-        $instruccion = "INSERT INTO autor (nombre, paisProcdencia) VALUES (:nombre, NULL)";
-
-
-        // Crear el libro en BD y tomar el ID
+        $instruccion = "INSERT INTO autor (nombre, paisProcedencia) VALUES (:nom, NULL)";
+        $query = $connection->prepare($instruccion);
+        $query->bindParam("nom", $nombre, PDO::PARAM_STR);
+        $query->execute();
+        $respuesta=$query->fetch(PDO::FETCH_ASSOC);
 
         // Crear el registro en autorlibro
 
         $instruccion = "INSERT INTO autorlibro (idLibro, idAutor)
-        VALUES (:libro, :autor)";
+        VALUES (:lib, :aut)";
+        $query = $connection->prepare($instruccion);
+        $query->bindParam("lib", $libro, PDO::PARAM_STR);
+        $query->bindParam("aut", $autor, PDO::PARAM_STR);
+        $query->execute();
+        $respuesta=$query->fetch(PDO::FETCH_ASSOC);
         //* Aqui ya no
         //TODO Preparar la conexion
-
-        //* Ejercicios de lógica de programación
-        /*
-            1) Enlista los pasos para preparar un sándwich
-            -
-            -
-            -
-            ...
-            -
-
-
-            Verifica que cada uno de los pasos se pueda realizar antes de continuar
-            Recuerda reducir los pasos a su forma más simple
-            
-
-            2) Enlista los pasos que debes hacer para poder usar la app de BBVA si no eres cliente de ese banco (por ejemplo, para ayudar a un familiar)
-            -
-            -
-            -
-            ...
-            -
-            -
-
-
-
-            3) Enlista los pasos que debes hacer para ordenar un grupo de personas en una fila de menor a mayor edad
-            -
-            -
-            -
-            -
-            ...
-            -
-
-        */
 
 
 

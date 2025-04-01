@@ -24,7 +24,7 @@ function generarFooter() {
             <!-- Columnas Responsivas -->
             <!-- Van divididas en 12 partes, la sm(small) sólo va dividida en 4  -->
             <div class="col-6">
-                <h4>"Unidos por el saber, desde cualquier rincón del planeta"</h4>
+                <h4>"Unidos por el saber"</h4>
                 <h5>Redes sociales</h5>
                 <i class="fa-brands fa-facebook"></i>
                 <a class="btn" href="https://www.facebook.com/" role="button">facebook</a>
