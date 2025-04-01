@@ -25,7 +25,7 @@ function generarFooter() {
             style="overflow: hidden">
             <img
                 class="img-fluid w-50"
-                src="/assets/images/icono_barra.svg"
+                src="assets/images/icono_barra.svg"
                 alt="Bookia Logo"
                 style="
                     filter: invert(1) brightness(1000%);
@@ -50,7 +50,7 @@ function generarFooter() {
             </div>
             <div class="row py-3">
                 <div class="col-12 col-md-5 col-lg-3">
-                    <img src="/assets/images/logo.svg" alt="Logo Bookia" class="img-fluid" />
+                    <img src="assets/images/logo.svg" alt="Logo Bookia" class="img-fluid" />
                 </div>
             </div>
             <hr />
