@@ -24,6 +24,9 @@ const formSinopsis = document.querySelector("#sinopsis");
 const formCargarlibro = document.querySelector("#cargarlibro");
 const mensajeError = document.querySelector("#mensajeError");
 
+const botonCerrar = document.querySelector("#boton-cerrar-exito");
+botonCerrar.addEventListener("click", (e) => darclick(e));
+
 formulario.addEventListener("submit", (e) => handleSubmit(e));
 
 async function handleSubmit(event) {
@@ -67,4 +70,8 @@ async function handleSubmit(event) {
             // Oculta el loading
             dialogoCarga.classList.add("d-none");
         });
+}
+
+function darclick(event) {
+    window.location.href = "inicio.php";
 }

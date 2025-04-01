@@ -266,7 +266,7 @@ function generarIdioma() {
                 </div>
                 <div class="modal-body">Libro cargado al sistema exitosamente</div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="boton-cerrar-exito">Cerrar</button>
                 </div>
             </div>
         </div>
