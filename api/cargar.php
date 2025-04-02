@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $connection->beginTransaction();
 
         //*Editorial
-        // Verificar que ya exista el autor
+        // Verificar que ya exista la editorial
         $instruccion = "SELECT * FROM editorial where LOWER(nombreEditorial) LIKE LOWER(:nomb)";
 
         $nombreEditorial = "%$editorial%";
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($respuesta) {
             $idEditorial = $respuesta['idEditorial'];
         } else {
-            // Si no existe, darlo de alta y tomar su nuevo ID
+            // Si no existe, dar de alta y tomar su nuevo ID
             $instruccion = "INSERT INTO editorial (nombreEditorial) VALUES (:nom)";
             $query = $connection->prepare($instruccion);
 
@@ -100,38 +100,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
         //* Autor
-        // Verificar que ya exista el autor
-        $instruccion = "SELECT * FROM autor where nombre LIKE :nomb";
+        //* El usuario puede insertar autores separados por comas (i.e. "Autor1, Autor2, Autor3"). Se deben separar y agregar cada uno de los autores a la tabla autorlibro
 
-        $nombreAutor = "%$autor%";
-        // Si si existe, agarrar su ID
-        $query = $connection->prepare($instruccion);
-        $query->bindParam("nomb", $nombreAutor, PDO::PARAM_STR);
-        $query->execute();
-        $respuesta = $query->fetch(PDO::FETCH_ASSOC);
+        // Verificar que tenga comas y separar cada autor
+        $autores = explode(',', $autor);
 
-        if ($respuesta) {
-            $idAutor = $respuesta['idAutor'];
-        } else {
-            // Si no existe, darlo de alta y tomar su nuevo ID
-            $instruccion = "INSERT INTO autor (nombre, paisProcedencia) VALUES (:nom, NULL)";
+        // Recorrer cada autor
+        foreach ($autores as $aut) {
+            // Verificar que ya exista el autor
+            $instruccion = "SELECT * FROM autor where LOWER(nombre) LIKE LOWER(:nomb)";
+
+            $nombreAutor = "%$aut%";
+            // Si si existe, agarrar su ID
             $query = $connection->prepare($instruccion);
-
-            $nombreAutor = primeraMayus($autor);
-            $query->bindParam("nom", $nombreAutor, PDO::PARAM_STR);
+            $query->bindParam("nomb", $nombreAutor, PDO::PARAM_STR);
             $query->execute();
+            $respuesta = $query->fetch(PDO::FETCH_ASSOC);
 
-            $idAutor = $connection->lastInsertId();
+            if ($respuesta) {
+                $idAutor = $respuesta['idAutor'];
+            } else {
+                // Si no existe, darlo de alta y tomar su nuevo ID
+                $instruccion = "INSERT INTO autor (nombre, paisProcedencia) VALUES (:nom, NULL)";
+                $query = $connection->prepare($instruccion);
+
+                $nombreAutor = primeraMayus($aut);
+                $query->bindParam("nom", $nombreAutor, PDO::PARAM_STR);
+                $query->execute();
+
+                $idAutor = $connection->lastInsertId();
+            }
+
+            // Crear el registro en autorlibro
+            $instruccion = "INSERT INTO autorlibro (idLibro, idAutor) VALUES (:lib, :aut)";
+            $query = $connection->prepare($instruccion);
+            $query->bindParam("lib", $idLibro, PDO::PARAM_STR);
+            $query->bindParam("aut", $idAutor, PDO::PARAM_STR);
+            $query->execute();
+            $respuesta = $query->fetch(PDO::FETCH_ASSOC);
         }
-
-        // Crear el registro en autorlibro
-        $instruccion = "INSERT INTO autorlibro (idLibro, idAutor)
-        VALUES (:lib, :aut)";
-        $query = $connection->prepare($instruccion);
-        $query->bindParam("lib", $idLibro, PDO::PARAM_STR);
-        $query->bindParam("aut", $idAutor, PDO::PARAM_STR);
-        $query->execute();
-        $respuesta = $query->fetch(PDO::FETCH_ASSOC);
 
         $connection->commit();
 
