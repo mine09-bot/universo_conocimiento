@@ -12062,12 +12062,12 @@ textarea.form-control-lg {
 .flipping {
   height: 22.4px;
   display: grid;
-  grid-template-columns: repeat(5, 22.4px);
+  grid-template-columns: repeat(6, 22.4px);
   grid-gap: 5.6px;
 }
 
 .flipping div {
-  animation: flipping-owie1ymd 1.25s calc(var(--delay) * 1s) infinite ease;
+  animation: flipping-owie1ymd 1.5s calc(var(--delay) * 1s) infinite ease;
   background-color: var(--bs-primary);
 }
 
@@ -12089,6 +12089,10 @@ textarea.form-control-lg {
 
 .flipping div:nth-of-type(5) {
   --delay: 1.25;
+}
+
+.flipping div:nth-of-type(6) {
+  --delay: 1.5;
 }
 
 @keyframes flipping-owie1ymd {

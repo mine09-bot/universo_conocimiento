@@ -8,17 +8,17 @@ verificarSesion();
 function generarCategorias() {
     global $connection;
 
-    $instruccion= "SELECT * FROM categoria";
+    $instruccion = "SELECT * FROM categoria";
 
-    $query=$connection->prepare($instruccion);
+    $query = $connection->prepare($instruccion);
 
     $query->execute();
-    
-    $respuesta=$query->fetchAll(PDO::FETCH_ASSOC);
+
+    $respuesta = $query->fetchAll(PDO::FETCH_ASSOC);
 
     $html = '<option selected disabled value="">Selecciona</option>';
 
-    foreach($respuesta as $cat){
+    foreach ($respuesta as $cat) {
         $html .= '<option value="' . $cat['idCategoria'] . '">' . $cat['nombreCategoria'] . '</option>';
     }
 
@@ -27,17 +27,17 @@ function generarCategorias() {
 function generarFormato() {
     global $connection;
 
-    $instruccion= "SELECT * FROM formato";
+    $instruccion = "SELECT * FROM formato";
 
-    $query=$connection->prepare($instruccion);
+    $query = $connection->prepare($instruccion);
 
     $query->execute();
-    
-    $respuesta=$query->fetchAll(PDO::FETCH_ASSOC);
+
+    $respuesta = $query->fetchAll(PDO::FETCH_ASSOC);
 
     $html = '<option selected disabled value="">Selecciona</option>';
 
-    foreach($respuesta as $cat){
+    foreach ($respuesta as $cat) {
         $html .= '<option value="' . $cat['idFormatos'] . '">' . $cat['nombre'] . '</option>';
     }
 
@@ -46,17 +46,17 @@ function generarFormato() {
 function generarPais() {
     global $connection;
 
-    $instruccion= "SELECT * FROM pais";
+    $instruccion = "SELECT * FROM pais";
 
-    $query=$connection->prepare($instruccion);
+    $query = $connection->prepare($instruccion);
 
     $query->execute();
-    
-    $respuesta=$query->fetchAll(PDO::FETCH_ASSOC);
+
+    $respuesta = $query->fetchAll(PDO::FETCH_ASSOC);
 
     $html = '<option selected disabled value="">Selecciona</option>';
 
-    foreach($respuesta as $cat){
+    foreach ($respuesta as $cat) {
         $html .= '<option value="' . $cat['idPais'] . '">' . $cat['nombrePais'] . '</option>';
     }
 
@@ -66,17 +66,17 @@ function generarPais() {
 function generarIdioma() {
     global $connection;
 
-    $instruccion= "SELECT * FROM idioma";
+    $instruccion = "SELECT * FROM idioma";
 
-    $query=$connection->prepare($instruccion);
+    $query = $connection->prepare($instruccion);
 
     $query->execute();
-    
-    $respuesta=$query->fetchAll(PDO::FETCH_ASSOC);
+
+    $respuesta = $query->fetchAll(PDO::FETCH_ASSOC);
 
     $html = '<option selected disabled value="">Selecciona</option>';
 
-    foreach($respuesta as $cat){
+    foreach ($respuesta as $cat) {
         $html .= '<option value="' . $cat['idIdioma'] . '">' . $cat['nombreIdioma'] . '</option>';
     }
 
@@ -104,51 +104,8 @@ function generarIdioma() {
             <div></div>
             <div></div>
             <div></div>
+            <div></div>
         </div>
-
-        <style>
-            .flipping {
-                height: 22.4px;
-                display: grid;
-                grid-template-columns: repeat(5, 22.4px);
-                grid-gap: 5.6px;
-            }
-
-            .flipping div {
-                animation: flipping-owie1ymd 1.25s calc(var(--delay) * 1s) infinite ease;
-                background-color: var(--bs-primary);
-            }
-
-            .flipping div:nth-of-type(1) {
-                --delay: 0.25;
-            }
-
-            .flipping div:nth-of-type(2) {
-                --delay: 0.5;
-            }
-
-            .flipping div:nth-of-type(3) {
-                --delay: 0.75;
-            }
-
-            .flipping div:nth-of-type(4) {
-                --delay: 1;
-            }
-
-            .flipping div:nth-of-type(5) {
-                --delay: 1.25;
-            }
-
-            @keyframes flipping-owie1ymd {
-                0% {
-                    transform: perspective(44.8px) rotateY(-180deg);
-                }
-
-                50% {
-                    transform: perspective(44.8px) rotateY(0deg);
-                }
-            }
-        </style>
         <span class="text-gray-800 fs-6 fw-semibold mt-5">Guardando libro...</span>
     </div>
 
@@ -199,7 +156,7 @@ function generarIdioma() {
                                     <div class="mb-3">
                                         <label for="formato" class="form-label">Formato</label>
                                         <select class="form-select" aria-label="Large select example" id="formato" required name="formato">
-                                            
+
                                             <?php echo generarFormato(); ?>
                                         </select>
                                     </div>
@@ -217,10 +174,10 @@ function generarIdioma() {
                                 </div>
 
                                 <div class="col-12 col-md-6 d-flex flex-column gap-1">
-                                <div class="mb-3">
+                                    <div class="mb-3">
                                         <label for="pais" class="form-label">Pais</label>
                                         <select class="form-select" aria-label="Large select example" id="pais" required name="pais">
-                                            
+
                                             <?php echo generarPais(); ?>
                                         </select>
                                     </div>
@@ -229,7 +186,7 @@ function generarIdioma() {
                                     <div class="mb-3">
                                         <label for="idioma" class="form-label">Idioma</label>
                                         <select class="form-select" aria-label="Large select example" id="idioma" required name="idioma">
-                                            
+
                                             <?php echo generarIdioma(); ?>
                                         </select>
                                     </div>
@@ -279,8 +236,8 @@ function generarIdioma() {
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Error</h1>
                 </div>
-                <div class="modal-body"  id="mensajeError">Ha ocurrido un error al cargar el libro: [error]</div>
-                
+                <div class="modal-body" id="mensajeError">Ha ocurrido un error al cargar el libro: [error]</div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
                 </div>

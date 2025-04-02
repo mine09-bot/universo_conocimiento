@@ -20,12 +20,10 @@ function generarEncabezado($titulo) {
 function generarFooter() {
     return <<<HTML
     <div class="container-fluid position-relative bg-secondary">
-        <div
-            class="position-absolute h-100 w-100 d-flex justify-content-end align-items-start z-1"
-            style="overflow: hidden">
+        <div class="position-absolute h-100 w-100 z-1" style="overflow: hidden; left: 50%">
             <img
-                class="img-fluid w-50"
-                src="assets/images/icono_barra.svg"
+                class="img-fluid w-100"
+                src="/assets/images/icono_barra.svg"
                 alt="Bookia Logo"
                 style="
                     filter: invert(1) brightness(1000%);
@@ -145,7 +143,7 @@ function aMinusculas($texto) {
     return $texto;
 }
 
-function primeraMayus($texto){
+function primeraMayus($texto) {
     $texto = aMinusculas($texto);
     $texto = ucwords($texto);
     return $texto;
