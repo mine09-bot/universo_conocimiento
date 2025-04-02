@@ -36,20 +36,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         //*Editorial
         // Verificar que ya exista el autor
-        $instruccion = "SELECT * FROM editorial where nombreEditorial LIKE :nomb";
+        $instruccion = "SELECT * FROM editorial where LOWER(nombreEditorial) LIKE LOWER(:nomb)";
 
         $nombreEditorial = "%$editorial%";
         // Si si existe, agarrar su ID
         $query = $connection->prepare($instruccion);
         $query->bindParam("nomb", $nombreEditorial, PDO::PARAM_STR);
         $query->execute();
-        $respuesta=$query->fetch(PDO::FETCH_ASSOC);
-        
-        if($respuesta)
-        {
+        $respuesta = $query->fetch(PDO::FETCH_ASSOC);
+
+        if ($respuesta) {
             $idEditorial = $respuesta['idEditorial'];
-        }
-        else {
+        } else {
             // Si no existe, darlo de alta y tomar su nuevo ID
             $instruccion = "INSERT INTO editorial (nombreEditorial) VALUES (:nom)";
             $query = $connection->prepare($instruccion);
@@ -57,9 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nombreEditorial = primeraMayus($editorial);
             $query->bindParam("nom", $nombreEditorial, PDO::PARAM_STR);
             $query->execute();
-            
-            $idEditorial=$connection->lastInsertId();
 
+            $idEditorial = $connection->lastInsertId();
         }
 
         //* Crear el libro en BD y tomar el ID
@@ -77,27 +74,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $query->bindParam("sinop", $sinopsis, PDO::PARAM_STR);
         $query->bindParam("pa", $pais, PDO::PARAM_STR);
         $query->execute();
-        $idLibro=$connection->lastInsertId();
+        $idLibro = $connection->lastInsertId();
 
-        
+
         //* Portada
 
         // Generar nuevo nombre
         $extension = pathinfo($portada['name'], PATHINFO_EXTENSION);
-        $nuevoNombre = $carpetaImagen . $idLibro . '.' . $extension; 
+        $nuevoNombre = $carpetaImagen . $idLibro . '.' . $extension;
 
         // Subir portada
-        if(!move_uploaded_file($portada['tmp_name'], $nuevoNombre)) {
+        if (!move_uploaded_file($portada['tmp_name'], $nuevoNombre)) {
             throw new Exception('Error al subir portada');
         }
 
         //* Archivo
         // Generar nuevo nombre
         $extension = pathinfo($cargarLibro['name'], PATHINFO_EXTENSION);
-        $nuevoNombre = $carpetaArchivo . $idLibro . '.' . $extension; 
+        $nuevoNombre = $carpetaArchivo . $idLibro . '.' . $extension;
 
         // Subir archivo
-        if(!move_uploaded_file($cargarLibro['tmp_name'], $nuevoNombre)) {
+        if (!move_uploaded_file($cargarLibro['tmp_name'], $nuevoNombre)) {
             throw new Exception('Error al subir el archivo');
         }
 
@@ -111,13 +108,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $query = $connection->prepare($instruccion);
         $query->bindParam("nomb", $nombreAutor, PDO::PARAM_STR);
         $query->execute();
-        $respuesta=$query->fetch(PDO::FETCH_ASSOC);
-        
-        if($respuesta)
-        {
+        $respuesta = $query->fetch(PDO::FETCH_ASSOC);
+
+        if ($respuesta) {
             $idAutor = $respuesta['idAutor'];
-        }
-        else {
+        } else {
             // Si no existe, darlo de alta y tomar su nuevo ID
             $instruccion = "INSERT INTO autor (nombre, paisProcedencia) VALUES (:nom, NULL)";
             $query = $connection->prepare($instruccion);
@@ -125,9 +120,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nombreAutor = primeraMayus($autor);
             $query->bindParam("nom", $nombreAutor, PDO::PARAM_STR);
             $query->execute();
-            
-            $idAutor=$connection->lastInsertId();
 
+            $idAutor = $connection->lastInsertId();
         }
 
         // Crear el registro en autorlibro
@@ -137,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $query->bindParam("lib", $idLibro, PDO::PARAM_STR);
         $query->bindParam("aut", $idAutor, PDO::PARAM_STR);
         $query->execute();
-        $respuesta=$query->fetch(PDO::FETCH_ASSOC);
+        $respuesta = $query->fetch(PDO::FETCH_ASSOC);
 
         $connection->commit();
 
