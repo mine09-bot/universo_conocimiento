@@ -58,9 +58,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $idEditorial = $connection->lastInsertId();
         }
-
+        
         //* Crear el libro en BD y tomar el ID
-        $instruccion = "INSERT INTO libro(tituloLibro, Editorial_idEditorial, Formato_idFormatos, Idioma_idIdioma, Categoria_idCategoria, numeroPaginas, isbn, anioEdicion, sinopsis, Pais_idPais ) VALUES (:tit, :edit, :form, :idi, :cat, :numpag, :isbn, :ano, :sinop, :pa)";
+        $extension = pathinfo($portada['name'], PATHINFO_EXTENSION);
+        $instruccion = "INSERT INTO libro(tituloLibro, Editorial_idEditorial, Formato_idFormatos, Idioma_idIdioma, Categoria_idCategoria, numeroPaginas, isbn, anioEdicion, sinopsis, Pais_idPais, portada ) VALUES (:tit, :edit, :form, :idi, :cat, :numpag, :isbn, :ano, :sinop, :pa, :port)";
 
         $query = $connection->prepare($instruccion);
         $query->bindParam("tit", $titulo, PDO::PARAM_STR);
@@ -73,6 +74,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $query->bindParam("ano", $anoedicion, PDO::PARAM_STR);
         $query->bindParam("sinop", $sinopsis, PDO::PARAM_STR);
         $query->bindParam("pa", $pais, PDO::PARAM_STR);
+        $query->bindParam("port", $extension, PDO::PARAM_STR);
+        
         $query->execute();
         $idLibro = $connection->lastInsertId();
 
@@ -80,7 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //* Portada
 
         // Generar nuevo nombre
-        $extension = pathinfo($portada['name'], PATHINFO_EXTENSION);
         $nuevoNombre = $carpetaImagen . $idLibro . '.' . $extension;
 
         // Subir portada

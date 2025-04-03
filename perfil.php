@@ -44,6 +44,9 @@ verificarSesion();
                                                     Universidad Autonoma de Puebla
                                                 </p>
                                                 <p class="card-text">
+                                                    <strong>Facultad: </strong>Ciencias de la Computacion
+                                                </p>
+                                                <p class="card-text">
                                                     <strong>Pais:</strong> México
                                                 </p>
                                                 <p class="card-text">

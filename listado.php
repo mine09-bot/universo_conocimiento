@@ -2,7 +2,10 @@
 session_start();
 
 require "utils.php";
+require "config.php";
 verificarSesion();
+
+
 
 ?>
 <!DOCTYPE html>
