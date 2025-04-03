@@ -19,7 +19,7 @@ function generarEncabezado($titulo) {
 
 function generarFooter() {
     return <<<HTML
-    <div class="container-fluid position-relative bg-secondary">
+    <div class="container-fluid position-relative bg-secondary" style="overflow: hidden">
         <div class="position-absolute h-100 w-100 z-1" style="overflow: hidden; left: 50%">
             <img
                 class="img-fluid w-100"
