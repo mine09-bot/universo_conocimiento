@@ -50,6 +50,53 @@ function mostrarLibros(){
     return $html;
  }
 
+ function mostLibrosRecomendados (){
+    global $connection;
+
+    $facultad = $_SESSION['facultad'];
+
+    $instruccion = "SELECT
+    libro.tituloLibro,
+    libro.idLibro,
+    libro.portada,
+    idioma.nombreIdioma,
+    autor.nombre,
+    categoria.nombreCategoria,
+    formato.nombre,
+    editorial.nombreEditorial
+   FROM libro
+       LEFT JOIN idioma ON libro.Idioma_idIdioma = idioma.idIdioma
+       LEFT JOIN autorlibro ON libro.idLibro = autorlibro.idLibro
+       LEFT JOIN autor ON autorlibro.idAutor = autor.idAutor
+       LEFT JOIN categoria ON libro.Categoria_idCategoria = categoria.idCategoria
+       LEFT JOIN facultadcategoria ON categoria.idCategoria= facultadcategoria.idCategoria
+       LEFT JOIN facultades ON facultadcategoria.idFacultad =facultades.idFacultades
+       LEFT JOIN formato ON libro.Formato_idFormatos = formato.idFormatos
+       LEFT JOIN editorial ON libro.Editorial_idEditorial = editorial.idEditorial
+       WHERE facultades.idFacultades = $facultad
+       ORDER BY libro.visitas DESC
+       LIMIT 6;";
+
+    $query=$connection->prepare($instruccion);
+    $query->execute();       
+    $respuesta=$query->fetchAll(PDO::FETCH_ASSOC);  
+
+    $html = "";
+    foreach($respuesta as $libro) {
+        $tituloLibro = $libro['tituloLibro'];
+        $idLibro = $libro['idLibro'];
+        $extension = $libro['portada'];
+        
+        $html .= "<div class='col-6 col-md-3 col-lg-2'>
+                    <h5>$tituloLibro</h5>
+                    <img
+                        src='uploads/portada/$idLibro.$extension'
+                        class='img-fluid img-thumbnail'
+                        alt='...' />
+                </div>";
+    }
+    return $html;
+ }
 ?>
 <!DOCTYPE html>
 <html lang="es-MX" data-bs-theme="dark">
@@ -92,34 +139,7 @@ function mostrarLibros(){
 
                                 <!-- Columnas -->
                                 <!-- Van divididas en 12 partes  -->
-                                <div class="col-6 col-md-3 col-lg-2">
-                                    <h5>Libro1</h5>
-                                    <source srcset="Informatica.jgp" type="image/svg+xml" />
-                                    <img
-                                        src="Informatica.jpg"
-                                        class="img-fluid img-thumbnail"
-                                        alt="..." />
-                                </div>
-                                <div class="col-6 col-md-3 col-lg-2">
-                                    <h5>Libro2</h5>
-                                    <source srcset="medicina.jgp" type="image/svg+xml" />
-                                    <img
-                                        src="medicina.jpg"
-                                        class="img-fluid img-thumbnail"
-                                        alt="..." />
-                                </div>
-                                <div class="col-6 col-md-3 col-lg-2">
-                                    <h5>Libro3</h5>
-                                </div>
-                                <div class="col-6 col-md-3 col-lg-2">
-                                    <h5>Libro4</h5>
-                                </div>
-                                <div class="col-6 col-md-3 col-lg-2">
-                                    <h5>Libro5</h5>
-                                </div>
-                                <div class="col-6 col-md-3 col-lg-2 bg-secondary">
-                                    <h5>Libro6</h5>
-                                </div>
+                                <?php echo mostLibrosRecomendados (); ?>
                             </div>
 
                             <h3>Libros Físicos</h3>

@@ -24,6 +24,8 @@ if($respuesta) {
     $_SESSION['nombre']=$respuesta['nombre'];
     $_SESSION['apellidoPaterno']=$respuesta['apellidoPaterno'];
     $_SESSION['apellidoMaterno']=$respuesta['apellidoMaterno'];
+    $_SESSION['facultad']=$respuesta['idFacultad'];
+    
 
     // Enviar a inicio
     header("Location: inicio.php");
