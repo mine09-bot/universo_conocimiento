@@ -8,12 +8,20 @@ verificarSesion();
 function verLibros(){
     global $connection;
 
+    $bus = '';
+    if(isset($_GET['q'])) {
+        $busqueda = $_GET['q'];
+        $bus = " WHERE LOWER(tituloLibro) LIKE LOWER('%$busqueda%') OR LOWER(autor.nombre) LIKE LOWER('%$busqueda%') 
+        OR LOWER(editorial.nombreEditorial) LIKE LOWER('%$busqueda%') OR LOWER(categoria.nombreCategoria) LIKE LOWER('%$busqueda%') 
+        OR LOWER(formato.nombre) LIKE LOWER('%$busqueda%') OR LOWER(idioma.nombreIdioma) LIKE LOWER('%$busqueda%')";
+    }
+
     $instruccion = "SELECT
          libro.tituloLibro,
          libro.idLibro,
          libro.portada,
          idioma.nombreIdioma,
-         autor.nombre AS autor,
+         GROUP_CONCAT(autor.nombre SEPARATOR ', ') AS autor,
          categoria.nombreCategoria,
          formato.nombre,
          editorial.nombreEditorial
@@ -24,7 +32,9 @@ function verLibros(){
             LEFT JOIN categoria ON libro.Categoria_idCategoria = categoria.idCategoria
             LEFT JOIN formato ON libro.Formato_idFormatos = formato.idFormatos
             LEFT JOIN editorial ON libro.Editorial_idEditorial = editorial.idEditorial
-            ORDER BY libro.visitas DESC";
+        $bus
+        GROUP BY libro.idLibro
+        ORDER BY libro.visitas DESC";
 
     $query=$connection->prepare($instruccion);
     $query->execute();       

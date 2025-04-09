@@ -2,7 +2,31 @@
 
 session_start();
 require "utils.php";
+require "config.php";
 verificarSesion();
+
+function generarCategorias() {
+    global $connection;
+
+    $instruccion = "SELECT * FROM categoria";
+
+    $query = $connection->prepare($instruccion);
+
+    $query->execute();
+
+    $respuesta = $query->fetchAll(PDO::FETCH_ASSOC);
+
+    $html = "";
+    foreach ($respuesta as $cat) {
+        $categoria = $cat['nombreCategoria'];
+    
+        $html .= " <button class = 'btn btn-secondary' type='button'>
+        $categoria
+    </button>";
+    }
+
+    return $html;
+}
 
 ?>
 <!DOCTYPE html>
@@ -21,42 +45,13 @@ verificarSesion();
                     <div class="row">
                         <div class="col-12 gap-3">
                             <!-- Comienza aquí -->
+                            <div class="h4 pb-2 mb-4 text-white border-bottom border-success">
+                             Categorias
+                            </div>
                             <h5>Selecione una opción</h5>
 
-                            <div class="d-grid gap-2 col-4 margin-left">
-                                <button class="btn btn-secondary" type="button">
-                                    Ciencias Sociales y Humnaidades
-                                </button>
-                                <button class="btn btn-secondary" type="button">
-                                    Ciencias Políticas y Derecho
-                                </button>
-                                <button class="btn btn-secondary" type="button">
-                                    Ciencias Naturales y Matematicas
-                                </button>
-                                <button class="btn btn-secondary" type="button">
-                                    Tecnología e Ingenieria
-                                </button>
-                                <button class="btn btn-secondary" type="button">
-                                    Ciencias de la Salud y Medicina
-                                </button>
-                                <button class="btn btn-secondary" type="button">
-                                    Artes y Bellas Artes
-                                </button>
-                                <button class="btn btn-secondary" type="button">
-                                    Negocios y Economía
-                                </button>
-                                <button class="btn btn-secondary" type="button">
-                                    Ciencias Sociales Aplicadas
-                                </button>
-                                <button class="btn btn-secondary" type="button">
-                                    Ciencias de la Educación
-                                </button>
-                                <button class="btn btn-secondary" type="button">
-                                    Investigación y metodos Científicos
-                                </button>
-                                <button class="btn btn-secondary" type="button">
-                                    Infantiles
-                                </button>
+                            <div class="d-flex flex-wrap gap-2 col-12 mb-5">
+                                <?php echo generarCategorias(); ?>
                             </div>
                         </div>
                     </div>

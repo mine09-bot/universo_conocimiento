@@ -13,7 +13,7 @@ function mostrarLibros(){
          libro.idLibro,
          libro.portada,
          idioma.nombreIdioma,
-         autor.nombre,
+         GROUP_CONCAT(autor.nombre SEPARATOR ', ') AS autor,
          categoria.nombreCategoria,
          formato.nombre,
          editorial.nombreEditorial
@@ -24,6 +24,7 @@ function mostrarLibros(){
             LEFT JOIN categoria ON libro.Categoria_idCategoria = categoria.idCategoria
             LEFT JOIN formato ON libro.Formato_idFormatos = formato.idFormatos
             LEFT JOIN editorial ON libro.Editorial_idEditorial = editorial.idEditorial
+            GROUP BY libro.idLibro
             ORDER BY libro.visitas DESC
             LIMIT 6";
 
@@ -60,7 +61,7 @@ function mostrarLibros(){
     libro.idLibro,
     libro.portada,
     idioma.nombreIdioma,
-    autor.nombre,
+    GROUP_CONCAT(autor.nombre SEPARATOR ', ') AS autor,
     categoria.nombreCategoria,
     formato.nombre,
     editorial.nombreEditorial
@@ -74,6 +75,7 @@ function mostrarLibros(){
        LEFT JOIN formato ON libro.Formato_idFormatos = formato.idFormatos
        LEFT JOIN editorial ON libro.Editorial_idEditorial = editorial.idEditorial
        WHERE facultades.idFacultades = $facultad
+       GROUP BY libro.idLibro
        ORDER BY libro.visitas DESC
        LIMIT 6;";
 

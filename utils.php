@@ -113,12 +113,14 @@ function generarBarraNav() {
                             <a class="nav-link" href="editor.php">Agregar Libros</a>
                         </li>
                     </ul>
-                    <form class="d-flex" role="search">
+                    <form class="d-flex" role="search" action = "listado.php">
                         <input
+                            name="q"
                             class="form-control me-2"
                             type="search"
                             placeholder="Buscar"
                             aria-label="Buscar"
+
                         />
                         <button class="btn btn-outline-success" type="submit">
                             <i class="fa-solid fa-magnifying-glass"></i>
