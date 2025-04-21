@@ -30,7 +30,8 @@ function verLibros(){
             LEFT JOIN autorlibro ON libro.idLibro = autorlibro.idLibro
             LEFT JOIN autor ON autorlibro.idAutor = autor.idAutor
             LEFT JOIN categoria ON libro.Categoria_idCategoria = categoria.idCategoria
-            LEFT JOIN formato ON libro.Formato_idFormatos = formato.idFormatos
+            LEFT JOIN formatolibro ON formatolibro.idLibro = libro.idLibro
+            LEFT JOIN formato ON formato.idFormatos = formatolibro.idFormato
             LEFT JOIN editorial ON libro.Editorial_idEditorial = editorial.idEditorial
         $bus
         GROUP BY libro.idLibro

@@ -5,7 +5,8 @@ require "config.php";
 
 verificarSesion();
 
-function generarCategorias() {
+function generarCategorias()
+{
     global $connection;
 
     $instruccion = "SELECT * FROM categoria";
@@ -24,7 +25,8 @@ function generarCategorias() {
 
     return $html;
 }
-function generarFormato() {
+function generarFormato()
+{
     global $connection;
 
     $instruccion = "SELECT * FROM formato";
@@ -35,15 +37,16 @@ function generarFormato() {
 
     $respuesta = $query->fetchAll(PDO::FETCH_ASSOC);
 
-    $html = '<option selected disabled value="">Selecciona</option>';
+    $html = '<option selected disabled value="">Seleccionado Automaticamente</option  >';
 
     foreach ($respuesta as $cat) {
-        $html .= '<option value="' . $cat['idFormatos'] . '">' . $cat['nombre'] . '</option>';
+        $html .= '<option  value ="' . $cat['idFormatos'] . '">' . $cat['nombre'] . '</option>';
     }
 
     return $html;
 }
-function generarPais() {
+function generarPais()
+{
     global $connection;
 
     $instruccion = "SELECT * FROM pais";
@@ -63,10 +66,11 @@ function generarPais() {
     return $html;
 }
 
-function generarIdioma() {
+function generarIdioma()
+{
     global $connection;
 
-    $instruccion = "SELECT * FROM idioma";
+    $instruccion = "SELECT * FROM idioma ORDER BY nombreIdioma";
 
     $query = $connection->prepare($instruccion);
 
@@ -89,7 +93,7 @@ function generarIdioma() {
 
 <head>
     <?php echo generarEncabezado('Editor de Libros'); ?>
-    <script src="js/editor.js?v=1.8" defer></script>
+    <script src="js/editor.js?v=1.9" defer></script>
 </head>
 
 <body>
@@ -118,91 +122,115 @@ function generarIdioma() {
                 <div class="container-sm flex-grow-1 mt-lg-4">
                     <div class="row">
                         <div class="col-12 gap-3">
-                            <form class="row g-4" id="formulario">
-                                <div class="col-12 col-md-6 d-flex flex-column gap-1">
-                                    <div class="mb-3">
-                                        <label for="formFile" class="form-label">Portada</label>
-                                        <input class="form-control" type="file" accept="image/*" required name="portada" id="portada" />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlTextarea1" class="form-label">Titulo</label>
-                                        <input type="text" class="form-control" rows="1" minlength="5" maxlength="64" required name="titulo" id="titulo" />
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlTextarea1" class="form-label">Autor</label>
-                                        <input type="text" class="form-control" rows="1" maxlength="64" minlength="10" required name="autor" id="autor" />
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlTextarea1" class="form-label">ISBN</label>
-                                        <input type="text" class="form-control" rows="1" maxlength="32" name="isbn" id="isbn" />
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlTextarea1" class="form-label"> Editorial </label>
-                                        <input type="text" class="form-control" rows="1" maxlength="64" minlength="10" required name="editorial" id="editorial" />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlTextarea1" class="form-label">Numero de Páginas </label>
-                                        <input type="number" min="10" max="10000" class="form-control" required name="numpaginas" id="numpaginas" />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="categoria" class="form-label">Categoría</label>
-                                        <select class="form-select" aria-label="Large select example" required name="categoria" id="categoria">
-                                            <?php echo generarCategorias(); ?>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="formato" class="form-label">Formato</label>
-                                        <select class="form-select" aria-label="Large select example" id="formato" required name="formato">
-
-                                            <?php echo generarFormato(); ?>
-                                        </select>
-                                    </div>
-
-                                    <div class="mb-3" required>
-                                        <label for="year" class="form-label">Año de Edición</label>
-                                        <input
-                                            type="number"
-                                            class="form-control"
-                                            min="1800"
-                                            max="2099"
-                                            placeholder="Ejemplo: 2024" required
-                                            name="anoedicion" id="anoedicion" />
+                            <form id="formulario">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="h4 pb-2 mb-4 text-white border-bottom border-success">
+                                            Datos Generales del Libro
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="row g-4">
+                                    <div class="col-12 col-md-6 d-flex flex-column gap-1">
+                                        <div class="mb-3">
+                                            <label for="formFile" class="form-label">Portada</label>
+                                            <input class="form-control" type="file" accept="image/*" required name="portada" id="portada" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlTextarea1" class="form-label">Titulo</label>
+                                            <input type="text" class="form-control" rows="1" minlength="5" maxlength="64" required name="titulo" id="titulo" />
+                                        </div>
 
-                                <div class="col-12 col-md-6 d-flex flex-column gap-1">
-                                    <div class="mb-3">
-                                        <label for="pais" class="form-label">Pais</label>
-                                        <select class="form-select" aria-label="Large select example" id="pais" required name="pais">
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlTextarea1" class="form-label">Autor</label>
+                                            <input type="text" class="form-control" rows="1" maxlength="64" minlength="10" required name="autor" id="autor" />
+                                        </div>
 
-                                            <?php echo generarPais(); ?>
-                                        </select>
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlTextarea1" class="form-label">ISBN</label>
+                                            <input type="text" class="form-control" rows="1" maxlength="32" name="isbn" id="isbn" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlTextarea1" class="form-label"> Editorial </label>
+                                            <input type="text" class="form-control" rows="1" maxlength="64" minlength="10" required name="editorial" id="editorial" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="pais" class="form-label">Pais</label>
+                                            <select class="form-select" aria-label="Large select example" id="pais" required name="pais">
+
+                                                <?php echo generarPais(); ?>
+                                            </select>
+                                        </div>
+
                                     </div>
 
+                                    <div class="col-12 col-md-6 d-flex flex-column gap-1">
 
-                                    <div class="mb-3">
-                                        <label for="idioma" class="form-label">Idioma</label>
-                                        <select class="form-select" aria-label="Large select example" id="idioma" required name="idioma">
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlTextarea1" class="form-label">Numero de Páginas </label>
+                                            <input type="number" min="10" max="10000" class="form-control" required name="numpaginas" id="numpaginas" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="categoria" class="form-label">Categoría</label>
+                                            <select class="form-select" aria-label="Large select example" required name="categoria" id="categoria">
+                                                <?php echo generarCategorias(); ?>
+                                            </select>
+                                        </div>
 
-                                            <?php echo generarIdioma(); ?>
-                                        </select>
+
+                                        <div class="mb-3" required>
+                                            <label for="year" class="form-label">Año de Edición</label>
+                                            <input
+                                                type="number"
+                                                class="form-control"
+                                                min="1800"
+                                                max="2099"
+                                                placeholder="Ejemplo: 2024" required
+                                                name="anoedicion" id="anoedicion" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlTextarea1" class="form-label">Sinopsis </label>
+                                            <textarea class="form-control" rows="9" name="sinopsis" required id="sinopsis"></textarea>
+
+                                        </div>
                                     </div>
 
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlTextarea1" class="form-label">Sinopsis </label>
-                                        <textarea class="form-control" rows="5" name="sinopsis" required id="sinopsis"></textarea>
-
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="h4 pb-2 mb-4 text-white border-bottom border-success">
+                                            Datos para Cargar Libros
+                                        </div>
                                     </div>
+                                </div>
+                                <div class="row g-4">
+                                    <div class="col-12 col-md-6 d-flex flex-column gap-1">
+                                        <div class="mb-3">
+                                            <label for="formFile" class="form-label">Cargar Libro</label>
+                                            <input class="form-control" type="file" accept=".epub,.pdf,.azw,.azw3" required name="cargarlibro" id="cargarlibro" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="formato" class="form-label">Formato</label>
+                                            <select class="form-select" aria-label="Large select example" id="formato" disabled required name="formato">
 
-                                    <div class="mb-3">
-                                        <label for="formFile" class="form-label">Cargar Libro</label>
-                                        <input class="form-control" type="file" accept=".epub,.pdf,.azw,.azw3" required name="cargarlibro" id="cargarlibro" />
+                                                <?php echo generarFormato(); ?>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="d-grid gap-2 col-6 mx-auto">
-                                        <button class="btn btn-primary" type="submit">Guardar</button>
+                                    <div class="col-12 col-md-6 d-flex flex-column gap-1">
+                                        <div class="mb-3">
+                                            <label for="idioma" class="form-label">Idioma</label>
+                                            <select class="form-select" aria-label="Large select example" id="idioma" required name="idioma">
+
+                                                <?php echo generarIdioma(); ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="d-grid gap-2 col-6 mx-auto">
+                                            <button class="btn btn-primary" type="submit">Guardar</button>
+                                        </div>
                                     </div>
                                 </div>
                             </form>

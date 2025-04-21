@@ -122,9 +122,14 @@
                         <div class="row">
                             <div class="col-12 gap-3">
                                 <!-- Comienza aquí -->
+                                <div
+                                    class="h4 pb-2 mb-4 text-white border-bottom border-success"
+                                >
+                                    Detalles del Libro
+                                </div>
                                 <div class="container-md p-3">
                                     <form class="row mb-4 g-1">
-                                        <div class="col-6 d-grid gap-2">
+                                        <div class="col-3 d-grid gap-2">
                                             <img
                                                 src="Informatica.jpg"
                                                 alt="Bootstrap"
@@ -132,18 +137,19 @@
                                                 height="300"
                                             />
                                         </div>
-                                        <div class="col-6 d-grid gap-2">
+                                        <div class="col-9 d-grid gap-2">
                                             <div
                                                 class="card"
                                                 style="max-width: 540px"
                                             >
-                                                <div class="row g-0">
-                                                    <div class="col-md-6">
+                                                <div class="row g-2">
+                                                    <div class="col-md-9">
                                                         <div class="card-body">
                                                             <h5
                                                                 class="card-title"
                                                             >
                                                                 Título del Libro
+                                                                📖
                                                             </h5>
                                                             <p
                                                                 class="card-text"
@@ -186,13 +192,15 @@
                                     </form>
                                 </div>
 
-                                <div class="container-md p-3">
-                                    <form class="row g-1 space-between">
+                                <div class="container-md p-2">
+                                    <form
+                                        class="row g-2 justify-content-between"
+                                    >
                                         <div
                                             class="col-3 d-flex flex-column gap-2"
                                         >
                                             <button
-                                                class="btn btn-secondary"
+                                                class="btn btn-secondary btn-sm"
                                                 type="button"
                                             >
                                                 PDF
@@ -203,129 +211,127 @@
                                             >
                                                 EPUB
                                             </button>
-                                            <button
-                                                class="btn btn-secondary"
-                                                type="button"
-                                            >
-                                                MOBI
-                                            </button>
-                                            <button
-                                                class="btn btn-secondary"
-                                                type="button"
-                                            >
-                                                AZW
-                                            </button>
-                                            <button
-                                                class="btn btn-secondary"
-                                                type="button"
-                                            >
-                                                CBR
-                                            </button>
                                         </div>
-
-                                        <div
-                                            class="col-3 d-flex flex-column gap-2"
-                                        >
-                                            <button
-                                                class="btn btn-secondary"
-                                                type="button"
-                                            >
-                                                HTML
-                                            </button>
-                                            <button
-                                                class="btn btn-secondary"
-                                                type="button"
-                                            >
-                                                TXT
-                                            </button>
-                                            <button
-                                                class="btn btn-secondary"
-                                                type="button"
-                                            >
-                                                CBZ
-                                            </button>
-                                            <button
-                                                class="btn btn-secondary"
-                                                type="button"
-                                            >
-                                                Libro Fisico
-                                            </button>
+                                        <div class="col-9 d-grid gap-2">
+                                            <div class="card">
+                                                <div class="row g-2">
+                                                    <div class="card-header">
+                                                        Sinopsis 📖
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <blockquote
+                                                            class="blockquote mb-0"
+                                                        >
+                                                            <p>
+                                                                Fundamentos de
+                                                                la Informática
+                                                                Moderna ofrece
+                                                                una introducción
+                                                                clara y práctica
+                                                                a los conceptos
+                                                                básicos de la
+                                                                informática,
+                                                                como hardware,
+                                                                software,
+                                                                programación,
+                                                                redes y
+                                                                ciberseguridad.
+                                                                Ideal para
+                                                                estudiantes y
+                                                                principiantes,
+                                                                el libro combina
+                                                                teoría y
+                                                                ejemplos
+                                                                actuales,
+                                                                incluyendo temas
+                                                                como
+                                                                inteligencia
+                                                                artificial y
+                                                                computación en
+                                                                la nube.
+                                                            </p>
+                                                        </blockquote>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Footer -->
-                    <div
-                        class="container-fluid position-relative bg-secondary"
-                        style="overflow: hidden"
-                    >
+                        <!-- Footer -->
                         <div
-                            class="position-absolute h-100 w-100 z-1"
-                            style="overflow: hidden; left: 50%"
+                            class="container-fluid position-relative bg-secondary"
+                            style="overflow: hidden"
                         >
-                            <img
-                                class="img-fluid w-100"
-                                src="/assets/images/icono_barra.svg"
-                                alt="Bookia Logo"
-                                style="
-                                    filter: invert(1) brightness(1000%);
-                                    clip-path: inset(0 0 0 0);
-                                    mask-image: linear-gradient(
-                                        to left,
-                                        rgba(0, 0, 0, 0.3),
-                                        rgba(0, 0, 0, 0)
-                                    );
-                                    -webkit-mask-image: linear-gradient(
-                                        rgba(0, 0, 0, 0.3) 0%,
-                                        rgba(0, 0, 0, 0) 50%
-                                    );
-                                "
-                            />
-                        </div>
-                        <div class="container-sm py-4 z-2 position-relative">
-                            <div class="row py-5">
-                                <div
-                                    class="col-md-6 col-lg-4 d-flex flex-column align-items-start"
-                                >
-                                    <h4>Enlaces de Interés</h4>
-                                    <a
-                                        class="btn btn-secondary"
-                                        href="inicio.php"
-                                        role="button"
-                                        >Listado de Libros</a
+                            <div
+                                class="position-absolute h-100 w-100 z-1"
+                                style="overflow: hidden; left: 50%"
+                            >
+                                <img
+                                    class="img-fluid w-100"
+                                    src="/assets/images/icono_barra.svg"
+                                    alt="Bookia Logo"
+                                    style="
+                                        filter: invert(1) brightness(1000%);
+                                        clip-path: inset(0 0 0 0);
+                                        mask-image: linear-gradient(
+                                            to left,
+                                            rgba(0, 0, 0, 0.3),
+                                            rgba(0, 0, 0, 0)
+                                        );
+                                        -webkit-mask-image: linear-gradient(
+                                            rgba(0, 0, 0, 0.3) 0%,
+                                            rgba(0, 0, 0, 0) 50%
+                                        );
+                                    "
+                                />
+                            </div>
+                            <div
+                                class="container-sm py-4 z-2 position-relative"
+                            >
+                                <div class="row py-5">
+                                    <div
+                                        class="col-md-6 col-lg-4 d-flex flex-column align-items-start"
                                     >
-                                    <a
-                                        class="btn btn-secondary"
-                                        href="ayuda.php"
-                                        role="button"
-                                        >Categorías</a
+                                        <h4>Enlaces de Interés</h4>
+                                        <a
+                                            class="btn btn-secondary"
+                                            href="inicio.php"
+                                            role="button"
+                                            >Listado de Libros</a
+                                        >
+                                        <a
+                                            class="btn btn-secondary"
+                                            href="ayuda.php"
+                                            role="button"
+                                            >Categorías</a
+                                        >
+                                        <a
+                                            class="btn btn-secondary"
+                                            href="mision.php"
+                                            role="button"
+                                            >Misión</a
+                                        >
+                                    </div>
+                                    <div
+                                        class="col-md-6 col-lg-4 d-flex flex-column align-items-start"
                                     >
-                                    <a
-                                        class="btn btn-secondary"
-                                        href="mision.php"
-                                        role="button"
-                                        >Misión</a
-                                    >
-                                </div>
-                                <div
-                                    class="col-md-6 col-lg-4 d-flex flex-column align-items-start"
-                                >
-                                    <h4>Conócenos</h4>
-                                    <a
-                                        class="btn btn-secondary"
-                                        href="ayuda.php"
-                                        role="button"
-                                        >Ayuda</a
-                                    >
-                                    <a
-                                        class="btn btn-secondary"
-                                        href="mision.php"
-                                        role="button"
-                                        >Misión</a
-                                    >
+                                        <h4>Conócenos</h4>
+                                        <a
+                                            class="btn btn-secondary"
+                                            href="ayuda.php"
+                                            role="button"
+                                            >Ayuda</a
+                                        >
+                                        <a
+                                            class="btn btn-secondary"
+                                            href="mision.php"
+                                            role="button"
+                                            >Misión</a
+                                        >
+                                    </div>
                                 </div>
                             </div>
                             <div class="row py-3">

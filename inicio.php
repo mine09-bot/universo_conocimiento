@@ -5,7 +5,8 @@ require "config.php";
 verificarSesion();
 
 // Consulta para obtener los libros
-function mostrarLibros(){
+function mostrarLibros()
+{
     global $connection;
 
     $instruccion = "SELECT
@@ -22,36 +23,40 @@ function mostrarLibros(){
             LEFT JOIN autorlibro ON libro.idLibro = autorlibro.idLibro
             LEFT JOIN autor ON autorlibro.idAutor = autor.idAutor
             LEFT JOIN categoria ON libro.Categoria_idCategoria = categoria.idCategoria
-            LEFT JOIN formato ON libro.Formato_idFormatos = formato.idFormatos
+            LEFT JOIN formatolibro ON formatolibro.idLibro = libro.idLibro
+            LEFT JOIN formato ON formato.idFormatos = formatolibro.idFormato
             LEFT JOIN editorial ON libro.Editorial_idEditorial = editorial.idEditorial
             GROUP BY libro.idLibro
             ORDER BY libro.visitas DESC
             LIMIT 6";
 
-    $query=$connection->prepare($instruccion);
-    $query->execute();       
-    $respuesta=$query->fetchAll(PDO::FETCH_ASSOC);  
+    $query = $connection->prepare($instruccion);
+    $query->execute();
+    $respuesta = $query->fetchAll(PDO::FETCH_ASSOC);
 
     $html = "";
 
-    foreach($respuesta as $libro) {
+    foreach ($respuesta as $libro) {
         $tituloLibro = $libro['tituloLibro'];
         $idLibro = $libro['idLibro'];
         $extension = $libro['portada'];
-        
+
         $html .= "<div class='col-6 col-md-3 col-lg-2'>
-                    <h5>$tituloLibro</h5>
+                    
+                    <a href='detalles.php?id=$idLibro'>
                     <img
                         src='uploads/portada/$idLibro.$extension'
                         class='img-fluid img-thumbnail'
-                        alt='...' />
-                </div>";
+                        alt='Portada de $tituloLibro' />
+                </a>
+            </div>";
     }
 
     return $html;
- }
+}
 
- function mostLibrosRecomendados (){
+function mostLibrosRecomendados()
+{
     global $connection;
 
     $facultad = $_SESSION['facultad'];
@@ -72,39 +77,45 @@ function mostrarLibros(){
        LEFT JOIN categoria ON libro.Categoria_idCategoria = categoria.idCategoria
        LEFT JOIN facultadcategoria ON categoria.idCategoria= facultadcategoria.idCategoria
        LEFT JOIN facultades ON facultadcategoria.idFacultad =facultades.idFacultades
-       LEFT JOIN formato ON libro.Formato_idFormatos = formato.idFormatos
+       LEFT JOIN formatolibro ON formatolibro.idLibro = libro.idLibro
+       LEFT JOIN formato ON formato.idFormatos = formatolibro.idFormato
        LEFT JOIN editorial ON libro.Editorial_idEditorial = editorial.idEditorial
        WHERE facultades.idFacultades = $facultad
        GROUP BY libro.idLibro
        ORDER BY libro.visitas DESC
        LIMIT 6;";
 
-    $query=$connection->prepare($instruccion);
-    $query->execute();       
-    $respuesta=$query->fetchAll(PDO::FETCH_ASSOC);  
+    $query = $connection->prepare($instruccion);
+    $query->execute();
+    $respuesta = $query->fetchAll(PDO::FETCH_ASSOC);
 
     $html = "";
-    foreach($respuesta as $libro) {
+    foreach ($respuesta as $libro) {
         $tituloLibro = $libro['tituloLibro'];
         $idLibro = $libro['idLibro'];
         $extension = $libro['portada'];
-        
+
         $html .= "<div class='col-6 col-md-3 col-lg-2'>
-                    <h5>$tituloLibro</h5>
+                
+                    <a href='detalles.php?id=$idLibro'>
                     <img
                         src='uploads/portada/$idLibro.$extension'
                         class='img-fluid img-thumbnail'
-                        alt='...' />
+                        alt='Portada de $tituloLibro' />
+                </a>
                 </div>";
     }
     return $html;
- }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="es-MX" data-bs-theme="dark">
-<head>  
-<?php echo generarEncabezado('Inicio'); ?>
+
+<head>
+    <?php echo generarEncabezado('Inicio'); ?>
 </head>
+
 <body>
     <div class="container-fluid" style="height: 100vh" id="main-container">
         <div class="row d-flex flex-nowrap" style="min-height: 100vh">
@@ -124,16 +135,23 @@ function mostrarLibros(){
                             <!-- mx-4: margen der-izq de 4 (sobre eje X) -->
                             <!-- my-4: margen arriba-abajo de 4 (sobre eje Y) -->
                             <!-- m-4: margen total de 4 -->
-                            <h3>Libros mas visitados</h3>
+
 
                             <div class="row mb-4">
+                                <div class="h4 pb-2 mb-4 text-white border-bottom border-success">
+                                    Libros mas visitados
+                                </div>
                                 <!-- Columnas -->
                                 <!-- Van divididas en 12 partes  -->
-                                
+
                                 <?php echo mostrarLibros(); ?>
+
+
                             </div>
 
-                            <h3>Recomendaciones</h3>
+                            <div class="h4 pb-2 mb-4 text-white border-bottom border-success">
+                                Recomendaciones
+                            </div>
 
                             <!-- Fila -->
                             <div class="row mb-4">
@@ -141,10 +159,12 @@ function mostrarLibros(){
 
                                 <!-- Columnas -->
                                 <!-- Van divididas en 12 partes  -->
-                                <?php echo mostLibrosRecomendados (); ?>
+                                <?php echo mostLibrosRecomendados(); ?>
                             </div>
 
-                            <h3>Libros Físicos</h3>
+                            <div class="h4 pb-2 mb-4 text-white border-bottom border-success">
+                                Libros Físicos
+                            </div>
 
                             <!-- Fila -->
 

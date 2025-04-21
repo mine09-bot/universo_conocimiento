@@ -1,12 +1,14 @@
 <?php
-function verificarSesion() {
+function verificarSesion()
+{
     if (!isset($_SESSION['idUsuario'])) {
         header('Location: login.php');
         exit;
     }
 }
 
-function generarEncabezado($titulo) {
+function generarEncabezado($titulo)
+{
     return <<<HTML
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,9 +19,10 @@ function generarEncabezado($titulo) {
     HTML;
 }
 
-function generarFooter() {
+function generarFooter()
+{
     return <<<HTML
-    <div class="container-fluid position-relative bg-secondary" style="overflow: hidden">
+    <div class="container-fluid position-relative bg-secondary mt-4" style="overflow: hidden">
         <div class="position-absolute h-100 w-100 z-1" style="overflow: hidden; left: 50%">
             <img
                 class="img-fluid w-100"
@@ -28,8 +31,8 @@ function generarFooter() {
                 style="
                     filter: invert(1) brightness(1000%);
                     clip-path: inset(0 0 0 0);
-                    mask-image: linear-gradient(to left, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
-                    -webkit-mask-image: linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 50%);
+                    mask-image: linear-gradient(to left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+                    -webkit-mask-image: linear-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 50%);
                 " />
         </div>
         <div class="container-sm py-4 z-2 position-relative">
@@ -66,7 +69,8 @@ function generarFooter() {
     </div>
     HTML;
 }
-function generarBarraNav() {
+function generarBarraNav()
+{
     return <<<HTML
     <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
             <div class="container-fluid">
@@ -137,7 +141,8 @@ function generarBarraNav() {
     HTML;
 }
 
-function aMinusculas($texto) {
+function aMinusculas($texto)
+{
     $texto = trim($texto);
 
     $texto = strtolower($texto);
@@ -145,7 +150,8 @@ function aMinusculas($texto) {
     return $texto;
 }
 
-function primeraMayus($texto) {
+function primeraMayus($texto)
+{
     $texto = aMinusculas($texto);
     $texto = ucwords($texto);
     return $texto;

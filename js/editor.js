@@ -22,6 +22,52 @@ const formPais = document.querySelector("#pais");
 const formIdioma = document.querySelector("#idioma");
 const formSinopsis = document.querySelector("#sinopsis");
 const formCargarlibro = document.querySelector("#cargarlibro");
+
+formCargarlibro.addEventListener("change", () => {
+    const file = formCargarlibro.files[0];
+
+    if (!file) return;
+
+    // Lista de tipos MIME permitidos
+    const allowedTypes = [
+        "PDF",
+        "EPUB", // EPUB
+        "MOBI", // MOBI
+        "AZW3", // AZW
+        "HTML",
+        "PLAIN",
+    ];
+
+    // Sacar el tipo de archivo
+    let fileType = "";
+
+    // Verificar que exista el tipo de archivo. Si no existe, sacar la extensión
+    if (!fileType) fileType = file.name.split(".").pop().toUpperCase();
+    else fileType = fileType.split("/").pop().toUpperCase();
+
+    if (allowedTypes.includes(fileType)) {
+        console.log("Tipo permitido");
+    } else {
+        console.log("Tipo no permitido");
+        formCargarlibro.value = ""; // Limpia el input
+    }
+
+    console.log(fileType);
+    //TODO Mostrar el fileType en el Dropdown Formato
+    // OBETENER EL TEXTO DE CADA OPCION DEL DROPDOWN
+    // CADA TEXTO DEBE SER COTEJADO CON ALLOWEDTYPES
+    // SI HAY COINCIDENCIA, SELECCIONAR ESA OPCION
+    const totalFormatos = formFormato.options.length;
+
+    for (let n = 0; n < totalFormatos; n++) {
+        const option = formFormato.options[n];
+        if (option.text.toUpperCase() === fileType) {
+            formFormato.selectedIndex = n;
+            break;
+        }
+    }
+});
+
 const mensajeError = document.querySelector("#mensajeError");
 
 const botonCerrar = document.querySelector("#boton-cerrar-exito");
