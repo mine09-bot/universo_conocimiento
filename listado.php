@@ -5,11 +5,12 @@ require "utils.php";
 require "config.php";
 verificarSesion();
 
-function verLibros(){
+function verLibros()
+{
     global $connection;
 
     $bus = '';
-    if(isset($_GET['q'])) {
+    if (isset($_GET['q'])) {
         $busqueda = $_GET['q'];
         $bus = " WHERE LOWER(tituloLibro) LIKE LOWER('%$busqueda%') OR LOWER(autor.nombre) LIKE LOWER('%$busqueda%') 
         OR LOWER(editorial.nombreEditorial) LIKE LOWER('%$busqueda%') OR LOWER(categoria.nombreCategoria) LIKE LOWER('%$busqueda%') 
@@ -37,13 +38,13 @@ function verLibros(){
         GROUP BY libro.idLibro
         ORDER BY libro.visitas DESC";
 
-    $query=$connection->prepare($instruccion);
-    $query->execute();       
-    $respuesta=$query->fetchAll(PDO::FETCH_ASSOC);  
+    $query = $connection->prepare($instruccion);
+    $query->execute();
+    $respuesta = $query->fetchAll(PDO::FETCH_ASSOC);
 
     $html = "";
 
-    foreach($respuesta as $libro) {
+    foreach ($respuesta as $libro) {
         $tituloLibro = $libro['tituloLibro'];
         $idLibro = $libro['idLibro'];
         $extension = $libro['portada'];
@@ -52,7 +53,7 @@ function verLibros(){
         $categoria = $libro['nombreCategoria'];
         $formato = $libro['nombre'];
         $idioma = $libro['nombreIdioma'];
-        
+
         $html .= "<tbody>
                  <tr>
                     <th scope='row'>
@@ -81,15 +82,17 @@ function verLibros(){
     }
 
     return $html;
- }
+}
 
 
 ?>
 <!DOCTYPE html>
 <html lang="es-MX" data-bs-theme="dark">
-<head>  
-<?php echo generarEncabezado('Ver Libros'); ?>
+
+<head>
+    <?php echo generarEncabezado('Ver Libros'); ?>
 </head>
+
 <body>
     <div class="container-fluid" style="height: 100vh" id="main-container">
         <div class="row d-flex flex-nowrap" style="min-height: 100vh">
@@ -103,9 +106,9 @@ function verLibros(){
                             <!-- Comienza aquí -->
 
                             <div class="h4 pb-2 mb-4 text-white border-bottom border-success">
-                             Lista de libros
+                                Lista de libros
                             </div>
-                                <div class="table-responsive">
+                            <div class="table-responsive">
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
@@ -120,8 +123,8 @@ function verLibros(){
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <?php echo verLibros(); ?>
-                                        
+                                        <?php echo verLibros(); ?>
+
                                     </tbody>
                                 </table>
                             </div>

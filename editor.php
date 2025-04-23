@@ -5,7 +5,54 @@ require "config.php";
 
 verificarSesion();
 
-function generarCategorias()
+if (isset($_GET['id'])) {
+    $idLibro = $_GET['id'];
+
+    $instruccion = "SELECT
+         libro.tituloLibro,
+         libro.idLibro,
+         libro.portada,
+         libro.anioEdicion,
+         libro.sinopsis,
+         libro.isbn,
+         libro.numeroPaginas,
+         idioma.idIdioma,
+         GROUP_CONCAT(autor.nombre SEPARATOR ', ') AS autor,
+         categoria.idCategoria AS idCategoria,
+         formato.nombre,
+         editorial.nombreEditorial,
+         libro.pais_idPais AS idPais
+            FROM libro
+            LEFT JOIN idioma ON libro.Idioma_idIdioma = idioma.idIdioma
+            LEFT JOIN autorlibro ON libro.idLibro = autorlibro.idLibro
+            LEFT JOIN autor ON autorlibro.idAutor = autor.idAutor
+            LEFT JOIN categoria ON libro.Categoria_idCategoria = categoria.idCategoria
+            LEFT JOIN formatolibro ON formatolibro.idLibro = libro.idLibro
+            LEFT JOIN formato ON formato.idFormatos = formatolibro.idFormato
+            LEFT JOIN editorial ON libro.Editorial_idEditorial = editorial.idEditorial
+        WHERE libro.idLibro=$idLibro
+        GROUP BY libro.idLibro";
+
+
+    $query = $connection->prepare($instruccion);
+    $query->execute();
+    $res = $query->fetch(PDO::FETCH_ASSOC);
+
+    $titulo = $res['tituloLibro'];
+    $portada = $res['portada'];
+    $anioEdic = $res['anioEdicion'];
+    $sinopsis = $res['sinopsis'];
+    $categoria = $res['idCategoria'];
+    $autor = $res['autor'];
+    $editorial = $res['nombreEditorial'];
+    $numpaginas = $res['numeroPaginas'];
+    $isbn = $res['isbn'];
+    $pais = $res['idPais'];
+    $idioma = $res['idIdioma'];
+    $src = "uploads/portada/" . $idLibro . "." . $portada;
+}
+
+function generarCategorias(int $idCategoria = 0)
 {
     global $connection;
 
@@ -16,11 +63,14 @@ function generarCategorias()
     $query->execute();
 
     $respuesta = $query->fetchAll(PDO::FETCH_ASSOC);
-
-    $html = '<option selected disabled value="">Selecciona</option>';
+    $selected = $idCategoria == 0 ? "selected" : "";
+    $html = "<option $selected disabled value=''>Selecciona</option>";
 
     foreach ($respuesta as $cat) {
-        $html .= '<option value="' . $cat['idCategoria'] . '">' . $cat['nombreCategoria'] . '</option>';
+        $categoria = $cat['idCategoria'];
+        $nombre = $cat['nombreCategoria'];
+        $selEditor = $idCategoria == $categoria ? "selected" : "";
+        $html .= "<option value='$categoria' $selEditor>$nombre</option>";
     }
 
     return $html;
@@ -45,7 +95,7 @@ function generarFormato()
 
     return $html;
 }
-function generarPais()
+function generarPais(int $idPais = 0)
 {
     global $connection;
 
@@ -57,16 +107,25 @@ function generarPais()
 
     $respuesta = $query->fetchAll(PDO::FETCH_ASSOC);
 
-    $html = '<option selected disabled value="">Selecciona</option>';
+    $selected = $idPais == 0 ? "selected" : "";
+
+    $html = "<option $selected disabled value=''>Selecciona</option>";
 
     foreach ($respuesta as $cat) {
-        $html .= '<option value="' . $cat['idPais'] . '">' . $cat['nombrePais'] . '</option>';
+        $pais = $cat['idPais'];
+        $nombre = $cat['nombrePais'];
+        $selEditor = $idPais == $pais ? "selected" : "";
+
+        $html .= "<option value='$pais' $selEditor>$nombre</option>";
     }
 
     return $html;
+
+    // condicional ? verdadera : falsa
+    // Operdor ?
 }
 
-function generarIdioma()
+function generarIdioma(int $idIdioma = 0)
 {
     global $connection;
 
@@ -77,15 +136,21 @@ function generarIdioma()
     $query->execute();
 
     $respuesta = $query->fetchAll(PDO::FETCH_ASSOC);
+    $selected = $idIdioma == 0 ? "selected" : "";
 
-    $html = '<option selected disabled value="">Selecciona</option>';
+    $html = "<option $selected disabled value=''>Selecciona</option>";
 
     foreach ($respuesta as $cat) {
-        $html .= '<option value="' . $cat['idIdioma'] . '">' . $cat['nombreIdioma'] . '</option>';
+        $idioma = $cat['idIdioma'];
+        $nombre = $cat['nombreIdioma'];
+        $selEditor = $idIdioma == $idioma ? "selected" : "";
+        $html .= "<option value='$idioma' $selEditor>$nombre</option>";
     }
 
     return $html;
 }
+
+
 
 ?>
 <!DOCTYPE html>
@@ -118,7 +183,7 @@ function generarIdioma()
         <div class="row d-flex flex-nowrap" style="min-height: 100vh">
             <div class="col p-0 d-flex flex-column">
                 <!-- Barra Superior -->
-                <?php echo generarBarraNav(); ?>
+                <?php echo generarBarraNav();  ?>
                 <div class="container-sm flex-grow-1 mt-lg-4">
                     <div class="row">
                         <div class="col-12 gap-3">
@@ -134,32 +199,37 @@ function generarIdioma()
                                     <div class="col-12 col-md-6 d-flex flex-column gap-1">
                                         <div class="mb-3">
                                             <label for="formFile" class="form-label">Portada</label>
-                                            <input class="form-control" type="file" accept="image/*" required name="portada" id="portada" />
+                                            <input class="form-control" type="file" accept="image/*" <?php echo isset($idLibro) ? '' : 'required'; ?> name="portada" id="portada" />
+                                            <img
+                                                src="<?php echo $src; ?>"
+                                                class="img-fluid img-thumbnail"
+                                                style='width: 200px; height: auto;' />
                                         </div>
                                         <div class="mb-3">
                                             <label for="exampleFormControlTextarea1" class="form-label">Titulo</label>
-                                            <input type="text" class="form-control" rows="1" minlength="5" maxlength="64" required name="titulo" id="titulo" />
+                                            <input type="text" class="form-control" rows="1" minlength="5" maxlength="64" required name="titulo" id="titulo" value="<?php echo $titulo ?? ''; ?>" />
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="exampleFormControlTextarea1" class="form-label">Autor</label>
-                                            <input type="text" class="form-control" rows="1" maxlength="64" minlength="10" required name="autor" id="autor" />
+                                            <input type="text" class="form-control" rows="1" maxlength="64" minlength="10" required name="autor" id="autor" value="<?php echo $autor ?? ''; ?>" />
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="exampleFormControlTextarea1" class="form-label">ISBN</label>
-                                            <input type="text" class="form-control" rows="1" maxlength="32" name="isbn" id="isbn" />
+                                            <input type="text" class="form-control" rows="1" maxlength="32" name="isbn" id="isbn"
+                                                value="<?php echo $isbn ?? ''; ?>" />
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="exampleFormControlTextarea1" class="form-label"> Editorial </label>
-                                            <input type="text" class="form-control" rows="1" maxlength="64" minlength="10" required name="editorial" id="editorial" />
+                                            <input type="text" class="form-control" rows="1" maxlength="64" minlength="10" required name="editorial" id="editorial" value="<?php echo $editorial ?? ''; ?>" />
                                         </div>
                                         <div class="mb-3">
                                             <label for="pais" class="form-label">Pais</label>
                                             <select class="form-select" aria-label="Large select example" id="pais" required name="pais">
 
-                                                <?php echo generarPais(); ?>
+                                                <?php echo generarPais($pais ?? 0); ?>
                                             </select>
                                         </div>
 
@@ -169,12 +239,12 @@ function generarIdioma()
 
                                         <div class="mb-3">
                                             <label for="exampleFormControlTextarea1" class="form-label">Numero de Páginas </label>
-                                            <input type="number" min="10" max="10000" class="form-control" required name="numpaginas" id="numpaginas" />
+                                            <input type="number" min="10" max="10000" class="form-control" required name="numpaginas" id="numpaginas" value="<?php echo $numpaginas ?? ''; ?>" />
                                         </div>
                                         <div class="mb-3">
                                             <label for="categoria" class="form-label">Categoría</label>
                                             <select class="form-select" aria-label="Large select example" required name="categoria" id="categoria">
-                                                <?php echo generarCategorias(); ?>
+                                                <?php echo generarCategorias($categoria ?? 0); ?>
                                             </select>
                                         </div>
 
@@ -187,11 +257,12 @@ function generarIdioma()
                                                 min="1800"
                                                 max="2099"
                                                 placeholder="Ejemplo: 2024" required
-                                                name="anoedicion" id="anoedicion" />
+                                                name="anoedicion" id="anoedicion" value="<?php echo $anioEdic ?? ''; ?>" />
                                         </div>
                                         <div class="mb-3">
                                             <label for="exampleFormControlTextarea1" class="form-label">Sinopsis </label>
-                                            <textarea class="form-control" rows="9" name="sinopsis" required id="sinopsis"></textarea>
+                                            <textarea class="form-control" rows="9" name="sinopsis" required id="sinopsis"><?php echo htmlspecialchars($sinopsis ?? ''); ?></textarea>
+
 
                                         </div>
                                     </div>
@@ -208,11 +279,11 @@ function generarIdioma()
                                     <div class="col-12 col-md-6 d-flex flex-column gap-1">
                                         <div class="mb-3">
                                             <label for="formFile" class="form-label">Cargar Libro</label>
-                                            <input class="form-control" type="file" accept=".epub,.pdf,.azw,.azw3" required name="cargarlibro" id="cargarlibro" />
+                                            <input class="form-control" type="file" accept=".epub,.pdf,.azw,.azw3" <?php echo $idLibro ? '' : 'required'; ?> name="cargarlibro" id="cargarlibro" />
                                         </div>
                                         <div class="mb-3">
                                             <label for="formato" class="form-label">Formato</label>
-                                            <select class="form-select" aria-label="Large select example" id="formato" disabled required name="formato">
+                                            <select class="form-select" aria-label="Large select example" id="formato" disabled <?php echo $idLibro ? '' : 'required'; ?>>
 
                                                 <?php echo generarFormato(); ?>
                                             </select>
@@ -221,9 +292,9 @@ function generarIdioma()
                                     <div class="col-12 col-md-6 d-flex flex-column gap-1">
                                         <div class="mb-3">
                                             <label for="idioma" class="form-label">Idioma</label>
-                                            <select class="form-select" aria-label="Large select example" id="idioma" required name="idioma">
+                                            <select class="form-select" aria-label="Large select example" id="idioma" <?php echo $idLibro ? '' : 'required'; ?>>
 
-                                                <?php echo generarIdioma(); ?>
+                                                <?php echo generarIdioma($idioma ?? 0); ?>
                                             </select>
                                         </div>
                                     </div>

@@ -91,31 +91,63 @@ async function handleSubmit(event) {
     };
 
     // Enviar
+    idpag = window.location.search;
+    if (idpag) {
+        //* Editando
+        console.log("el usuario esta editando");
 
-    fetch("api/cargar.php", opciones)
-        .then((response) => {
-            if (response.ok) return response.text();
-            else throw new Error(response.status);
-        })
-        .then((textData) => {
-            console.log(textData);
+        fetch("api/editar.php", opciones)
+            .then((response) => {
+                if (response.ok) return response.text();
+                else throw new Error(response.status);
+            })
+            .then((textData) => {
+                console.log(textData);
 
-            const retrievedData = JSON.parse(textData);
-            // Si hubo respuesta
-            console.log(retrievedData);
+                const retrievedData = JSON.parse(textData);
+                // Si hubo respuesta
+                console.log(retrievedData);
 
-            if (retrievedData.status == 1) dialogoExito.show();
-            else throw new Error(retrievedData.error);
-        })
-        .catch((error) => {
-            mensajeError.innerHTML =
-                "Ha ocurrido un error al cargar el libro: " + error;
-            dialogoError.show();
-        })
-        .finally(() => {
-            // Oculta el loading
-            dialogoCarga.classList.add("d-none");
-        });
+                if (retrievedData.status == 1) dialogoExito.show();
+                else throw new Error(retrievedData.error);
+            })
+            .catch((error) => {
+                mensajeError.innerHTML =
+                    "Ha ocurrido un error al cargar el libro: " + error;
+                dialogoError.show();
+            })
+            .finally(() => {
+                // Oculta el loading
+                dialogoCarga.classList.add("d-none");
+            });
+    } else {
+        //* Creando
+
+        fetch("api/cargar.php", opciones)
+            .then((response) => {
+                if (response.ok) return response.text();
+                else throw new Error(response.status);
+            })
+            .then((textData) => {
+                console.log(textData);
+
+                const retrievedData = JSON.parse(textData);
+                // Si hubo respuesta
+                console.log(retrievedData);
+
+                if (retrievedData.status == 1) dialogoExito.show();
+                else throw new Error(retrievedData.error);
+            })
+            .catch((error) => {
+                mensajeError.innerHTML =
+                    "Ha ocurrido un error al cargar el libro: " + error;
+                dialogoError.show();
+            })
+            .finally(() => {
+                // Oculta el loading
+                dialogoCarga.classList.add("d-none");
+            });
+    }
 }
 
 function darclick(event) {

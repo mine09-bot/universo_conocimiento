@@ -5,6 +5,37 @@ require "utils.php";
 require "config.php";
 verificarSesion();
 
+
+if (isset($_GET['id'])) {
+    $idLibro = $_GET['id'];
+
+    $instruccion = "SELECT
+         libro.tituloLibro,
+         libro.idLibro,
+         libro.portada,
+         libro.anioEdicion,
+         libro.sinopsis,
+         idioma.nombreIdioma,
+         GROUP_CONCAT(autor.nombre SEPARATOR ', ') AS autor,
+         categoria.nombreCategoria,
+         formato.nombre,
+         editorial.nombreEditorial,
+         pais.nombrePais
+        FROM libro
+            LEFT JOIN idioma ON libro.Idioma_idIdioma = idioma.idIdioma
+            LEFT JOIN autorlibro ON libro.idLibro = autorlibro.idLibro
+            LEFT JOIN autor ON autorlibro.idAutor = autor.idAutor
+            LEFT JOIN categoria ON libro.Categoria_idCategoria = categoria.idCategoria
+            LEFT JOIN formatolibro ON formatolibro.idLibro = libro.idLibro
+            LEFT JOIN formato ON formato.idFormatos = formatolibro.idFormato
+            LEFT JOIN editorial ON libro.Editorial_idEditorial = editorial.idEditorial
+        WHERE libro.tituloLibro=$idLibro
+        GROUP BY libro.idLibro";
+}
+
+
+
+
 function mostrarPortadas($idLibro)
 {
     global $connection;
@@ -232,10 +263,10 @@ function mostrarSinopsis($idLibro)
             Detalles del Libro
         </div>
         <div class="container-md p-3">
-            <form class="row mb-4 g-1">
-                <div class="col-3 d-grid gap-2">
+            <form class="row mb-2 g-1">
+                <div class="col-3 d-grid gap-0">
 
-
+                    <a href="editor.php?id=<?php echo $idLibro; ?>" class="btn btn-secondary" tabindex="-1" role="button">Editar Libro</a>
                     <?php echo mostrarPortadas($_GET['id']); ?>
 
                 </div>
@@ -259,7 +290,7 @@ function mostrarSinopsis($idLibro)
                         </div>
                         <?php echo mostrarSinopsis($_GET['id']); ?>
                     </div>
-                    <a href="editor.php" class="btn btn-secondary" tabindex="-1" role="button">Agregar otro formato </a>
+                    <a href="editor.php" class="btn btn-secondary" btn-sm tabindex="-1" role="button">Agregar otro formato </a>
                 </div>
             </div>
         </form>
