@@ -73,6 +73,7 @@ const mensajeError = document.querySelector("#mensajeError");
 const botonCerrar = document.querySelector("#boton-cerrar-exito");
 botonCerrar.addEventListener("click", (e) => darclick(e));
 
+//* Enviar formulario
 formulario.addEventListener("submit", (e) => handleSubmit(e));
 
 async function handleSubmit(event) {
@@ -81,8 +82,10 @@ async function handleSubmit(event) {
 
     dialogoCarga.classList.remove("d-none");
 
-    // Empaquetar
+    // Habilitar temporalmente la opción "Formato"
+    formFormato.disabled = false;
 
+    // Empaquetar
     const paquete = new FormData(formulario);
 
     const opciones = {
@@ -90,13 +93,15 @@ async function handleSubmit(event) {
         body: paquete,
     };
 
+    // Deshabilitar nuevamente la opción "Formato"
+    formFormato.disabled = true;
+
     // Enviar
-    idpag = window.location.search;
-    if (idpag) {
+    if (estaEditando()) {
         //* Editando
         console.log("el usuario esta editando");
 
-        fetch("api/editar.php", opciones)
+        fetch("api/actualizar.php", opciones)
             .then((response) => {
                 if (response.ok) return response.text();
                 else throw new Error(response.status);
@@ -151,5 +156,11 @@ async function handleSubmit(event) {
 }
 
 function darclick(event) {
-    window.location.href = "inicio.php";
+    if (estaEditando())
+        window.location.href = "detalles.php" + window.location.search;
+    else window.location.href = "inicio.php";
+}
+
+function estaEditando() {
+    return !!window.location.search;
 }
