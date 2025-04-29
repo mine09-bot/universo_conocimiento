@@ -59,7 +59,7 @@ function generarFooter()
                 <div class="col-12 d-flex flex-row justify-content-end align-items-center">
                     <p class="mb-0">
                         <small>Síguenos</small>
-                        <a class="btn" href="#" role="button"><i class="fa-brands fa-facebook"></i></a>
+                        <a class="btn" href="https://facebook.com" role="button"><i class="fa-brands fa-facebook"></i></a>
                     </p>
                 </div>
             </div>
