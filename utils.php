@@ -39,9 +39,9 @@ function generarFooter()
             <div class="row py-5">
                 <div class="col-md-6 col-lg-4 d-flex flex-column align-items-start">
                     <h4>Enlaces de Interés</h4>
-                    <a class="btn btn-secondary" href="inicio.php" role="button">Listado de Libros</a>
-                    <a class="btn btn-secondary" href="ayuda.php" role="button">Categorías</a>
-                    <a class="btn btn-secondary" href="mision.php" role="button">Misión</a>
+                    <a class="btn btn-secondary" href="listado.php" role="button">Listado de Libros</a>
+                    <a class="btn btn-secondary" href="categorias.php" role="button">Categorías</a>
+                    <!-- <a class="btn btn-secondary" href="mision.php" role="button">Misión</a> -->
                 </div>
                 <div class="col-md-6 col-lg-4 d-flex flex-column align-items-start">
                     <h4>Conócenos</h4>
