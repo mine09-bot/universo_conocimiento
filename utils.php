@@ -73,7 +73,7 @@ function generarBarraNav()
 {
     return <<<HTML
     <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
-            <div class="container-fluid">
+            <div class="container-lg">
                 <!-- Icono y Nombre -->
                 <a class="navbar-brand text-brand" href="inicio.php">
                     <img
@@ -132,7 +132,7 @@ function generarBarraNav()
                     </form>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="logout.php">Cerrar Sesión</a>
+                            <a class="nav-link" href="logout.php" title="Cerrar Sesión"><i class="fa-solid fa-right-from-bracket"></i></a>
                         </li>
                     </ul>
                 </div>
