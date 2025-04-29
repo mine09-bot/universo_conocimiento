@@ -5,7 +5,8 @@ require "utils.php";
 require "config.php";
 verificarSesion();
 
-function generarCategorias() {
+function generarCategorias()
+{
     global $connection;
 
     $instruccion = "SELECT * FROM categoria";
@@ -18,11 +19,12 @@ function generarCategorias() {
 
     $html = "";
     foreach ($respuesta as $cat) {
-        $categoria = $cat['nombreCategoria'];
-    
-        $html .= " <button class = 'btn btn-secondary' type='button'>
-        $categoria
-    </button>";
+        $categoria = htmlspecialchars($cat['nombreCategoria']);
+        $idCategoria = $cat['idCategoria'];
+
+        $html .= "<a href='listado.php?categoria=$idCategoria' class='btn btn-secondary m-2'>
+                    $categoria
+                  </a>";
     }
 
     return $html;
@@ -31,9 +33,11 @@ function generarCategorias() {
 ?>
 <!DOCTYPE html>
 <html lang="es-MX" data-bs-theme="dark">
-<head>  
-<?php echo generarEncabezado('Categorias'); ?>
+
+<head>
+    <?php echo generarEncabezado('Categorias'); ?>
 </head>
+
 <body>
     <div class="container-fluid" style="height: 100vh" id="main-container">
         <div class="row d-flex flex-nowrap" style="min-height: 100vh">
@@ -46,7 +50,7 @@ function generarCategorias() {
                         <div class="col-12 gap-3">
                             <!-- Comienza aquí -->
                             <div class="h4 pb-2 mb-4 text-white border-bottom border-success">
-                             Categorias
+                                Categorias
                             </div>
                             <h5>Selecione una opción</h5>
 

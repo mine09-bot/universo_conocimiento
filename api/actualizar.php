@@ -18,18 +18,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $titulo = $paquete['titulo'];
         $autor = $paquete['autor'];
-        $anoedicion = $paquete['anioedicion'];
+        $anoedicion = $paquete['anoedicion'];
         $categoria = $paquete['categoria'];
         $editorial = $paquete['editorial'];
-        $formato = $paquete['formato'];
-        $idioma = $paquete['idioma'];
         $isbn = $paquete['isbn'];
         $numpaginas = $paquete['numpaginas'];
         $pais = $paquete['pais'];
         $sinopsis = $paquete['sinopsis'];
+        $idLibro = $paquete['idLibro'];
 
         $portada = $_FILES['portada'];
-        $cargarLibro  = $_FILES['cargarlibro'];
 
         // Comenzar transacción
         $connection->beginTransaction();
@@ -59,28 +57,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $idEditorial = $connection->lastInsertId();
         }
 
-        //* Crear el libro en BD y tomar el ID
+        //* Actualizar el libro en BD y tomar el ID
         $extension = pathinfo($portada['name'], PATHINFO_EXTENSION);
-        $instruccion = "INSERT INTO libro(tituloLibro, Editorial_idEditorial, Idioma_idIdioma, Categoria_idCategoria, numeroPaginas, isbn, anioEdicion, sinopsis, Pais_idPais, portada, creador ) VALUES (:tit, :edit, :idi, :cat, :numpag, :isbn, :ano, :sinop, :pa, :port, :crea)";
+
+        $instruccion = "UPDATE libro 
+                SET tituloLibro = :tit, 
+                    Editorial_idEditorial = :edit,
+                    Categoria_idCategoria = :cat, 
+                    numeroPaginas = :numpag, 
+                    isbn = :isbn, 
+                    anioEdicion = :ano, 
+                    sinopsis = :sinop, 
+                    Pais_idPais = :pa 
+                    -- portada = :port
+                WHERE idLibro = :idlibro";
 
         $query = $connection->prepare($instruccion);
         $query->bindParam("tit", $titulo, PDO::PARAM_STR);
         $query->bindParam("edit", $idEditorial, PDO::PARAM_STR);
-        $query->bindParam("idi", $idioma, PDO::PARAM_STR);
         $query->bindParam("cat", $categoria, PDO::PARAM_STR);
         $query->bindParam("numpag", $numpaginas, PDO::PARAM_STR);
         $query->bindParam("isbn", $isbn, PDO::PARAM_STR);
         $query->bindParam("ano", $anoedicion, PDO::PARAM_STR);
         $query->bindParam("sinop", $sinopsis, PDO::PARAM_STR);
         $query->bindParam("pa", $pais, PDO::PARAM_STR);
-        $query->bindParam("port", $extension, PDO::PARAM_STR);
-        $query->bindParam("crea", $_SESSION['idUsuario'], PDO::PARAM_STR);
+        // $query->bindParam("port", $extension, PDO::PARAM_STR);
+        $query->bindParam("idlibro", $idLibro, PDO::PARAM_INT); // este debe venir del libro a editar
 
         $query->execute();
-        $idLibro = $connection->lastInsertId();
 
 
-        //* Portada
+        /*
+        // Portada
 
         // Generar nuevo nombre
         $nuevoNombre = $carpetaImagen . $idLibro . '.' . $extension;
@@ -90,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new Exception('Error al subir portada');
         }
 
-        //* Archivo
+        //*Archivo
         // Generar nuevo nombre
         $extension = pathinfo($cargarLibro['name'], PATHINFO_EXTENSION);
         $nuevoNombre = $carpetaArchivo . $idLibro . '.' . $extension;
@@ -99,18 +107,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!move_uploaded_file($cargarLibro['tmp_name'], $nuevoNombre)) {
             throw new Exception('Error al subir el archivo');
         }
-
-        //* Formato
-        $instruccion = "INSERT INTO formatolibro (idLibro, idFormato, nombreArchivo) VALUES (:lib, :form, :nomb)";
-        $query = $connection->prepare($instruccion);
-
-        $query->bindParam("lib", $idLibro, PDO::PARAM_STR);
-        $query->bindParam("form", $formato, PDO::PARAM_STR);
-        $query->bindParam("nomb", $idLibro, PDO::PARAM_STR);
-        $query->execute();
-
+*/
 
         //* Autor
+
+        //Primero borrar los autores anteriores
+        $delete = $connection->prepare("DELETE FROM autorlibro WHERE idLibro = :lib");
+        $delete->bindParam("lib", $idLibro);
+        $delete->execute();
+
+
         //* El usuario puede insertar autores separados por comas (i.e. "Autor1, Autor2, Autor3"). Se deben separar y agregar cada uno de los autores a la tabla autorlibro
 
         // Verificar que tenga comas y separar cada autor
@@ -148,7 +154,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $query->bindParam("lib", $idLibro, PDO::PARAM_STR);
             $query->bindParam("aut", $idAutor, PDO::PARAM_STR);
             $query->execute();
-            $respuesta = $query->fetch(PDO::FETCH_ASSOC);
         }
 
         $connection->commit();

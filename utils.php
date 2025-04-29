@@ -156,3 +156,18 @@ function primeraMayus($texto)
     $texto = ucwords($texto);
     return $texto;
 }
+
+function agregarVisita(int $idLibro): bool
+{
+    global $connection;
+
+    try {
+
+        $consulta = $connection->prepare("UPDATE libro SET visitas = visitas + 1 WHERE idLibro = :id");
+        $consulta->bindParam(':id', $idLibro, PDO::PARAM_INT);
+        $consulta->execute();
+        return true;
+    } catch (Exception $e) {
+        return false;
+    }
+}

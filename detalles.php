@@ -4,23 +4,29 @@ session_start();
 require "utils.php";
 require "config.php";
 verificarSesion();
-
+global $connection;
 
 if (isset($_GET['id'])) {
     $idLibro = $_GET['id'];
 
-    $instruccion = "SELECT
+    if (is_numeric($idLibro)) {
+
+        agregarVisita($idLibro);
+
+        $instruccion = "SELECT
          libro.tituloLibro,
          libro.idLibro,
          libro.portada,
          libro.anioEdicion,
          libro.sinopsis,
+         libro.creador,
+         libro.Pais_idPais,
+         libro.numeropaginas,
          idioma.nombreIdioma,
          GROUP_CONCAT(autor.nombre SEPARATOR ', ') AS autor,
          categoria.nombreCategoria,
          formato.nombre,
-         editorial.nombreEditorial,
-         pais.nombrePais
+         editorial.nombreEditorial
         FROM libro
             LEFT JOIN idioma ON libro.Idioma_idIdioma = idioma.idIdioma
             LEFT JOIN autorlibro ON libro.idLibro = autorlibro.idLibro
@@ -29,227 +35,48 @@ if (isset($_GET['id'])) {
             LEFT JOIN formatolibro ON formatolibro.idLibro = libro.idLibro
             LEFT JOIN formato ON formato.idFormatos = formatolibro.idFormato
             LEFT JOIN editorial ON libro.Editorial_idEditorial = editorial.idEditorial
-        WHERE libro.tituloLibro=$idLibro
-        GROUP BY libro.idLibro";
-}
-
-
-
-
-function mostrarPortadas($idLibro)
-{
-    global $connection;
-
-    if (!isset($idLibro) || !is_numeric($idLibro)) {
-        return "<p>ID no válido.</p>";
-    }
-
-    // Traer solo ese libro desde la base de datos
-
-    $instruccion = "SELECT 
-    tituloLibro, idLibro, portada 
-    FROM libro 
-    WHERE idLibro = :id";
-
-    $query = $connection->prepare($instruccion);
-    $respuesta = $query->bindParam(':id', $idLibro, PDO::PARAM_INT);
-    $query->execute();
-
-    $libro = $query->fetch(PDO::FETCH_ASSOC);
-
-    if (!$libro) {
-        return '<p>Libro no encontrado.</p>';
-    }
-
-    // Variables
-    $tituloLibro = htmlspecialchars($libro['tituloLibro']);
-    $extension = $libro['portada'];
-    $src = "uploads/portada/{$idLibro}.{$extension}";
-
-    // HTML como string
-    $html = "
-    <div class='container text-center mt-5'>
-        <img 
-            src='{$src}' 
-            class='img-fluid img-thumbnail shadow-sm' 
-            style='height: 350px; object-fit: cover; width: 100%; max-width: 300px;'
-            alt='Portada de {$tituloLibro}'
-        >
-       
-    </div>";
-
-    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    } else {
-        echo "<p>ID no válido.</p>";
-    }
-
-    return $html;
-}
-
-function mostrarTarjeta($idLibro)
-{
-    global $connection;
-
-    if (!isset($idLibro) || !is_numeric($idLibro)) {
-        return "<p>ID no válido.</p>";
-    }
-
-    // Traer solo ese libro desde la base de datos
-
-    $instruccion = "SELECT 
-            libro.tituloLibro, 
-            libro.idLibro, 
-            libro.portada,
-            libro.anioEdicion,
-            libro.numeropaginas,
-            editorial.nombreEditorial,
-            GROUP_CONCAT(autor.nombre SEPARATOR ', ') AS autor
-        FROM libro
-        LEFT JOIN autorlibro ON libro.idLibro = autorlibro.idLibro
-        LEFT JOIN autor ON autorlibro.idAutor = autor.idAutor
-        LEFT JOIN editorial ON libro.Editorial_idEditorial = editorial.idEditorial
-        WHERE libro.idLibro = :id
+        WHERE libro.idLibro= :id
         GROUP BY libro.idLibro";
 
-    $query = $connection->prepare($instruccion);
-    $respuesta = $query->bindParam(':id', $idLibro, PDO::PARAM_INT);
-    $query->execute();
+        $query = $connection->prepare($instruccion);
+        $respuesta = $query->bindParam(':id', $idLibro, PDO::PARAM_INT);
+        $query->execute();
+        $libro = $query->fetch(PDO::FETCH_ASSOC);
+        if ($libro) {
 
-    $libro = $query->fetch(PDO::FETCH_ASSOC);
+            // Variables
+            $tituloLibro = htmlspecialchars($libro['tituloLibro']);
+            $extension = $libro['portada'];
+            $src = "uploads/portada/{$idLibro}.{$extension}";
+            $creador = $libro['creador'];
+            $tituloLibro = htmlspecialchars($libro['tituloLibro']);
+            $autor = htmlspecialchars($libro['autor']);
+            $editorial = htmlspecialchars($libro['nombreEditorial']);
+            $anio = htmlspecialchars($libro['anioEdicion']);
+            $paginas = htmlspecialchars($libro['numeropaginas']);
+            $formato = htmlspecialchars($libro['nombre']);
+            $sinopsis = htmlspecialchars($libro['sinopsis']);
 
-    if (!$libro) {
-        return '<p>Libro no encontrado.</p>';
-    }
-
-    // Variables
-    $tituloLibro = htmlspecialchars($libro['tituloLibro']);
-    $autor = htmlspecialchars($libro['autor']);
-    $editorial = htmlspecialchars($libro['nombreEditorial']);
-    $anio = htmlspecialchars($libro['anioEdicion']);
-    $paginas = htmlspecialchars($libro['numeropaginas']);
-
-    // HTML como string
-    $html = "
-    
-     
-                
-                    <div class='card shadow-sm'>
-                         <div class='card-body'>
-                             <h3 class='card-title'>{$tituloLibro} 📖</h3>
-                            <p class='card-text'><strong>Autor:</strong> {$autor}</p>
-                            <p class='card-text'><strong>Editorial:</strong> {$editorial}</p>
-                             <p class='card-text'><strong>Año de Edición:</strong> {$anio}</p>
-                             <p class='card-text'><strong>Número de Páginas:</strong> {$paginas}</p>
-                         </div>
-                     </div>
-                </div>
-         </div>
-     
-    ";
-    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+            $botonCreador = "";
+            if ($creador == ($_SESSION['idUsuario'])) {
+                $botonCreador = '<a href="editor.php?id=' . $idLibro . '" class="btn btn-primary" tabindex="-1" role="button">Editar Libro</a>';
+            }
+        } else {
+            // Regresar al usuario al listado
+            header('Location: listado.php');
+        }
     } else {
-        echo "<p>ID no válido.</p>";
+        // Regresar al usuario al listado
+        header('Location: listado.php');
     }
-
-    return $html;
 }
-
-function mostrarFormato($idLibro)
-{
-    global $connection;
-
-    if (!isset($idLibro) || !is_numeric($idLibro)) {
-        return "<p>ID no válido.</p>";
-    }
-
-    // Consulta con filtro por ID
-    $instruccion = "SELECT formato.nombre
-        FROM libro
-        LEFT JOIN formatolibro ON formatolibro.idLibro = libro.idLibro
-        LEFT JOIN formato ON formato.idFormatos = formatolibro.idFormato
-        WHERE libro.idLibro = :id";
-
-    $query = $connection->prepare($instruccion);
-    $query->bindParam(':id', $idLibro, PDO::PARAM_INT);
-    $query->execute();
-
-    $libro = $query->fetch(PDO::FETCH_ASSOC);
-
-    if (!$libro) {
-        return '<p>Libro no encontrado.</p>';
-    }
-
-    // Variables seguras
-    $formato = htmlspecialchars($libro['nombre']);
-
-    // HTML de salida
-    $html = "
-        <div class='col-3 d-flex flex-column gap-2'>
-            <button class='btn btn-secondary btn-sm' type='button'>
-                $formato
-            </button>
-        </div>";
-
-    return $html;
-}
-
-
-function mostrarSinopsis($idLibro)
-{
-    global $connection;
-
-    if (!isset($idLibro) || !is_numeric($idLibro)) {
-        return "<p>ID no válido.</p>";
-    }
-
-    // Traer solo ese libro desde la base de datos
-
-    $instruccion = "SELECT 
-    sinopsis, idLibro 
-    FROM libro 
-    WHERE idLibro = :id";
-
-    $query = $connection->prepare($instruccion);
-    $respuesta = $query->bindParam(':id', $idLibro, PDO::PARAM_INT);
-    $query->execute();
-
-    $libro = $query->fetch(PDO::FETCH_ASSOC);
-
-    if (!$libro) {
-        return '<p>Libro no encontrado.</p>';
-    }
-
-    // Variables
-    $sinopsis = htmlspecialchars($libro['sinopsis']);
-
-    // HTML como string
-    $html = "
-    
-       <div class='card-body'>
-                            <blockquote
-                                class='blockquote mb-0'>
-                                <p>
-                                   $sinopsis
-                                </p>
-                            </blockquote>
-                        </div>
-    </div>";
-
-    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    } else {
-        echo "<p>ID no válido.</p>";
-    }
-    return $html;
-}
-
-
 
 ?>
 <!DOCTYPE html>
 <html lang="es-MX" data-bs-theme="dark">
 
 <head>
-    <?php echo generarEncabezado('Descargar'); ?>
+    <?php echo generarEncabezado('Detalles'); ?>
 </head>
 
 <body>
@@ -263,15 +90,28 @@ function mostrarSinopsis($idLibro)
             Detalles del Libro
         </div>
         <div class="container-md p-3">
-            <form class="row mb-2 g-1">
+            <form class="row mb-0 g-1">
                 <div class="col-3 d-grid gap-0">
-
-                    <a href="editor.php?id=<?php echo $idLibro; ?>" class="btn btn-secondary" tabindex="-1" role="button">Editar Libro</a>
-                    <?php echo mostrarPortadas($_GET['id']); ?>
+                    <?php echo $botonCreador; ?>
+                    <div class='container text-center mt-5'>
+                        <img
+                            src='<?php echo $src; ?>'
+                            class='img-fluid img-thumbnail shadow-sm'
+                            style='height: 350px; object-fit: cover; width: 100%; max-width: 300px;'
+                            alt='Portada de <?php echo $tituloLibro; ?>'>
+                    </div>
 
                 </div>
                 <div class='col-8'>
-                    <?php echo mostrarTarjeta($_GET['id']); ?>
+                    <div class='card shadow-sm border-0'>
+                        <div class='card-body'>
+                            <h3 class='card-title'><?php echo $tituloLibro; ?> 📖</h3>
+                            <p class='card-text'><strong>Autor: </strong><?php echo $autor; ?></p>
+                            <p class='card-text'><strong>Editorial: </strong><?php echo $editorial; ?></p>
+                            <p class='card-text'><strong>Año de Edición: </strong><?php echo $anio; ?></p>
+                            <p class='card-text'><strong>Número de Páginas: </strong><?php echo $paginas; ?></p>
+                        </div>
+                    </div>
                 </div>
         </div>
         </form>
@@ -280,22 +120,33 @@ function mostrarSinopsis($idLibro)
     <div class="container-md p-2">
         <form
             class="row g-2 justify-content-between">
-            <?php echo mostrarFormato($_GET['id']); ?>
-
-            <div class="col-9 d-grid gap-2">
+            <div class='col-3 d-flex flex-column gap-2'>
+                <div
+                    class="h4 pb-2 mb-2 text-white border-bottom border-success">
+                    Opciones de Descarga
+                </div>
+                <button class='btn btn-secondary btn-sm' type='button'>
+                    <?php echo $formato; ?>
+                </button>
+            </div>
+            <div class="col-9">
                 <div class="card">
                     <div class="row g-2">
                         <div class="card-header">
                             Sinopsis 📖
                         </div>
-                        <?php echo mostrarSinopsis($_GET['id']); ?>
+                        <div class='card-body'>
+                            <blockquote
+                                class='blockquote mb-0'>
+                                <p><?php echo $sinopsis; ?></p>
+                            </blockquote>
+                        </div>
+
                     </div>
-                    <a href="editor.php" class="btn btn-secondary" btn-sm tabindex="-1" role="button">Agregar otro formato </a>
+                    <a href="editor.php" class="btn btn-primary" btn-sm tabindex="-1" role="button">Agregar otro formato </a>
                 </div>
             </div>
         </form>
-    </div>
-    </div>
     </div>
 
     <?php echo generarFooter(); ?>

@@ -9,80 +9,102 @@ function verLibros()
 {
     global $connection;
 
-    $bus = '';
-    if (isset($_GET['q'])) {
-        $busqueda = $_GET['q'];
-        $bus = " WHERE LOWER(tituloLibro) LIKE LOWER('%$busqueda%') OR LOWER(autor.nombre) LIKE LOWER('%$busqueda%') 
-        OR LOWER(editorial.nombreEditorial) LIKE LOWER('%$busqueda%') OR LOWER(categoria.nombreCategoria) LIKE LOWER('%$busqueda%') 
-        OR LOWER(formato.nombre) LIKE LOWER('%$busqueda%') OR LOWER(idioma.nombreIdioma) LIKE LOWER('%$busqueda%')";
+    $parametros = [];
+    $filtros = [];
+
+    if (!empty($_GET['q'])) {
+        $busqueda = '%' . strtolower(trim($_GET['q'])) . '%';
+        $filtros[] = "(LOWER(libro.tituloLibro) LIKE :busqueda1 OR 
+                       LOWER(autor.nombre) LIKE :busqueda2 OR 
+                       LOWER(editorial.nombreEditorial) LIKE :busqueda3 OR 
+                       LOWER(categoria.nombreCategoria) LIKE :busqueda4 OR 
+                       LOWER(formato.nombre) LIKE :busqueda5 OR 
+                       LOWER(idioma.nombreIdioma) LIKE :busqueda6)";
+        $parametros[':busqueda1'] = $busqueda;
+        $parametros[':busqueda2'] = $busqueda;
+        $parametros[':busqueda3'] = $busqueda;
+        $parametros[':busqueda4'] = $busqueda;
+        $parametros[':busqueda5'] = $busqueda;
+        $parametros[':busqueda6'] = $busqueda;
     }
 
-    $instruccion = "SELECT
-         libro.tituloLibro,
-         libro.idLibro,
-         libro.portada,
-         idioma.nombreIdioma,
-         GROUP_CONCAT(autor.nombre SEPARATOR ', ') AS autor,
-         categoria.nombreCategoria,
-         formato.nombre,
-         editorial.nombreEditorial
-        FROM libro
-            LEFT JOIN idioma ON libro.Idioma_idIdioma = idioma.idIdioma
-            LEFT JOIN autorlibro ON libro.idLibro = autorlibro.idLibro
-            LEFT JOIN autor ON autorlibro.idAutor = autor.idAutor
-            LEFT JOIN categoria ON libro.Categoria_idCategoria = categoria.idCategoria
-            LEFT JOIN formatolibro ON formatolibro.idLibro = libro.idLibro
-            LEFT JOIN formato ON formato.idFormatos = formatolibro.idFormato
-            LEFT JOIN editorial ON libro.Editorial_idEditorial = editorial.idEditorial
-        $bus
-        GROUP BY libro.idLibro
-        ORDER BY libro.visitas DESC";
+    if (!empty($_GET['categoria']) && is_numeric($_GET['categoria'])) {
+        $filtros[] = "categoria.idCategoria = :categoria";
+        $parametros[':categoria'] = $_GET['categoria'];
+    }
 
-    $query = $connection->prepare($instruccion);
-    $query->execute();
+    $where = '';
+    if (!empty($filtros)) {
+        $where = 'WHERE ' . implode(' AND ', $filtros);
+    }
+
+    $sql = "SELECT
+        libro.tituloLibro,
+        libro.idLibro,
+        libro.portada,
+        idioma.nombreIdioma,
+        GROUP_CONCAT(autor.nombre SEPARATOR ', ') AS autor,
+        categoria.nombreCategoria,
+        formato.nombre,
+        editorial.nombreEditorial
+    FROM libro
+    LEFT JOIN idioma ON libro.Idioma_idIdioma = idioma.idIdioma
+    LEFT JOIN autorlibro ON libro.idLibro = autorlibro.idLibro
+    LEFT JOIN autor ON autorlibro.idAutor = autor.idAutor
+    LEFT JOIN categoria ON libro.Categoria_idCategoria = categoria.idCategoria
+    LEFT JOIN formatolibro ON formatolibro.idLibro = libro.idLibro
+    LEFT JOIN formato ON formato.idFormatos = formatolibro.idFormato
+    LEFT JOIN editorial ON libro.Editorial_idEditorial = editorial.idEditorial
+    $where
+    GROUP BY libro.idLibro
+    ORDER BY libro.visitas DESC";
+
+    $query = $connection->prepare($sql);
+
+    // IMPORTANTE: Execute con o sin parámetros según corresponda
+    $query->execute($parametros);
+
     $respuesta = $query->fetchAll(PDO::FETCH_ASSOC);
 
     $html = "";
 
-    foreach ($respuesta as $libro) {
-        $tituloLibro = $libro['tituloLibro'];
-        $idLibro = $libro['idLibro'];
-        $extension = $libro['portada'];
-        $autor = $libro['autor'];
-        $editorial = $libro['nombreEditorial'];
-        $categoria = $libro['nombreCategoria'];
-        $formato = $libro['nombre'];
-        $idioma = $libro['nombreIdioma'];
+    if (!$respuesta) {
+        $html = "<tr><td colspan='7' class='text-center'>No se encontraron libros.</td></tr>";
+    } else {
+        foreach ($respuesta as $libro) {
+            $tituloLibro = htmlspecialchars($libro['tituloLibro']);
+            $idLibro = $libro['idLibro'];
+            $extension = htmlspecialchars($libro['portada']);
+            $autor = htmlspecialchars($libro['autor']);
+            $editorial = htmlspecialchars($libro['nombreEditorial']);
+            $categoria = htmlspecialchars($libro['nombreCategoria']);
+            $formato = htmlspecialchars($libro['nombre']);
+            $idioma = htmlspecialchars($libro['nombreIdioma']);
 
-        $html .= "<tbody>
-                 <tr>
-                    <th scope='row'>
-                    <img
-                    src='uploads/portada/$idLibro.$extension'
-                    class='img-fluid img-thumbnail'
-                    alt='...' style='height: 5rem;'/>
-                    </th>
-                    <td>$tituloLibro</td>
-                    <td>$autor</td>
-                    <td>$editorial</td>
-                    <td>$categoria</td>
-                    <td>$formato</td>
-                    <td>$idioma</td>
+            $html .= "<tbody>
+                        <tr>
+                            <th scope='row'>
+                                <img src='uploads/portada/$idLibro.$extension' class='img-fluid img-thumbnail' alt='...' style='height: 5rem;'/>
+                            </th>
+                            <td>$tituloLibro</td>
+                            <td>$autor</td>
+                            <td>$editorial</td>
+                            <td>$categoria</td>
+                            <td>$formato</td>
+                            <td>$idioma</td>
                             <td>
-                            <button
-                            class='btn btn-outline-success'
-                            type='submit'>
-                            <i class='fa-solid fa-circle-down'></i>
-                            </button>
+                                <button class='btn btn-outline-success' type='submit'>
+                                    <i class='fa-solid fa-circle-down'></i>
+                                </button>
                             </td>
-                </tr>
-                                        
-                                        
-                                    </tbody> ";
+                        </tr>
+                    </tbody>";
+        }
     }
 
     return $html;
 }
+
 
 
 ?>
