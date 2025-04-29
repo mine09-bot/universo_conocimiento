@@ -71,6 +71,7 @@ function verLibros()
     if (!$respuesta) {
         $html = "<tr><td colspan='7' class='text-center'>No se encontraron libros.</td></tr>";
     } else {
+
         foreach ($respuesta as $libro) {
             $tituloLibro = htmlspecialchars($libro['tituloLibro']);
             $idLibro = $libro['idLibro'];
@@ -81,24 +82,23 @@ function verLibros()
             $formato = htmlspecialchars($libro['nombre']);
             $idioma = htmlspecialchars($libro['nombreIdioma']);
 
-            $html .= "<tbody>
-                        <tr>
-                            <th scope='row'>
-                                <img src='uploads/portada/$idLibro.$extension' class='img-fluid img-thumbnail' alt='...' style='height: 5rem;'/>
-                            </th>
-                            <td>$tituloLibro</td>
-                            <td>$autor</td>
-                            <td>$editorial</td>
-                            <td>$categoria</td>
-                            <td>$formato</td>
-                            <td>$idioma</td>
-                            <td>
-                                <button class='btn btn-outline-success' type='submit'>
-                                    <i class='fa-solid fa-circle-down'></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>";
+            $html .= "<tr>
+                        <th scope='row'>
+                            <img src='uploads/portada/$idLibro.$extension' class='img-fluid img-thumbnail' alt='...' style='height: 5rem;'/>
+                        </th>
+                        <td><a href='detalles.php?id=$idLibro' class='stretched-link'>$tituloLibro</a></td>
+                        <td>$autor</td>
+                        <td>$editorial</td>
+                        <td>$categoria</td>
+                        <td>$formato</td>
+                        <td>$idioma</td>
+                        <td>
+                            <button class='btn btn-outline-success' type='submit'>
+                                <i class='fa-solid fa-circle-down'></i>
+                            </button>
+                        </td>
+                        
+                    </tr>";
         }
     }
 
