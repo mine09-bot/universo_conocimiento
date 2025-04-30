@@ -14,7 +14,7 @@ function generarEncabezado($titulo)
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>$titulo - 📖 Bookia</title>
         <link rel="stylesheet" href="assets/css/tema.css" />
-        <script src="assets/bootstrap/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+        <script src="/assets/bootstrap/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/4ff96bfcc8.js" crossorigin="anonymous"></script>
     HTML;
 }
@@ -72,7 +72,7 @@ function generarFooter()
 function generarBarraNav()
 {
     return <<<HTML
-    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
             <div class="container-lg">
                 <!-- Icono y Nombre -->
                 <a class="navbar-brand text-brand" href="inicio.php">
@@ -91,22 +91,14 @@ function generarBarraNav()
                     data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent"
                     aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
+                    aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <!-- Opciones del Menú -->
-                <div
-                    class="collapse navbar-collapse"
-                    id="navbarSupportedContent"
-                >
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="perfil.php">Perfil</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="listado.php">Ver Libros</a>
+                            <a class="nav-link" href="listado.php">Listado</a>
                         </li>
 
                         <li class="nav-item">
@@ -114,25 +106,38 @@ function generarBarraNav()
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="editor.php">Agregar Libros</a>
+                            <a class="nav-link" href="editor.php">Agregar Libro</a>
                         </li>
                     </ul>
-                    <form class="d-flex" role="search" action = "listado.php">
-                        <input
-                            name="q"
-                            class="form-control me-2"
-                            type="search"
-                            placeholder="Buscar"
-                            aria-label="Buscar"
-
-                        />
-                        <button class="btn btn-outline-success" type="submit">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
+                    <form class="d-flex me-md-3" role="search" action="listado.php">
+                        <div class="input-group">
+                            <input
+                                name="q"
+                                class="form-control"
+                                type="search"
+                                placeholder="Buscar Título o Autor"
+                                aria-label="Buscar" />
+                            <button class="btn btn-outline-success" type="submit">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
                     </form>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="logout.php" title="Cerrar Sesión"><i class="fa-solid fa-right-from-bracket"></i></a>
+                    <ul class="navbar-nav" title="Usuario">
+                        <li class="nav-item dropdown">
+                            <a
+                                class="nav-link dropdown-toggle"
+                                href="#"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <i class="fa-solid fa-user d-none d-lg-inline"></i>
+                                <span class="d-lg-none">Usuario</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="perfil.php">Perfil</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="logout.php">Cerrar Sesión</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>

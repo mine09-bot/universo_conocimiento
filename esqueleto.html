@@ -5,22 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>[] - 📖 Bookia</title>
         <link rel="stylesheet" href="/assets/css/tema.css" />
-        <script
-            src="/assets/bootstrap/dist/js/bootstrap.min.js"
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://kit.fontawesome.com/4ff96bfcc8.js"
-            crossorigin="anonymous"
-        ></script>
+        <script src="/assets/bootstrap/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/4ff96bfcc8.js" crossorigin="anonymous"></script>
     </head>
 
     <body>
         <div
             class="d-none position-absolute w-100 h-100 left-0 top-0 page-loader flex-column bg-dark bg-opacity-50 d-flex justify-content-center align-items-center"
             id="contenedor-carga"
-            style="z-index: 1021"
-        >
+            style="z-index: 1021">
             <div class="flipping">
                 <div></div>
                 <div></div>
@@ -28,27 +21,22 @@
                 <div></div>
                 <div></div>
             </div>
-            <span class="text-gray-800 fs-6 fw-semibold mt-5"
-                >Guardando libro...</span
-            >
+            <span class="text-gray-800 fs-6 fw-semibold mt-5">Guardando libro...</span>
         </div>
         <div class="container-fluid" style="height: 100vh" id="main-container">
             <div class="row d-flex flex-nowrap" style="min-height: 100vh">
                 <div class="col p-0 d-flex flex-column">
                     <!-- Barra Superior -->
-                    <nav
-                        class="navbar navbar-expand-lg bg-body-tertiary sticky-top"
-                    >
-                        <div class="container-fluid">
+                    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+                        <div class="container-lg">
                             <!-- Icono y Nombre -->
-                            <a class="navbar-brand text-brand" href="#">
+                            <a class="navbar-brand text-brand" href="inicio.php">
                                 <img
-                                    src="/assets/images/icono_barra.svg"
+                                    src="assets/images/icono_barra.svg"
                                     alt="Logo"
                                     width="24"
                                     height="24"
-                                    class="d-inline-block align-text-top"
-                                />
+                                    class="d-inline-block align-text-top" />
                                 BOOKIA
                             </a>
                             <button
@@ -58,62 +46,55 @@
                                 data-bs-target="#navbarSupportedContent"
                                 aria-controls="navbarSupportedContent"
                                 aria-expanded="false"
-                                aria-label="Toggle navigation"
-                            >
+                                aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                             <!-- Opciones del Menú -->
-                            <div
-                                class="collapse navbar-collapse"
-                                id="navbarSupportedContent"
-                            >
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                     <li class="nav-item">
-                                        <a
-                                            class="nav-link active"
-                                            aria-current="page"
-                                            href="#"
-                                            >Inicio</a
-                                        >
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Perfil</a>
+                                        <a class="nav-link" href="listado.php">Listado</a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#"
-                                            >Ver Libros</a
-                                        >
+                                        <a class="nav-link" href="categorias.php">Categorias</a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#"
-                                            >Categorias</a
-                                        >
-                                    </li>
-
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#"
-                                            >Editor de Libros</a
-                                        >
+                                        <a class="nav-link" href="editor.php">Agregar Libro</a>
                                     </li>
                                 </ul>
-                                <form class="d-flex" role="search">
-                                    <input
-                                        class="form-control me-2"
-                                        type="search"
-                                        placeholder="Buscar"
-                                        aria-label="Buscar"
-                                    />
-                                    <button
-                                        class="btn btn-outline-success"
-                                        type="submit"
-                                    >
-                                        <i
-                                            class="fa-solid fa-magnifying-glass"
-                                        ></i>
-                                    </button>
+                                <form class="d-flex me-md-3" role="search" action="listado.php">
+                                    <div class="input-group">
+                                        <input
+                                            name="q"
+                                            class="form-control"
+                                            type="search"
+                                            placeholder="Buscar Título o Autor"
+                                            aria-label="Buscar" />
+                                        <button class="btn btn-outline-success" type="submit">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </button>
+                                    </div>
                                 </form>
+                                <ul class="navbar-nav" title="Usuario">
+                                    <li class="nav-item dropdown">
+                                        <a
+                                            class="nav-link dropdown-toggle"
+                                            href="#"
+                                            role="button"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <i class="fa-solid fa-user d-none d-lg-inline"></i>
+                                            <span class="d-lg-none">Usuario</span>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="perfil.php">Perfil</a></li>
+                                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                                            <li><a class="dropdown-item" href="logout.php">Cerrar Sesión</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </nav>
@@ -122,66 +103,32 @@
                         <div class="row">
                             <div class="col-12 gap-3">
                                 <!-- Comienza aquí -->
-                                <div
-                                    class="h4 pb-2 mb-4 text-white border-bottom border-success"
-                                >
-                                    Detalles del Libro
-                                </div>
+                                <div class="h4 pb-2 mb-4 text-white border-bottom border-success">Detalles del Libro</div>
                                 <div class="container-md p-3">
                                     <form class="row mb-4 g-1">
                                         <div class="col-3 d-grid gap-2">
-                                            <img
-                                                src="Informatica.jpg"
-                                                alt="Bootstrap"
-                                                width="250"
-                                                height="300"
-                                            />
+                                            <img src="Informatica.jpg" alt="Bootstrap" width="250" height="300" />
                                         </div>
                                         <div class="col-9 d-grid gap-2">
-                                            <div
-                                                class="card"
-                                                style="max-width: 540px"
-                                            >
+                                            <div class="card" style="max-width: 540px">
                                                 <div class="row g-2">
                                                     <div class="col-md-9">
                                                         <div class="card-body">
-                                                            <h5
-                                                                class="card-title"
-                                                            >
-                                                                Título del Libro
-                                                                📖
-                                                            </h5>
-                                                            <p
-                                                                class="card-text"
-                                                            >
-                                                                <strong
-                                                                    >Autor:</strong
-                                                                >
+                                                            <h5 class="card-title">Título del Libro 📖</h5>
+                                                            <p class="card-text">
+                                                                <strong>Autor:</strong>
                                                                 Nombre del Autor
                                                             </p>
-                                                            <p
-                                                                class="card-text"
-                                                            >
-                                                                <strong
-                                                                    >Editorial:</strong
-                                                                >
+                                                            <p class="card-text">
+                                                                <strong>Editorial:</strong>
                                                                 Editorial
                                                             </p>
-                                                            <p
-                                                                class="card-text"
-                                                            >
-                                                                <strong
-                                                                    >Año de
-                                                                    Edición:</strong
-                                                                >
+                                                            <p class="card-text">
+                                                                <strong>Año de Edición:</strong>
                                                                 2024
                                                             </p>
-                                                            <p
-                                                                class="card-text"
-                                                            >
-                                                                <strong
-                                                                    >ISBN:</strong
-                                                                >
+                                                            <p class="card-text">
+                                                                <strong>ISBN:</strong>
                                                                 978-3-16-148410-0
                                                             </p>
                                                         </div>
@@ -193,62 +140,24 @@
                                 </div>
 
                                 <div class="container-md p-2">
-                                    <form
-                                        class="row g-2 justify-content-between"
-                                    >
-                                        <div
-                                            class="col-3 d-flex flex-column gap-2"
-                                        >
-                                            <button
-                                                class="btn btn-secondary btn-sm"
-                                                type="button"
-                                            >
-                                                PDF
-                                            </button>
-                                            <button
-                                                class="btn btn-secondary"
-                                                type="button"
-                                            >
-                                                EPUB
-                                            </button>
+                                    <form class="row g-2 justify-content-between">
+                                        <div class="col-3 d-flex flex-column gap-2">
+                                            <button class="btn btn-secondary btn-sm" type="button">PDF</button>
+                                            <button class="btn btn-secondary" type="button">EPUB</button>
                                         </div>
                                         <div class="col-9 d-grid gap-2">
                                             <div class="card">
                                                 <div class="row g-2">
-                                                    <div class="card-header">
-                                                        Sinopsis 📖
-                                                    </div>
+                                                    <div class="card-header">Sinopsis 📖</div>
                                                     <div class="card-body">
-                                                        <blockquote
-                                                            class="blockquote mb-0"
-                                                        >
+                                                        <blockquote class="blockquote mb-0">
                                                             <p>
-                                                                Fundamentos de
-                                                                la Informática
-                                                                Moderna ofrece
-                                                                una introducción
-                                                                clara y práctica
-                                                                a los conceptos
-                                                                básicos de la
-                                                                informática,
-                                                                como hardware,
-                                                                software,
-                                                                programación,
-                                                                redes y
-                                                                ciberseguridad.
-                                                                Ideal para
-                                                                estudiantes y
-                                                                principiantes,
-                                                                el libro combina
-                                                                teoría y
-                                                                ejemplos
-                                                                actuales,
-                                                                incluyendo temas
-                                                                como
-                                                                inteligencia
-                                                                artificial y
-                                                                computación en
-                                                                la nube.
+                                                                Fundamentos de la Informática Moderna ofrece una introducción
+                                                                clara y práctica a los conceptos básicos de la informática, como
+                                                                hardware, software, programación, redes y ciberseguridad. Ideal
+                                                                para estudiantes y principiantes, el libro combina teoría y
+                                                                ejemplos actuales, incluyendo temas como inteligencia artificial y
+                                                                computación en la nube.
                                                             </p>
                                                         </blockquote>
                                                     </div>
@@ -259,110 +168,54 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Footer -->
-                        <div
-                            class="container-fluid position-relative bg-secondary"
-                            style="overflow: hidden"
-                        >
-                            <div
-                                class="position-absolute h-100 w-100 z-1"
-                                style="overflow: hidden; left: 50%"
-                            >
-                                <img
-                                    class="img-fluid w-100"
-                                    src="/assets/images/icono_barra.svg"
-                                    alt="Bookia Logo"
-                                    style="
-                                        filter: invert(1) brightness(1000%);
-                                        clip-path: inset(0 0 0 0);
-                                        mask-image: linear-gradient(
-                                            to left,
-                                            rgba(0, 0, 0, 0.3),
-                                            rgba(0, 0, 0, 0)
-                                        );
-                                        -webkit-mask-image: linear-gradient(
-                                            rgba(0, 0, 0, 0.3) 0%,
-                                            rgba(0, 0, 0, 0) 50%
-                                        );
-                                    "
-                                />
-                            </div>
-                            <div
-                                class="container-sm py-4 z-2 position-relative"
-                            >
-                                <div class="row py-5">
-                                    <div
-                                        class="col-md-6 col-lg-4 d-flex flex-column align-items-start"
-                                    >
-                                        <h4>Enlaces de Interés</h4>
-                                        <a
-                                            class="btn btn-secondary"
-                                            href="inicio.php"
-                                            role="button"
-                                            >Listado de Libros</a
-                                        >
-                                        <a
-                                            class="btn btn-secondary"
-                                            href="ayuda.php"
-                                            role="button"
-                                            >Categorías</a
-                                        >
-                                        <a
-                                            class="btn btn-secondary"
-                                            href="mision.php"
-                                            role="button"
-                                            >Misión</a
-                                        >
-                                    </div>
-                                    <div
-                                        class="col-md-6 col-lg-4 d-flex flex-column align-items-start"
-                                    >
-                                        <h4>Conócenos</h4>
-                                        <a
-                                            class="btn btn-secondary"
-                                            href="ayuda.php"
-                                            role="button"
-                                            >Ayuda</a
-                                        >
-                                        <a
-                                            class="btn btn-secondary"
-                                            href="mision.php"
-                                            role="button"
-                                            >Misión</a
-                                        >
-                                    </div>
+                    <!-- Footer -->
+                    <div class="container-fluid position-relative bg-secondary mt-4" style="overflow: hidden">
+                        <div class="position-absolute h-100 w-100 z-1" style="overflow: hidden; left: 50%">
+                            <img
+                                class="img-fluid w-100"
+                                src="assets/images/icono_barra.svg"
+                                alt="Bookia Logo"
+                                style="
+                                    filter: invert(1) brightness(1000%);
+                                    clip-path: inset(0 0 0 0);
+                                    mask-image: linear-gradient(to left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+                                    -webkit-mask-image: linear-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 50%);
+                                " />
+                        </div>
+                        <div class="container-sm py-4 z-2 position-relative">
+                            <div class="row py-5">
+                                <div class="col-md-6 col-lg-4 d-flex flex-column align-items-start">
+                                    <h4>Enlaces de Interés</h4>
+                                    <a class="btn btn-secondary" href="listado.php" role="button">Listado de Libros</a>
+                                    <a class="btn btn-secondary" href="categorias.php" role="button">Categorías</a>
+                                    <!-- <a class="btn btn-secondary" href="mision.php" role="button">Misión</a> -->
+                                </div>
+                                <div class="col-md-6 col-lg-4 d-flex flex-column align-items-start">
+                                    <h4>Conócenos</h4>
+                                    <a class="btn btn-secondary" href="ayuda.php" role="button">Ayuda</a>
+                                    <a class="btn btn-secondary" href="mision.php" role="button">Misión</a>
                                 </div>
                             </div>
                             <div class="row py-3">
                                 <div class="col-12 col-md-5 col-lg-3">
-                                    <img
-                                        src="/assets/images/logo.svg"
-                                        alt="Logo Bookia"
-                                        class="img-fluid"
-                                    />
+                                    <img src="assets/images/logo.svg" alt="Logo Bookia" class="img-fluid" />
                                 </div>
                             </div>
                             <hr />
                             <div class="row">
-                                <div
-                                    class="col-12 d-flex flex-row justify-content-end align-items-center"
-                                >
+                                <div class="col-12 d-flex flex-row justify-content-end align-items-center">
                                     <p class="mb-0">
                                         <small>Síguenos</small>
-                                        <a class="btn" href="#" role="button"
-                                            ><i
-                                                class="fa-brands fa-facebook"
-                                            ></i
+                                        <a class="btn" href="https://facebook.com" role="button"
+                                            ><i class="fa-brands fa-facebook"></i
                                         ></a>
                                     </p>
                                 </div>
                             </div>
                             <hr />
-                            <span
-                                >© 2025 Minerva Benítez Pérez. Todos los
-                                derechos reservados.</span
-                            >
+                            <span>© 2025 Minerva Benítez Pérez. Todos los derechos reservados.</span>
                         </div>
                     </div>
                 </div>
