@@ -14,8 +14,9 @@ function generarEncabezado($titulo)
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>$titulo - 📖 Bookia</title>
         <link rel="stylesheet" href="assets/css/tema.css" />
-        <script src="/assets/bootstrap/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="assets/bootstrap/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/4ff96bfcc8.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css"/>
     HTML;
 }
 
@@ -122,13 +123,14 @@ function generarBarraNav()
                             </button>
                         </div>
                     </form>
-                    <ul class="navbar-nav" title="Usuario">
+                    <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a
                                 class="nav-link dropdown-toggle"
                                 href="#"
                                 role="button"
                                 data-bs-toggle="dropdown"
+                                title="Usuario"
                                 aria-expanded="false">
                                 <i class="fa-solid fa-user d-none d-lg-inline"></i>
                                 <span class="d-lg-none">Usuario</span>
