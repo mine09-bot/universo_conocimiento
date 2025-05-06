@@ -12,6 +12,7 @@ if (isset($_GET['id'])) {
     if (is_numeric($idLibro)) {
 
         agregarVisita($idLibro);
+        agregarConsulta($_SESSION['idUsuario']);
 
         $instruccion = "SELECT
          libro.tituloLibro,
@@ -19,7 +20,7 @@ if (isset($_GET['id'])) {
          libro.portada,
          libro.anioEdicion,
          libro.sinopsis,
-         libro.creador,
+         subidas.Usuario_idUsuario as creador,
          libro.Pais_idPais,
          libro.numeropaginas,
          idioma.nombreIdioma,
@@ -35,6 +36,7 @@ if (isset($_GET['id'])) {
             LEFT JOIN formatolibro ON formatolibro.idLibro = libro.idLibro
             LEFT JOIN formato ON formato.idFormatos = formatolibro.idFormato
             LEFT JOIN editorial ON libro.Editorial_idEditorial = editorial.idEditorial
+            LEFT JOIN subidas ON libro.idLibro = subidas.Libro_idLibro
         WHERE libro.idLibro= :id
         GROUP BY libro.idLibro";
 

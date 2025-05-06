@@ -178,3 +178,18 @@ function agregarVisita(int $idLibro): bool
         return false;
     }
 }
+
+function agregarConsulta(int $idUsuario): bool
+{
+    global $connection;
+
+    try {
+
+        $consulta = $connection->prepare("UPDATE usuario SET visitas = visitas + 1 WHERE idUsuario = :id");
+        $consulta->bindParam(':id', $idUsuario, PDO::PARAM_INT);
+        $consulta->execute();
+        return true;
+    } catch (Exception $e) {
+        return false;
+    }
+}
