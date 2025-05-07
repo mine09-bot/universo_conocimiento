@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="500"><svg id="SvgjsSvg1040" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 500 500">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #97c93d;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <g id="SvgjsG1039">
+    <path class="cls-1" d="M250,109.4S193.8,53.1,25,53.1v337.5c170.6,0,225,56.2,225,56.2,0,0,54.4-56.2,225-56.2V53.1c-168.8,0-225,56.2-225,56.2ZM81.2,109.4c71.6,6,115.3,22.5,140.6,35.9v226.6c-25.3-13.4-69.1-29.9-140.6-35.9V109.4ZM418.8,335.9c-71.6,6.1-115.4,22.6-140.6,35.9v-226.6c25.2-13.4,69.1-29.9,140.6-35.9v226.6Z"></path>
+  </g>
+</svg><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
+@media (prefers-color-scheme: dark) { :root { filter: contrast(1) brightness(1.3); } }
+</style></svg>
