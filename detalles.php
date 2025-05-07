@@ -84,83 +84,69 @@ if (isset($_GET['id'])) {
 function mostLibrosRelacionados(string $categoria, int $idLibro): string {
     global $connection;
 
-    $instruccion = "WITH categoria_actual AS (
-                        SELECT Categoria_idCategoria
-                        FROM libro
-                        WHERE idLibro = :id
-                    ),
-                    libros_misma_categoria AS (
-                        SELECT 
-                            libro.idLibro,
-                            libro.tituloLibro,
-                            libro.portada,
-                            libro.isbn,
-                            libro.anioEdicion,
-                            libro.sinopsis,
-                            subidas.Usuario_idUsuario as creador,
-                            libro.Pais_idPais,
-                            libro.numeropaginas,
-                            idioma.nombreIdioma,
-                            GROUP_CONCAT(autor.nombre SEPARATOR ', ') AS autor,
-                            categoria.idCategoria,
-                            categoria.nombreCategoria,
-                            editorial.nombreEditorial,
-                            libro.visitas
-                        FROM libro
+    $instruccion = "SELECT
+                        libro.tituloLibro,
+                        libro.idLibro,
+                        libro.portada,
+                        idioma.nombreIdioma,
+                        GROUP_CONCAT(autor.nombre SEPARATOR ', ') AS autor,
+                        categoria.nombreCategoria,
+                        formato.nombre,
+                        editorial.nombreEditorial
+                    FROM libro
                         LEFT JOIN idioma ON libro.Idioma_idIdioma = idioma.idIdioma
                         LEFT JOIN autorlibro ON libro.idLibro = autorlibro.idLibro
                         LEFT JOIN autor ON autorlibro.idAutor = autor.idAutor
                         LEFT JOIN categoria ON libro.Categoria_idCategoria = categoria.idCategoria
+                        LEFT JOIN facultadcategoria ON categoria.idCategoria= facultadcategoria.idCategoria
+                        LEFT JOIN facultades ON facultadcategoria.idFacultad =facultades.idFacultades
+                        LEFT JOIN formatolibro ON formatolibro.idLibro = libro.idLibro
+                        LEFT JOIN formato ON formato.idFormatos = formatolibro.idFormato
                         LEFT JOIN editorial ON libro.Editorial_idEditorial = editorial.idEditorial
-                        LEFT JOIN subidas ON libro.idLibro = subidas.Libro_idLibro
-                        WHERE libro.Categoria_idCategoria = (SELECT Categoria_idCategoria FROM categoria_actual)
-                        AND libro.idLibro != :id
+                        WHERE libro.Categoria_idCategoria = $categoria AND libro.idLibro != $idLibro
                         GROUP BY libro.idLibro
                         ORDER BY libro.visitas DESC
-                        LIMIT 6
-                    ),
-                    complemento AS (
-                        SELECT 
-                            libro.idLibro,
-                            libro.tituloLibro,
-                            libro.portada,
-                            libro.isbn,
-                            libro.anioEdicion,
-                            libro.sinopsis,
-                            subidas.Usuario_idUsuario as creador,
-                            libro.Pais_idPais,
-                            libro.numeropaginas,
-                            idioma.nombreIdioma,
-                            GROUP_CONCAT(autor.nombre SEPARATOR ', ') AS autor,
-                            categoria.idCategoria,
-                            categoria.nombreCategoria,
-                            editorial.nombreEditorial,
-                            libro.visitas
-                        FROM libro
-                        LEFT JOIN idioma ON libro.Idioma_idIdioma = idioma.idIdioma
-                        LEFT JOIN autorlibro ON libro.idLibro = autorlibro.idLibro
-                        LEFT JOIN autor ON autorlibro.idAutor = autor.idAutor
-                        LEFT JOIN categoria ON libro.Categoria_idCategoria = categoria.idCategoria
-                        LEFT JOIN editorial ON libro.Editorial_idEditorial = editorial.idEditorial
-                        LEFT JOIN subidas ON libro.idLibro = subidas.Libro_idLibro
-                        WHERE libro.idLibro != :id
-                        AND libro.idLibro NOT IN (SELECT idLibro FROM libros_misma_categoria)
-                        GROUP BY libro.idLibro
-                        ORDER BY libro.visitas DESC
-                        LIMIT (6 - (SELECT COUNT(*) FROM libros_misma_categoria))
-                    )
-
-                    SELECT * FROM libros_misma_categoria
-                    UNION ALL
-                    SELECT * FROM complemento
-                    LIMIT 6;
-";
+                        LIMIT 6;";
 
     $query = $connection->prepare($instruccion);
     $query->execute();
     $respuesta = $query->fetchAll(PDO::FETCH_ASSOC);
 
     $html = "";
+
+    if ($respuesta < 6) {
+        $restantes = 6 - count($respuesta);
+
+        $instruccion = "SELECT
+                        libro.tituloLibro,
+                        libro.idLibro,
+                        libro.portada,
+                        idioma.nombreIdioma,
+                        GROUP_CONCAT(autor.nombre SEPARATOR ', ') AS autor,
+                        categoria.nombreCategoria,
+                        formato.nombre,
+                        editorial.nombreEditorial
+                    FROM libro
+                        LEFT JOIN idioma ON libro.Idioma_idIdioma = idioma.idIdioma
+                        LEFT JOIN autorlibro ON libro.idLibro = autorlibro.idLibro
+                        LEFT JOIN autor ON autorlibro.idAutor = autor.idAutor
+                        LEFT JOIN categoria ON libro.Categoria_idCategoria = categoria.idCategoria
+                        LEFT JOIN facultadcategoria ON categoria.idCategoria= facultadcategoria.idCategoria
+                        LEFT JOIN facultades ON facultadcategoria.idFacultad =facultades.idFacultades
+                        LEFT JOIN formatolibro ON formatolibro.idLibro = libro.idLibro
+                        LEFT JOIN formato ON formato.idFormatos = formatolibro.idFormato
+                        LEFT JOIN editorial ON libro.Editorial_idEditorial = editorial.idEditorial
+                        WHERE libro.Categoria_idCategoria != $categoria AND libro.idLibro != $idLibro
+                        GROUP BY libro.idLibro
+                        ORDER BY libro.visitas DESC
+                        LIMIT $restantes;";
+
+        $query = $connection->prepare($instruccion);
+        $query->execute();
+        $respuestaRestantes = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        $respuesta = array_merge($respuesta, $respuestaRestantes);
+    }
     foreach ($respuesta as $libro) {
         $tituloLibro = $libro['tituloLibro'];
         $idLibro = $libro['idLibro'];
