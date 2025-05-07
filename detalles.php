@@ -47,6 +47,7 @@ if (isset($_GET['id'])) {
             // Obtener Formatos
 
             // Variables
+            $idLibro = $libro['idLibro'];
             $tituloLibro = $libro['tituloLibro'];
             $extension = $libro['portada'];
             $src = "uploads/portada/{$idLibro}.{$extension}";
@@ -231,7 +232,7 @@ function mostLibrosRelacionados(string $categoria, int $idLibro): string {
         </div>
         <h4 class="pb-1 border-bottom border-primary">Libros Relacionados</h4>
         <div class="row mb-4">
-            <?php echo mostLibrosRecomendados(); ?>
+            <?php echo mostLibrosRelacionados($idCategoria, $idLibro); ?>
         </div>
     </div>
 
