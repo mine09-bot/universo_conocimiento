@@ -26,6 +26,7 @@ if (isset($_GET['id'])) {
          libro.numeropaginas,
          idioma.nombreIdioma,
          GROUP_CONCAT(autor.nombre SEPARATOR ', ') AS autor,
+         categoria.idCategoria,
          categoria.nombreCategoria,
          editorial.nombreEditorial
         FROM libro
@@ -46,20 +47,21 @@ if (isset($_GET['id'])) {
             // Obtener Formatos
 
             // Variables
-            $tituloLibro = htmlspecialchars($libro['tituloLibro']);
+            $tituloLibro = $libro['tituloLibro'];
             $extension = $libro['portada'];
             $src = "uploads/portada/{$idLibro}.{$extension}";
             $creador = $libro['creador'];
-            $tituloLibro = htmlspecialchars($libro['tituloLibro']);
-            $autor = htmlspecialchars($libro['autor']);
-            $editorial = htmlspecialchars($libro['nombreEditorial']);
-            $anio = htmlspecialchars($libro['anioEdicion']);
-            $paginas = htmlspecialchars($libro['numeropaginas']);
-            $isbn = htmlspecialchars($libro['isbn']);
-            $categoria = htmlspecialchars($libro['nombreCategoria']);
-            $idioma = htmlspecialchars($libro['nombreIdioma']);
-            // $formato = htmlspecialchars($libro['nombre']);
-            $sinopsis = htmlspecialchars($libro['sinopsis']);
+            $tituloLibro = $libro['tituloLibro'];
+            $autor = $libro['autor'];
+            $editorial = $libro['nombreEditorial'];
+            $anio = $libro['anioEdicion'];
+            $paginas = $libro['numeropaginas'];
+            $isbn = $libro['isbn'];
+            $idCategoria = $libro['idCategoria'];
+            $categoria = $libro['nombreCategoria'];
+            $idioma = $libro['nombreIdioma'];
+            // $formato = $libro['nombre'];
+            $sinopsis = $libro['sinopsis'];
 
             $botonCreador = "";
             if ($creador == ($_SESSION['idUsuario'])) {
@@ -76,6 +78,55 @@ if (isset($_GET['id'])) {
         // Regresar al usuario al listado
         header('Location: listado.php');
     }
+}
+
+function mostLibrosRelacionados(string $categoria, int $idLibro): string {
+    global $connection;
+
+    $instruccion = "SELECT
+    libro.tituloLibro,
+    libro.idLibro,
+    libro.portada,
+    idioma.nombreIdioma,
+    GROUP_CONCAT(autor.nombre SEPARATOR ', ') AS autor,
+    categoria.nombreCategoria,
+    formato.nombre,
+    editorial.nombreEditorial
+   FROM libro
+       LEFT JOIN idioma ON libro.Idioma_idIdioma = idioma.idIdioma
+       LEFT JOIN autorlibro ON libro.idLibro = autorlibro.idLibro
+       LEFT JOIN autor ON autorlibro.idAutor = autor.idAutor
+       LEFT JOIN categoria ON libro.Categoria_idCategoria = categoria.idCategoria
+       LEFT JOIN facultadcategoria ON categoria.idCategoria= facultadcategoria.idCategoria
+       LEFT JOIN facultades ON facultadcategoria.idFacultad =facultades.idFacultades
+       LEFT JOIN formatolibro ON formatolibro.idLibro = libro.idLibro
+       LEFT JOIN formato ON formato.idFormatos = formatolibro.idFormato
+       LEFT JOIN editorial ON libro.Editorial_idEditorial = editorial.idEditorial
+       WHERE libro.Categoria_idCategoria = $categoria AND libro.idLibro != $idLibro
+       GROUP BY libro.idLibro
+       ORDER BY libro.visitas DESC
+       LIMIT 6;";
+
+    $query = $connection->prepare($instruccion);
+    $query->execute();
+    $respuesta = $query->fetchAll(PDO::FETCH_ASSOC);
+
+    $html = "";
+    foreach ($respuesta as $libro) {
+        $tituloLibro = $libro['tituloLibro'];
+        $idLibro = $libro['idLibro'];
+        $extension = $libro['portada'];
+
+        $html .= "<div class='col-6 col-md-3 col-lg-2'>
+                    <a href='detalles.php?id=$idLibro'>
+                    <img
+                        src='uploads/portada/$idLibro.$extension'
+                        class='img-fluid img-thumbnail'
+                        alt='Portada de $tituloLibro' />
+                </a>
+                </div>";
+    }
+    return $html;
 }
 
 ?>
@@ -115,13 +166,7 @@ if (isset($_GET['id'])) {
                         TOP
                     </span>
                 </p>
-                <p class="mt-4">
-                    <i>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio animi est nam
-                        veniam veritatis? Dolor mollitia voluptatum expedita quam, quisquam corrupti
-                        quibusdam necessitatibus vel cum consequatur odio itaque maxime inventore!
-                    </i>
-                </p>
+                <p class="mt-4"><i><?php echo $sinopsis; ?></i></p>
                 <table class="table mb-4">
                     <tbody>
                         <tr>
@@ -138,7 +183,7 @@ if (isset($_GET['id'])) {
                         </tr>
                         <tr>
                             <th scope="row" class="text-brand">ISBN</th>
-                            <td><?php echo $isbn; ?>< /td>
+                            <td><?php echo $isbn; ?></td>
                         </tr>
                         <tr>
                             <th scope="row" class="text-brand">Idioma</th>
@@ -176,47 +221,18 @@ if (isset($_GET['id'])) {
                             <li><a class="dropdown-item" href="#">Otra acción</a></li>
                         </ul>
                     </div>
-                    <div class="btn btn-secondary icon-link">
+                    <a href="#" class="btn btn-secondary icon-link">
                         <i class="fa-solid fa-book" aria-hidden="true"></i>
                         Solicitar Libro Físico
-                    </div>
+                    </a>
                     <?php echo $botonCreador; ?>
                 </div>
             </div>
         </div>
         <h4 class="pb-1 border-bottom border-primary">Libros Relacionados</h4>
-    </div>
-
-    <div class="container-md p-2">
-        <form
-            class="row g-2 justify-content-between">
-            <div class='col-3 d-flex flex-column gap-2'>
-                <div
-                    class="h4 pb-2 mb-2 text-white border-bottom border-success">
-                    Opciones de Descarga
-                </div>
-                <button class='btn btn-secondary btn-sm' type='button'>
-                    <?php echo $formato; ?>
-                </button>
-            </div>
-            <div class="col-9">
-                <div class="card">
-                    <div class="row g-2">
-                        <div class="card-header">
-                            Sinopsis 📖
-                        </div>
-                        <div class='card-body'>
-                            <blockquote
-                                class='blockquote mb-0'>
-                                <p><?php echo $sinopsis; ?></p>
-                            </blockquote>
-                        </div>
-
-                    </div>
-                    <a href="editor.php" class="btn btn-primary" btn-sm tabindex="-1" role="button">Agregar otro formato </a>
-                </div>
-            </div>
-        </form>
+        <div class="row mb-4">
+            <?php echo mostLibrosRecomendados(); ?>
+        </div>
     </div>
 
     <?php echo generarFooter(); ?>
