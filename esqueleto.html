@@ -104,73 +104,96 @@
                         </div>
                     </nav>
 
-                    <div class="container-sm flex-grow-1 mt-lg-4">
+                    <div class="container-sm flex-grow-1 mt-2 mt-lg-4">
                         <div class="row">
                             <div class="col-12 gap-3">
                                 <!-- Comienza aquí -->
-                                <div class="h4 pb-2 mb-4 text-white border-bottom border-success">Detalles del Libro</div>
-                                <div class="container-md p-3">
-                                    <form class="row mb-4 g-1">
-                                        <div class="col-3 d-grid gap-2">
-                                            <img src="Informatica.jpg" alt="Bootstrap" width="250" height="300" />
-                                        </div>
-                                        <div class="col-9 d-grid gap-2">
-                                            <div class="card" style="max-width: 540px">
-                                                <div class="row g-2">
-                                                    <div class="col-md-9">
-                                                        <div class="card-body">
-                                                            <h5 class="card-title">Título del Libro 📖</h5>
-                                                            <p class="card-text">
-                                                                <strong>Autor:</strong>
-                                                                Nombre del Autor
-                                                            </p>
-                                                            <p class="card-text">
-                                                                <strong>Editorial:</strong>
-                                                                Editorial
-                                                            </p>
-                                                            <p class="card-text">
-                                                                <strong>Año de Edición:</strong>
-                                                                2024
-                                                            </p>
-                                                            <p class="card-text">
-                                                                <strong>ISBN:</strong>
-                                                                978-3-16-148410-0
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                <div class="row pb-2 my-5 g-1">
+                                    <div class="col-12 col-md-3 px-5 px-md-0">
+                                        <img src="fotoperfil.jpg" class="img-fluid shadow-sm rounded-3" alt="Portada de hhh" />
+                                    </div>
+                                    <div class="col-0 col-md-1"></div>
+                                    <div class="col-12 col-md-8">
+                                        <h2 class="text-brand">Título del Libro</h2>
+                                        <h5>Autor</h5>
+                                        <p>
+                                            133 Descargas
+                                            <span class="badge text-bg-info">
+                                                <i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i>
+                                                En Tendencia
+                                            </span>
+                                            <span class="badge text-bg-primary">
+                                                <i class="fa-solid fa-download" aria-hidden="true"></i>
+                                                Más Descargado
+                                            </span>
+                                            <span class="badge text-bg-warning">
+                                                <i class="fa-solid fa-star" aria-hidden="true"></i>
+                                                TOP
+                                            </span>
+                                        </p>
+                                        <p class="mt-4">
+                                            <i>
+                                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio animi est nam
+                                                veniam veritatis? Dolor mollitia voluptatum expedita quam, quisquam corrupti
+                                                quibusdam necessitatibus vel cum consequatur odio itaque maxime inventore!
+                                            </i>
+                                        </p>
+                                        <table class="table mb-4">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row" style="width: 10em" class="text-brand">Editorial</th>
+                                                    <td>Alfaguara</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" class="text-brand">ISBN</th>
+                                                    <td>1234567890</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" class="text-brand">Idiomas</th>
+                                                    <td>Español</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" class="text-brand">Categorías</th>
+                                                    <td>Ficción, Novela</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" class="text-brand">Ediciones</th>
+                                                    <td>
+                                                        <span class="badge text-bg-secondary">EPUB</span>
+                                                        <span class="badge text-bg-secondary">PDF</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="d-flex gap-2 flex-wrap">
+                                            <div class="btn-group">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-primary dropdown-toggle icon-link"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                    <i class="fa-solid fa-download" aria-hidden="true"></i>
+                                                    Descargar
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" href="#">EPUB</a></li>
+                                                    <li><a class="dropdown-item" href="#">PDF</a></li>
+                                                    <li><hr class="dropdown-divider" /></li>
+                                                    <li><a class="dropdown-item" href="#">Otra acción</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="btn btn-secondary icon-link">
+                                                <i class="fa-solid fa-book" aria-hidden="true"></i>
+                                                Solicitar Libro Físico
+                                            </div>
+                                            <div class="btn btn-outline-light icon-link">
+                                                <i class="fa-solid fa-pencil" aria-hidden="true"></i>
+                                                Editar
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
-
-                                <div class="container-md p-2">
-                                    <form class="row g-2 justify-content-between">
-                                        <div class="col-3 d-flex flex-column gap-2">
-                                            <button class="btn btn-secondary btn-sm" type="button">PDF</button>
-                                            <button class="btn btn-secondary" type="button">EPUB</button>
-                                        </div>
-                                        <div class="col-9 d-grid gap-2">
-                                            <div class="card">
-                                                <div class="row g-2">
-                                                    <div class="card-header">Sinopsis 📖</div>
-                                                    <div class="card-body">
-                                                        <blockquote class="blockquote mb-0">
-                                                            <p>
-                                                                Fundamentos de la Informática Moderna ofrece una introducción
-                                                                clara y práctica a los conceptos básicos de la informática, como
-                                                                hardware, software, programación, redes y ciberseguridad. Ideal
-                                                                para estudiantes y principiantes, el libro combina teoría y
-                                                                ejemplos actuales, incluyendo temas como inteligencia artificial y
-                                                                computación en la nube.
-                                                            </p>
-                                                        </blockquote>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                                <h4 class="pb-1 border-bottom border-primary">Libros Relacionados</h4>
                             </div>
                         </div>
                     </div>
