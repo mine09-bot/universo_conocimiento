@@ -25,6 +25,7 @@ if ($respuesta) {
     $_SESSION['apellidoPaterno'] = $respuesta['apellidoPaterno'];
     $_SESSION['apellidoMaterno'] = $respuesta['apellidoMaterno'];
     $_SESSION['facultad'] = $respuesta['idFacultad'];
+    $_SESSION['universidad'] = $respuesta['nombreUniversidad'];
 
 
     // Enviar a inicio
@@ -38,3 +39,11 @@ if ($respuesta) {
     window.location.href='login.php';
     </script>";
 }
+
+$instruccion = "
+SELECT u.*, f.nombreFacultades, f.id AS idFacultad
+FROM usuario u
+JOIN facultades f ON u.idFacultad = f.id
+WHERE u.nombreUsuario = :x AND u.contrasena = :y
+";
+$_SESSION['facultad'] = $respuesta['nombreFacultades'];

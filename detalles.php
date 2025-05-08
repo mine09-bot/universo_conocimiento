@@ -81,7 +81,8 @@ if (isset($_GET['id'])) {
     }
 }
 
-function mostLibrosRelacionados(string $categoria, int $idLibro): string {
+function mostLibrosRelacionados(string $categoria, int $idLibro): string
+{
     global $connection;
 
     $instruccion = "SELECT
@@ -114,32 +115,32 @@ function mostLibrosRelacionados(string $categoria, int $idLibro): string {
 
     $html = "";
 
-    if ($respuesta < 6) {
+    if (count($respuesta) < 6) {
         $restantes = 6 - count($respuesta);
 
         $instruccion = "SELECT
-                        libro.tituloLibro,
-                        libro.idLibro,
-                        libro.portada,
-                        idioma.nombreIdioma,
-                        GROUP_CONCAT(autor.nombre SEPARATOR ', ') AS autor,
-                        categoria.nombreCategoria,
-                        formato.nombre,
-                        editorial.nombreEditorial
-                    FROM libro
-                        LEFT JOIN idioma ON libro.Idioma_idIdioma = idioma.idIdioma
-                        LEFT JOIN autorlibro ON libro.idLibro = autorlibro.idLibro
-                        LEFT JOIN autor ON autorlibro.idAutor = autor.idAutor
-                        LEFT JOIN categoria ON libro.Categoria_idCategoria = categoria.idCategoria
-                        LEFT JOIN facultadcategoria ON categoria.idCategoria= facultadcategoria.idCategoria
-                        LEFT JOIN facultades ON facultadcategoria.idFacultad =facultades.idFacultades
-                        LEFT JOIN formatolibro ON formatolibro.idLibro = libro.idLibro
-                        LEFT JOIN formato ON formato.idFormatos = formatolibro.idFormato
-                        LEFT JOIN editorial ON libro.Editorial_idEditorial = editorial.idEditorial
-                        WHERE libro.Categoria_idCategoria != $categoria AND libro.idLibro != $idLibro
-                        GROUP BY libro.idLibro
-                        ORDER BY libro.visitas DESC
-                        LIMIT $restantes;";
+                            libro.tituloLibro,
+                            libro.idLibro,
+                            libro.portada,
+                            idioma.nombreIdioma,
+                            GROUP_CONCAT(autor.nombre SEPARATOR ', ') AS autor,
+                            categoria.nombreCategoria,
+                            formato.nombre,
+                            editorial.nombreEditorial
+                        FROM libro
+                            LEFT JOIN idioma ON libro.Idioma_idIdioma = idioma.idIdioma
+                            LEFT JOIN autorlibro ON libro.idLibro = autorlibro.idLibro
+                            LEFT JOIN autor ON autorlibro.idAutor = autor.idAutor
+                            LEFT JOIN categoria ON libro.Categoria_idCategoria = categoria.idCategoria
+                            LEFT JOIN facultadcategoria ON categoria.idCategoria= facultadcategoria.idCategoria
+                            LEFT JOIN facultades ON facultadcategoria.idFacultad =facultades.idFacultades
+                            LEFT JOIN formatolibro ON formatolibro.idLibro = libro.idLibro
+                            LEFT JOIN formato ON formato.idFormatos = formatolibro.idFormato
+                            LEFT JOIN editorial ON libro.Editorial_idEditorial = editorial.idEditorial
+                            WHERE libro.Categoria_idCategoria != $categoria AND libro.idLibro != $idLibro
+                            GROUP BY libro.idLibro
+                            ORDER BY libro.visitas DESC
+                            LIMIT $restantes;";
 
         $query = $connection->prepare($instruccion);
         $query->execute();

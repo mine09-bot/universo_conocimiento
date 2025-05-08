@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sinopsis = $paquete['sinopsis'];
 
         $portada = $_FILES['portada'];
+        $foto = $_FILES['foto'];
         $cargarLibro  = $_FILES['cargarlibro'];
 
         // Comenzar transacción
@@ -95,6 +96,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Subir portada
         if (!move_uploaded_file($portada['tmp_name'], $nuevoNombre)) {
             throw new Exception('Error al subir portada');
+        }
+
+        //* Foto Perfil
+        // Generar nuevo nombre
+        $idUsuario = $_SESSION['idUsuario'];
+        $carpetaFotoPerfil = "../uploads/perfil/";
+        $extensionFoto = pathinfo($foto['name'], PATHINFO_EXTENSION);
+        $nuevoNombreFoto = $carpetaFotoPerfil . $idUsuario . '.' . $extensionFoto;
+
+        if (!move_uploaded_file($foto['tmp_name'], $nuevoNombreFoto)) {
+            throw new Exception('Error al subir foto de perfil');
         }
 
         //* Archivo
