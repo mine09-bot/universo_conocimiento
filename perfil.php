@@ -17,6 +17,10 @@ verificarSesion();
  * 
  */
 $idUsuario = $_SESSION['idUsuario'];
+$stmt = $connection->prepare("SELECT foto FROM usuario WHERE idUsuario = :id");
+$stmt->execute([':id' => $idUsuario]);
+$foto = $stmt->fetchColumn();
+$idUsuario = $_SESSION['idUsuario'];
 
 $instruccion = "SELECT
                     usuario.idFacultad,
@@ -88,7 +92,7 @@ $consultas = $Libros->fetch(PDO::FETCH_ASSOC)['visitas'];
                             <div class="d-grid gap-1">
                                 <div class="mb-4 border-bottom border-primary d-flex justify-content-between">
                                     <span class="h4 m-0">Información personal</span>
-                                    <a class="btn btn-dark icon-link" href="#">
+                                    <a class="btn btn-dark icon-link" href="editorperfil.php">
                                         Editar
                                         <i class="fa-solid fa-pencil"></i>
                                     </a>
