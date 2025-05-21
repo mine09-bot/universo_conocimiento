@@ -29,7 +29,7 @@ if (isset($_SESSION['idUsuario'])) {
                 <p>Unidos por el saber</p>
                 <p>En esta página podrás encontrar una gran variedad de libros de diferentes categorías, además de poder subir tus propios libros y compartirlos con el mundo.</p>
                 <p>Si ya tienes una cuenta, inicia sesión para comenzar a disfrutar de la lectura.</p>
-                
+
 
             </div>
             <div class="col-6 d-grid gap-3">
@@ -62,9 +62,12 @@ if (isset($_SESSION['idUsuario'])) {
                             </button>
                             <h5>Aun no tienes una cuenta?</h5>
                             <h6>Registrate para iniciar Sesion</h6>
-                            <button type="button" class="btn btn-link">
-                                Crear cuenta
-                            </button>
+                            <a href="registro.php" class="btn btn-primary " tabindex="-1" role="button" aria-disabled="true">Crear cuenta</a>
+
+                        </div>
+                        <div class="mb-3 mt-3 text-center">
+                            <h6>Olvidaste tu Contraseña</h6>
+                            <p><a href="recuperacontrasena.php" class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Recuperar Contrasseña</a></p>
                         </div>
                     </div>
                 </div>
