@@ -82,6 +82,7 @@ function verLibros()
             $formato = htmlspecialchars($libro['nombre']);
             $idioma = htmlspecialchars($libro['nombreIdioma']);
 
+
             $html .= "<tr style='transform: rotate(0);'>
                         <th scope='row'>
                             <img src='uploads/portada/$idLibro.$extension' class='img-fluid img-thumbnail' alt='...' style='height: 5rem;'/>
