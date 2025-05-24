@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nivelUsuario = 2;
         $idFacultad = $paquete['idFacultad'];
 
-        $contrasenaHasheada = password_hash($contrasena, PASSWORD_DEFAULT);
+        $contrasenaHasheada = md5($contrasena);
         $connection->beginTransaction();
 
         $instruccion = "INSERT INTO usuario 
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $query->bindParam(":apMaterno", $apMaterno, PDO::PARAM_STR);
         $query->bindParam(":correo", $correo, PDO::PARAM_STR);
         $query->bindParam(":telefono", $telefono, PDO::PARAM_STR);
-        $query->bindParam(":contrasena", $contrasena, PDO::PARAM_STR);
+        $query->bindParam(":contrasena", $contrasenaHasheada, PDO::PARAM_STR);
         $query->bindParam(":nombreUsuario", $usuario, PDO::PARAM_STR);
         $query->bindParam(":sexo", $sexo, PDO::PARAM_STR);
         $query->bindParam(":pais", $pais, PDO::PARAM_STR);
