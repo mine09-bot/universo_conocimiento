@@ -1,25 +1,44 @@
-<?php
-require "config.php";
+<ul class="dropdown-menu">
+    <?php foreach ($formatosDisponibles as $ext => $ruta): ?>
+        <li>
+            <a class="dropdown-item" href="descargaLibros.php?archivo=<?php echo urlencode("{$idLibro}.{$ext}"); ?>">
+                <?php echo strtoupper($ext); ?>
+            </a>
+        </li>
+    <?php endforeach; ?>
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $correo = $_POST["correoElectronico"];
-
-    // Aquí buscamos al usuario
-    $stmt = $connection->prepare("SELECT * FROM usuarios WHERE correoElectronico = ?");
-    $stmt->execute([$correo]);
-    $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($usuario) {
-        // se envia el c orrero
+    <?php if (empty($formatosDisponibles)): ?>
+        <li><span class="dropdown-item text-muted">No disponible</span></li>
+    <?php endif; ?>
+</ul>
 
 
-        header("Location: cambiar_contrasena.php?usuario=" . urlencode($usuario["idUsuario"]));
-        exit;
-    } else {
-        $error = "Correo no encontrado";
+
+
+function generarMenuFormatos(array $formatosDisponibles, string $idLibro): string {
+$html = '<ul class="dropdown-menu">' . PHP_EOL;
+
+    if (!empty($formatosDisponibles)) {
+    foreach ($formatosDisponibles as $ext => $ruta) {
+    $archivo = urlencode("{$idLibro}.{$ext}");
+    $html .= " <li>\n";
+        $html .= " <a class=\"dropdown-item\" href=\"descargaLibros.php?archivo={$archivo}\">" . strtoupper($ext) . "</a>\n";
+        $html .= " </li>\n";
     }
-}
-?>
+    } else {
+    $html .= ' <li><span class="dropdown-item text-muted">No disponible</span></li>' . PHP_EOL;
+    }
 
-<!DOCTYPE html>
-<html lang="
+    $html .= '</ul>' . PHP_EOL;
+return $html;
+}
+
+
+<ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#">EPUB</a></li>
+    <li><a class="dropdown-item" href="#">PDF</a></li>
+    <li>
+        <hr class="dropdown-divider" />
+    </li>
+    <li><a class="dropdown-item" href="#">Otra acción</a></li>
+</ul>

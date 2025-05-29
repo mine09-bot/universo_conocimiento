@@ -64,6 +64,20 @@ if (isset($_GET['id'])) {
             // $formato = $libro['nombre'];
             $sinopsis = $libro['sinopsis'];
 
+            // Verifica qué formatos están disponibles
+            $formatosDisponibles = [];
+
+            $extensiones = ['PDF', 'EPUB', 'MOBI', 'AZW3', 'CBZ', 'CBR', 'HTML', 'TXT'];
+            foreach ($extensiones as $ext) {
+                $e = strtolower($ext);
+                $rutaArchivo = "uploads/archivo/{$idLibro}.{$e}";
+                if (file_exists($rutaArchivo)) {
+                    $formatosDisponibles[$e] = $rutaArchivo;
+                }
+            }
+
+
+
             $botonCreador = "";
             if ($creador == ($_SESSION['idUsuario'])) {
                 $botonCreador = '<a href="editor.php?id=' . $idLibro . '" class="btn btn-outline-light icon-link">
@@ -249,13 +263,19 @@ function mostLibrosRelacionados(string $categoria, int $idLibro): string
                             Descargar
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">EPUB</a></li>
-                            <li><a class="dropdown-item" href="#">PDF</a></li>
-                            <li>
-                                <hr class="dropdown-divider" />
-                            </li>
-                            <li><a class="dropdown-item" href="#">Otra acción</a></li>
+                            <?php foreach ($formatosDisponibles as $ext => $ruta): ?>
+                                <li>
+                                    <a class="dropdown-item" href="descargaLibros.php?id=<?php echo $idLibro ?>&ext=<?php echo $ext ?>">
+                                        <?php echo strtoupper($ext); ?>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+
+                            <?php if (empty($formatosDisponibles)): ?>
+                                <li><span class="dropdown-item text-muted">No disponible</span></li>
+                            <?php endif; ?>
                         </ul>
+
                     </div>
                     <a href="#" class="btn btn-secondary icon-link">
                         <i class="fa-solid fa-book" aria-hidden="true"></i>

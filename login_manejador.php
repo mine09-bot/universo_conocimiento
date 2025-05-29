@@ -5,12 +5,13 @@ require "config.php";
 
 $usuario = $_POST['usuario'];
 $contrasena = $_POST["contrasena"];
+$encriptada = md5($contrasena);
 
 $instruccion = "SELECT * FROM usuario where nombreUsuario=:x and contrasena=:y";
 
 $query = $connection->prepare($instruccion);
 $query->bindParam("x", $usuario, PDO::PARAM_STR);
-$query->bindParam("y", $contrasena, PDO::PARAM_STR);
+$query->bindParam("y", $encriptada, PDO::PARAM_STR);
 $query->execute();
 $respuesta = $query->fetch(PDO::FETCH_ASSOC);
 
