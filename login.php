@@ -17,63 +17,72 @@ if (isset($_SESSION['idUsuario'])) {
 </head>
 
 <body>
+    <div class="position-relative" style="height: 100vh; width: 100vw;">
+        <img
+            src="assets/images/library_bg.webp"
+            alt="Background"
+            class="img-fluid position-absolute w-100" />
+    </div>
     <div class="container-md mt-2">
-        <form class="row g-1" method="post" action="login_manejador.php">
-            <div class="col-6 d-flex flex-column gap-2">
+        <div class="row justify-content-center">
+            <div class="card col-12 col-md-8 col-lg-6 col-xl-4 shadow">
                 <img
                     src="assets/images/logo.svg"
-                    alt="Bootstrap"
-                    width="300"
-                    height="300" />
-                <h1>¡Bienvenido a Bookia!</h1>
-                <p>Unidos por el saber</p>
-                <p>En esta página podrás encontrar una gran variedad de libros de diferentes categorías, además de poder subir tus propios libros y compartirlos con el mundo.</p>
-                <p>Si ya tienes una cuenta, inicia sesión para comenzar a disfrutar de la lectura.</p>
-
-
-            </div>
-            <div class="col-6 d-grid gap-3">
-                <div class="position-relative p-3 border">
-                    <button
-                        type="button"
-                        class="btn-close position-absolute top-0 end-0"
-                        aria-label="Close"></button>
-
-                    <h5>Introduce tus datos</h5>
-                    <div class="mb-3">
-                        <label for="usuario" class="form-label">Nombre de usuario</label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="usuario" name="usuario"
-                            aria-describedby="emailHelp" />
-
-                        <label for="contrasena" class="form-label">Contraseña</label>
+                    alt="Bookia Logo"
+                    class="img-fluid px-4 px-md-5 pt-4" />
+                <form class="card-body mt-3" method="post" action="login_manejador.php">
+                    <h5 class="card-title pb-3">Iniciar Sesión</h5>
+                    <input
+                        type="text"
+                        class="form-control mb-3"
+                        id="usuario"
+                        name="usuario"
+                        placeholder="Nombre de Usuario" />
+                    <div class="input-group">
                         <input
                             type="password"
                             class="form-control"
-                            id="contrasena" name="contrasena"
-                            aria-describedby="emailHelp" />
-
-                        <br />
-                        <div class="col-10 d-grid gap-4">
-                            <button type="submit" class="btn btn-primary">
-                                Iniciar Sesion
-                            </button>
-                            <h5>Aun no tienes una cuenta?</h5>
-                            <h6>Registrate para iniciar Sesion</h6>
-                            <a href="registro.php" class="btn btn-primary " tabindex="-1" role="button" aria-disabled="true">Crear cuenta</a>
-
-                        </div>
-                        <div class="mb-3 mt-3 text-center">
-                            <h6>Olvidaste tu Contraseña</h6>
-                            <p><a href="recuperacontrasena.php" class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Recuperar Contrasseña</a></p>
-                        </div>
+                            id="contrasena"
+                            name="contrasena"
+                            placeholder="Contraseña" />
+                        <button class="btn btn-outline-secondary" type="button" id="button-showpass">
+                            <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                        </button>
                     </div>
-                </div>
+                    <a href="recuperacontrasena.php">
+                        <small> ¿Olvidaste tu Contraseña? </small>
+                    </a>
+                    <button type="submit" class="btn btn-primary w-100 my-3">Iniciar Sesion</button>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <h5>Aun no tienes una cuenta?</h5>
+                        <a
+                            href="registro.php"
+                            class="btn btn-outline-light"
+                            tabindex="-1"
+                            role="button"
+                            aria-disabled="true">
+                            Registro
+                        </a>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
+    <script>
+        document.getElementById('button-showpass').addEventListener('click', function() {
+            const pwdInput = document.getElementById('contrasena');
+            const icon = this.querySelector('i');
+            if (pwdInput.type === 'password') {
+                pwdInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                pwdInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+    </script>
 </body>
 
 </html>
