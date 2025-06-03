@@ -277,9 +277,13 @@ function mostLibrosRelacionados(string $categoria, int $idLibro): string
                         </ul>
 
                     </div>
-                    <a href="#" class="btn btn-secondary icon-link">
+                    <a href="librofisico.php" class="btn btn-secondary icon-link position-relative">
                         <i class="fa-solid fa-book" aria-hidden="true"></i>
                         Solicitar Libro Físico
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info">
+                            0
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
                     </a>
                     <?php echo $botonCreador; ?>
                 </div>

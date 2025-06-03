@@ -22,7 +22,8 @@ if (isset($_GET['id'])) {
          formato.nombre,
          editorial.nombreEditorial,
          libro.pais_idPais AS idPais,
-         libro.creador
+         subidas.Usuario_idUsuario AS creador,
+         subidas.fecha
             FROM libro
             LEFT JOIN idioma ON libro.Idioma_idIdioma = idioma.idIdioma
             LEFT JOIN autorlibro ON libro.idLibro = autorlibro.idLibro
@@ -31,6 +32,7 @@ if (isset($_GET['id'])) {
             LEFT JOIN formatolibro ON formatolibro.idLibro = libro.idLibro
             LEFT JOIN formato ON formato.idFormatos = formatolibro.idFormato
             LEFT JOIN editorial ON libro.Editorial_idEditorial = editorial.idEditorial
+            LEFT JOIN subidas ON libro.idLibro = subidas.Libro_idLibro
         WHERE libro.idLibro=$idLibro
         GROUP BY libro.idLibro";
 
