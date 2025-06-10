@@ -5,12 +5,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>[] - 📖 Bookia</title>
         <link rel="stylesheet" href="/assets/css/tema.css" />
-        <script src="/assets/bootstrap/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="https://kit.fontawesome.com/4ff96bfcc8.js" crossorigin="anonymous"></script>
-        <link rel="icon" type="image/png" href="/assets/favicon-96x96.png" sizes="96x96" />
+        <script
+            src="/assets/bootstrap/dist/js/bootstrap.bundle.min.js"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://kit.fontawesome.com/4ff96bfcc8.js"
+            crossorigin="anonymous"
+        ></script>
+        <link
+            rel="icon"
+            type="image/png"
+            href="/assets/favicon-96x96.png"
+            sizes="96x96"
+        />
         <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
         <link rel="shortcut icon" href="/assets/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/assets/apple-touch-icon.png"
+        />
         <link rel="manifest" href="/assets/site.webmanifest" />
     </head>
 
@@ -18,7 +33,8 @@
         <div
             class="d-none position-absolute w-100 h-100 left-0 top-0 page-loader flex-column bg-dark bg-opacity-50 d-flex justify-content-center align-items-center"
             id="contenedor-carga"
-            style="z-index: 1021">
+            style="z-index: 1021"
+        >
             <div class="flipping">
                 <div></div>
                 <div></div>
@@ -26,22 +42,30 @@
                 <div></div>
                 <div></div>
             </div>
-            <span class="text-gray-800 fs-6 fw-semibold mt-5">Guardando libro...</span>
+            <span class="text-gray-800 fs-6 fw-semibold mt-5"
+                >Guardando libro...</span
+            >
         </div>
         <div class="container-fluid" style="height: 100vh" id="main-container">
             <div class="row d-flex flex-nowrap" style="min-height: 100vh">
                 <div class="col p-0 d-flex flex-column">
                     <!-- Barra Superior -->
-                    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+                    <nav
+                        class="navbar navbar-expand-lg bg-body-tertiary sticky-top"
+                    >
                         <div class="container-lg">
                             <!-- Icono y Nombre -->
-                            <a class="navbar-brand text-brand" href="inicio.php">
+                            <a
+                                class="navbar-brand text-brand"
+                                href="inicio.php"
+                            >
                                 <img
                                     src="assets/images/icono_barra.svg"
                                     alt="Logo"
                                     width="24"
                                     height="24"
-                                    class="d-inline-block align-text-top" />
+                                    class="d-inline-block align-text-top"
+                                />
                                 BOOKIA
                             </a>
                             <button
@@ -51,34 +75,56 @@
                                 data-bs-target="#navbarSupportedContent"
                                 aria-controls="navbarSupportedContent"
                                 aria-expanded="false"
-                                aria-label="Toggle navigation">
+                                aria-label="Toggle navigation"
+                            >
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                             <!-- Opciones del Menú -->
-                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <div
+                                class="collapse navbar-collapse"
+                                id="navbarSupportedContent"
+                            >
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="listado.php">Listado</a>
+                                        <a class="nav-link" href="listado.php"
+                                            >Listado</a
+                                        >
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link" href="categorias.php">Categorias</a>
+                                        <a
+                                            class="nav-link"
+                                            href="categorias.php"
+                                            >Categorias</a
+                                        >
                                     </li>
 
                                     <li class="nav-item">
-                                        <a class="nav-link" href="editor.php">Agregar Libro</a>
+                                        <a class="nav-link" href="editor.php"
+                                            >Agregar Libro</a
+                                        >
                                     </li>
                                 </ul>
-                                <form class="d-flex me-md-3" role="search" action="listado.php">
+                                <form
+                                    class="d-flex me-md-3"
+                                    role="search"
+                                    action="listado.php"
+                                >
                                     <div class="input-group">
                                         <input
                                             name="q"
                                             class="form-control"
                                             type="search"
                                             placeholder="Buscar Título o Autor"
-                                            aria-label="Buscar" />
-                                        <button class="btn btn-outline-success" type="submit">
-                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                            aria-label="Buscar"
+                                        />
+                                        <button
+                                            class="btn btn-outline-success"
+                                            type="submit"
+                                        >
+                                            <i
+                                                class="fa-solid fa-magnifying-glass"
+                                            ></i>
                                         </button>
                                     </div>
                                 </form>
@@ -89,14 +135,39 @@
                                             href="#"
                                             role="button"
                                             data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="fa-solid fa-user d-none d-lg-inline"></i>
-                                            <span class="d-lg-none">Usuario</span>
+                                            aria-expanded="false"
+                                        >
+                                            <i
+                                                class="fa-solid fa-user d-none d-lg-inline"
+                                            ></i>
+                                            <span class="d-lg-none"
+                                                >Usuario</span
+                                            >
                                         </a>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li><a class="dropdown-item" href="perfil.php">Perfil</a></li>
-                                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                                            <li><a class="dropdown-item" href="logout.php">Cerrar Sesión</a></li>
+                                        <ul
+                                            class="dropdown-menu dropdown-menu-end"
+                                        >
+                                            <li>
+                                                <a
+                                                    class="dropdown-item"
+                                                    href="perfil.php"
+                                                    >Perfil</a
+                                                >
+                                            </li>
+                                            <li>
+                                                <a
+                                                    class="dropdown-item"
+                                                    href="#"
+                                                    >Another action</a
+                                                >
+                                            </li>
+                                            <li>
+                                                <a
+                                                    class="dropdown-item"
+                                                    href="logout.php"
+                                                    >Cerrar Sesión</a
+                                                >
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -108,99 +179,19 @@
                         <div class="row">
                             <div class="col-12 gap-3">
                                 <!-- Comienza aquí -->
-                                <div class="row pb-2 my-5 g-1">
-                                    <div class="col-12 col-md-3 px-5 px-md-0">
-                                        <img src="fotoperfil.jpg" class="img-fluid shadow-sm rounded-3" alt="Portada de hhh" />
-                                    </div>
-                                    <div class="col-0 col-md-1"></div>
-                                    <div class="col-12 col-md-8">
-                                        <h2 class="text-brand">Título del Libro</h2>
-                                        <h5>Autor</h5>
-                                        <p>
-                                            133 Descargas
-                                            <span class="badge text-bg-info">
-                                                <i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i>
-                                                En Tendencia
-                                            </span>
-                                            <span class="badge text-bg-primary">
-                                                <i class="fa-solid fa-download" aria-hidden="true"></i>
-                                                Más Descargado
-                                            </span>
-                                            <span class="badge text-bg-warning">
-                                                <i class="fa-solid fa-star" aria-hidden="true"></i>
-                                                TOP
-                                            </span>
-                                        </p>
-                                        <p class="mt-4">
-                                            <i>
-                                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio animi est nam
-                                                veniam veritatis? Dolor mollitia voluptatum expedita quam, quisquam corrupti
-                                                quibusdam necessitatibus vel cum consequatur odio itaque maxime inventore!
-                                            </i>
-                                        </p>
-                                        <table class="table mb-4">
-                                            <tbody>
-                                                <tr>
-                                                    <th scope="row" style="width: 10em" class="text-brand">Editorial</th>
-                                                    <td>Alfaguara</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row" class="text-brand">ISBN</th>
-                                                    <td>1234567890</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row" class="text-brand">Idiomas</th>
-                                                    <td>Español</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row" class="text-brand">Categorías</th>
-                                                    <td>Ficción, Novela</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row" class="text-brand">Ediciones</th>
-                                                    <td>
-                                                        <span class="badge text-bg-secondary">EPUB</span>
-                                                        <span class="badge text-bg-secondary">PDF</span>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <div class="d-flex gap-2 flex-wrap">
-                                            <div class="btn-group">
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-primary dropdown-toggle icon-link"
-                                                    data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                    <i class="fa-solid fa-download" aria-hidden="true"></i>
-                                                    Descargar
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="#">EPUB</a></li>
-                                                    <li><a class="dropdown-item" href="#">PDF</a></li>
-                                                    <li><hr class="dropdown-divider" /></li>
-                                                    <li><a class="dropdown-item" href="#">Otra acción</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="btn btn-secondary icon-link">
-                                                <i class="fa-solid fa-book" aria-hidden="true"></i>
-                                                Solicitar Libro Físico
-                                            </div>
-                                            <div class="btn btn-outline-light icon-link">
-                                                <i class="fa-solid fa-pencil" aria-hidden="true"></i>
-                                                Editar
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h4 class="pb-1 border-bottom border-primary">Libros Relacionados</h4>
                             </div>
                         </div>
                     </div>
 
                     <!-- Footer -->
-                    <div class="container-fluid position-relative bg-secondary mt-4" style="overflow: hidden">
-                        <div class="position-absolute h-100 w-100 z-1" style="overflow: hidden; left: 50%">
+                    <div
+                        class="container-fluid position-relative bg-secondary mt-4"
+                        style="overflow: hidden"
+                    >
+                        <div
+                            class="position-absolute h-100 w-100 z-1"
+                            style="overflow: hidden; left: 50%"
+                        >
                             <img
                                 class="img-fluid w-100"
                                 src="assets/images/icono_barra.svg"
@@ -208,42 +199,88 @@
                                 style="
                                     filter: invert(1) brightness(1000%);
                                     clip-path: inset(0 0 0 0);
-                                    mask-image: linear-gradient(to left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
-                                    -webkit-mask-image: linear-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 50%);
-                                " />
+                                    mask-image: linear-gradient(
+                                        to left,
+                                        rgba(0, 0, 0, 0.2),
+                                        rgba(0, 0, 0, 0)
+                                    );
+                                    -webkit-mask-image: linear-gradient(
+                                        rgba(0, 0, 0, 0.2) 0%,
+                                        rgba(0, 0, 0, 0) 50%
+                                    );
+                                "
+                            />
                         </div>
                         <div class="container-sm py-4 z-2 position-relative">
                             <div class="row py-5">
-                                <div class="col-md-6 col-lg-4 d-flex flex-column align-items-start">
+                                <div
+                                    class="col-md-6 col-lg-4 d-flex flex-column align-items-start"
+                                >
                                     <h4>Enlaces de Interés</h4>
-                                    <a class="btn btn-secondary" href="listado.php" role="button">Listado de Libros</a>
-                                    <a class="btn btn-secondary" href="categorias.php" role="button">Categorías</a>
+                                    <a
+                                        class="btn btn-secondary"
+                                        href="listado.php"
+                                        role="button"
+                                        >Listado de Libros</a
+                                    >
+                                    <a
+                                        class="btn btn-secondary"
+                                        href="categorias.php"
+                                        role="button"
+                                        >Categorías</a
+                                    >
                                     <!-- <a class="btn btn-secondary" href="mision.php" role="button">Misión</a> -->
                                 </div>
-                                <div class="col-md-6 col-lg-4 d-flex flex-column align-items-start">
+                                <div
+                                    class="col-md-6 col-lg-4 d-flex flex-column align-items-start"
+                                >
                                     <h4>Conócenos</h4>
-                                    <a class="btn btn-secondary" href="ayuda.php" role="button">Ayuda</a>
-                                    <a class="btn btn-secondary" href="mision.php" role="button">Misión</a>
+                                    <a
+                                        class="btn btn-secondary"
+                                        href="ayuda.php"
+                                        role="button"
+                                        >Ayuda</a
+                                    >
+                                    <a
+                                        class="btn btn-secondary"
+                                        href="mision.php"
+                                        role="button"
+                                        >Misión</a
+                                    >
                                 </div>
                             </div>
                             <div class="row py-3">
                                 <div class="col-12 col-md-5 col-lg-3">
-                                    <img src="assets/images/logo.svg" alt="Logo Bookia" class="img-fluid" />
+                                    <img
+                                        src="assets/images/logo.svg"
+                                        alt="Logo Bookia"
+                                        class="img-fluid"
+                                    />
                                 </div>
                             </div>
                             <hr />
                             <div class="row">
-                                <div class="col-12 d-flex flex-row justify-content-end align-items-center">
+                                <div
+                                    class="col-12 d-flex flex-row justify-content-end align-items-center"
+                                >
                                     <p class="mb-0">
                                         <small>Síguenos</small>
-                                        <a class="btn" href="https://facebook.com" role="button"
-                                            ><i class="fa-brands fa-facebook"></i
+                                        <a
+                                            class="btn"
+                                            href="https://facebook.com"
+                                            role="button"
+                                            ><i
+                                                class="fa-brands fa-facebook"
+                                            ></i
                                         ></a>
                                     </p>
                                 </div>
                             </div>
                             <hr />
-                            <span>© 2025 Minerva Benítez Pérez. Todos los derechos reservados.</span>
+                            <span
+                                >© 2025 Minerva Benítez Pérez. Todos los
+                                derechos reservados.</span
+                            >
                         </div>
                     </div>
                 </div>

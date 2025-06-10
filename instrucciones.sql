@@ -101,7 +101,7 @@ SELECT
 
 
 
--subir libros(titulo de libro, editorial, formato, idioma categoria,autor, portada, numero de paginas, isbn,editorial, ano de edicion, sinopsis, )
+--subir libros(titulo de libro, editorial, formato, idioma categoria,autor, portada, numero de paginas, isbn,editorial, ano de edicion, sinopsis, )
 INSERT INTO libro VALUES titulo de libro, editorial, formato,idioma categoria, autor, portada, numero de paginas, isbn, editorial, ano de edicion, sinopsis;
 
 

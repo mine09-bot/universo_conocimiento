@@ -4,18 +4,7 @@ require "utils.php";
 require "config.php";
 verificarSesion();
 
-/**
- * Obtener datos del usuario
- * Nombre
- * Facultad
- * Universidad
- * Pais
- ** Redes sociales
- * Libros subidos
- * Libros consultados
- ** Foto
- * 
- */
+
 $idUsuario = $_SESSION['idUsuario'];
 $stmt = $connection->prepare("SELECT foto FROM usuario WHERE idUsuario = :id");
 $stmt->execute([':id' => $idUsuario]);

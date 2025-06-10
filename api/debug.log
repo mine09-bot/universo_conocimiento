@@ -1,0 +1,65 @@
+Array
+(
+    [facultad] => Psicologia
+    [pais] => México
+    [direccion] => Av 3 oriente 1413
+    [codigo] => 72500
+    [telefono] => 2295500
+    [correo] => psicologia.correo.buap.mx
+)
+Array
+(
+    [facultad] => Psicologia
+    [pais] => México
+    [direccion] => Av 3 oriente 1413
+    [codigo] => 72500
+    [telefono] => 2295500
+)
+Array
+(
+    [facultad] => Psicologia
+    [pais] => México
+    [direccion] => Av 3 oriente 1413
+    [codigo] => 72500
+    [telefono] => 2295500
+)
+Array
+(
+    [facultad] => Psicologia
+    [pais] => 110
+    [direccion] => Av 3 oriente 1413
+    [codigo] => 72500
+    [telefono] => 2295500
+)
+Array
+(
+    [facultad] => Psicologia
+    [pais] => 110
+    [direccion] => Av 3 oriente 1413
+    [codigo] => 72500
+    [telefono] => 2295500
+)
+Array
+(
+    [facultad] => Psicologia
+    [pais] => 110
+    [direccion] => Av 3 oriente 1413
+    [codigo] => 72500
+    [telefono] => 2222295500
+)
+Array
+(
+    [facultad] => Psicologia
+    [pais] => 110
+    [direccion] => Av 3 oriente 1413
+    [codigo] => 72500
+    [telefono] => 2222295500
+)
+Array
+(
+    [facultad] => Psicologia
+    [pais] => 110
+    [direccion] => Av 3 oriente 1413
+    [codigo] => 72500
+    [telefono] => 2222295500
+)
