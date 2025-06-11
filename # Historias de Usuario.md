@@ -21,6 +21,8 @@
 -   Página Ayuda
 -   Página Misión
 -   Solicitud de libro físico
+-   Registrar Universidad
+    -   CRUD Facultades
 
 ## Faltantes
 
@@ -36,5 +38,4 @@
     -   Eliminar Libros
     -   Ver Reportes
     -   Bloquear perfiles
--   Registrar Universidad
-    -   CRUD Facultades
+-   Editar Universidad

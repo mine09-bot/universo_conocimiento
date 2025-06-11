@@ -28,8 +28,11 @@ const sinFacu = document.querySelector("#no-facultades");
 
 const botonCerrar = document.querySelector("#boton-cerrar-exito");
 botonCerrar.addEventListener("click", (e) => darclick(e));
+tablaFacu.addEventListener("click", (e) => clickTabla(e));
 fUni.addEventListener("submit", (e) => guardarUni(e));
 fFacu.addEventListener("submit", (e) => guardarFacu(e));
+
+const oFacultades = [];
 
 async function guardarUni(event) {
     // Previene que la página se recargue
@@ -37,9 +40,10 @@ async function guardarUni(event) {
 
     dialogoCarga.classList.remove("d-none");
 
-    return;
     // Empaquetar
-    const paquete = new FormData(formulario);
+    const paquete = new FormData(fUni);
+
+    paquete.append("facultades", JSON.stringify(oFacultades));
 
     const opciones = {
         method: "post",
@@ -47,7 +51,7 @@ async function guardarUni(event) {
     };
 
     // Enviar
-    fetch("api/agregafacu.php", opciones)
+    fetch("api/reguni.php", opciones)
         .then((response) => {
             if (response.ok) return response.text();
             else throw new Error(response.status);
@@ -64,7 +68,7 @@ async function guardarUni(event) {
         })
         .catch((error) => {
             mensajeError.innerHTML =
-                "Ha ocurrido un error al crear el usuario: " + error;
+                "Ha ocurrido un error al crear la universidad: " + error;
             dialogoError.show();
         })
         .finally(() => {
@@ -80,26 +84,89 @@ async function guardarFacu(event) {
     // Empaquetar
     const paquete = new FormData(fFacu);
 
-    console.log(paquete);
+    // Objeto
+    const oForm = {
+        id: -1,
+        nombre: paquete.get("nombreFacultad"),
+        direccion: paquete.get("direccion"),
+        codigoPostal: paquete.get("codigoPostal"),
+        telefono: paquete.get("telefono"),
+    };
 
-    tablaFacu.innerHTML += `
-        <tr>
-            <td>${paquete.get("nombreFacultad")}</td>
-            <td>${paquete.get("direccion")}</td>
-            <td>${paquete.get("codigoPostal")}</td>
-            <td>${paquete.get("telefono")}</td>
-            <td>
-                <div class="btn btn-sm btn-secondary"><i class="fa-solid fa-pencil" aria-hidden="true"></i></div>
-                <div class="btn btn-sm btn-danger"><i class="fa-solid fa-trash" aria-hidden="true"></i></div>
-            </td>
-        </tr>
-    `;
+    const indiceEditar = document.querySelector("#indice").value;
+    if (indiceEditar == "") {
+        // Creacion
+        oFacultades.push(oForm);
+    } else {
+        // Edicion
+        oFacultades[indiceEditar] = oForm;
+    }
 
-    sinFacu.classList.add("d-none");
+    actualizarTabla();
 
+    fFacu.reset();
     dialogoFacu.hide();
 }
 
+function actualizarTabla() {
+    // Borrar tabla
+    tablaFacu.innerHTML = "";
+
+    // Verificar que no este vacia
+    if (oFacultades.length == 0) sinFacu.classList.remove("d-none");
+    else sinFacu.classList.add("d-none");
+
+    // Volver a llenar
+    oFacultades.forEach((eFacultad, i) => {
+        tablaFacu.innerHTML += `
+            <tr>
+                <td>${eFacultad["nombre"]}</td>
+                <td>${eFacultad["direccion"]}</td>
+                <td>${eFacultad["codigoPostal"]}</td>
+                <td>${eFacultad["telefono"]}</td>
+                <td>
+                    <div class="btn btn-sm btn-secondary bookia-editar"><i class="fa-solid fa-pencil" aria-hidden="true"></i></div>
+                    <div class="btn btn-sm btn-danger bookia-borrar"><i class="fa-solid fa-trash" aria-hidden="true"></i></div>
+                </td>
+            </tr>
+        `;
+    });
+}
+function llenarFormularioFacultad(facultad, idx) {
+    document.querySelector("#indice").value = idx;
+    document.querySelector("#nombreFacultad").value = facultad.nombre;
+    document.querySelector("#direccion").value = facultad.direccion;
+    document.querySelector("#codigoPostal").value = facultad.codigoPostal;
+    document.querySelector("#telefono").value = facultad.telefono;
+}
+
+function clickTabla(eEvent) {
+    // Fila
+    const indice = eEvent.target.closest("tr").rowIndex - 1;
+
+    // TODO Editar
+    if (eEvent.target.closest(".btn.bookia-editar")) {
+        // Obtener los datos del objeto en el espacio 'indice'
+        const datosFacultad = oFacultades[indice];
+        console.log(datosFacultad);
+
+        // Llenar los inputs del formulario
+        llenarFormularioFacultad(datosFacultad, indice);
+
+        // Mostrar el modal del formulario
+        dialogoFacu.show();
+    }
+
+    // Borrar
+    if (eEvent.target.closest(".btn.bookia-borrar")) {
+        // Quitarlo del objeto
+        oFacultades.splice(indice, 1);
+
+        // Actualizar la tabla
+        actualizarTabla();
+    }
+}
+
 function darclick(event) {
-    window.location.href = "login.php";
+    // window.location.href = "login.php";
 }

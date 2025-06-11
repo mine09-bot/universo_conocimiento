@@ -135,21 +135,23 @@ function generarPais(int $idPais = 0)
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <input type="hidden" id="indice" name="indice">
+
                     <div class="mb-3">
                         <label class="form-label">Nombre de la Facultad</label>
-                        <input type="text" class="form-control" name="nombreFacultad" required />
+                        <input type="text" class="form-control" name="nombreFacultad" id="nombreFacultad" required />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Dirección</label>
-                        <input type="text" class="form-control" name="direccion" required />
+                        <input type="text" class="form-control" name="direccion" id="direccion" required />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Código Postal</label>
-                        <input type="text" class="form-control" name="codigoPostal" required />
+                        <input type="text" class="form-control" name="codigoPostal" id="codigoPostal" required />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Teléfono</label>
-                        <input type="tel" class="form-control" name="telefono" required />
+                        <input type="tel" class="form-control" name="telefono" id="telefono" required />
                     </div>
                 </div>
                 <div class="modal-footer">
