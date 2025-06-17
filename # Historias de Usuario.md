@@ -23,10 +23,10 @@
 -   Solicitud de libro físico
 -   Registrar Universidad
     -   CRUD Facultades
+-   Borrar libro
 
 ## Faltantes
 
--   Borrar libro
 -   Pedir Préstamo
 -   Prestar libro
     -   Autorizar préstamo libro

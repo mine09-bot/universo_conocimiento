@@ -304,9 +304,10 @@ function generarIdioma(int $idIdioma = 0)
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <div class="d-grid gap-2 col-6 mx-auto">
-                                            <button class="btn btn-primary" type="submit">Guardar</button>
+                                        <div class="d-flex justify-content-end gap-2 mt-3">
+                                            <button type="submit" class="btn btn-primary">Guardar</button>
                                         </div>
+
                                     </div>
                                 </div>
                             </form>

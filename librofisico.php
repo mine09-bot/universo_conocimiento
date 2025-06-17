@@ -17,7 +17,7 @@ if (isset($_GET['id'])) {
     libro.idLibro,
     facultades.idFacultades,
     facultades.nombreFacultad,
-    facultades.Pais,
+    universidad.pais,
     universidad.idUniversidad,
     universidad.nombreUniversidad,
     universidad.logoUni,
@@ -29,7 +29,7 @@ LEFT JOIN libro ON librofisico.idLibro = libro.idLibro
 LEFT JOIN facultades ON librofisico.idFacultad = facultades.idFacultades
 LEFT JOIN universidad ON facultades.idUniversidad = universidad.idUniversidad
 LEFT JOIN idioma ON librofisico.idIdioma = idioma.idIdioma
-LEFT JOIN pais ON facultades.Pais = pais.nombrePais
+LEFT JOIN pais ON universidad.pais = pais.nombrePais
 WHERE libro.idLibro = :id";
 
         $query = $connection->prepare($instruccion);
@@ -43,7 +43,7 @@ WHERE libro.idLibro = :id";
                 // Variables
 
                 $logoUni = $librofisico['logoUni'];
-                $logo = "uploads/logo/$logoUni";
+                $logo = "uploads/universidad/$logoUni";
                 $tituloLibro = $librofisico['tituloLibro'];
                 $universidad = $librofisico['nombreUniversidad'];
                 $facultad = $librofisico['nombreFacultad'];

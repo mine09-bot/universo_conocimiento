@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require "utils.php";
 require "config.php";
+require "utils.php";
 verificarSesion();
 global $connection;
 
@@ -76,14 +76,15 @@ if (isset($_GET['id'])) {
                 }
             }
 
-
-
+            // Botones si el usuario es el creador
             $botonCreador = "";
+            $botonEliminar = "";
             if ($creador == ($_SESSION['idUsuario'])) {
                 $botonCreador = '<a href="editor.php?id=' . $idLibro . '" class="btn btn-outline-light icon-link">
                         <i class="fa-solid fa-pencil" aria-hidden="true"></i>
                         Editar
                     </a>';
+                $botonEliminar = "<a href='borrar.php?id=$idLibro' class='btn btn-danger' onclick='return confirm(\"¿Seguro que deseas borrar este libro?\")'>Borrar</a>";
             }
         } else {
             // Regresar al usuario al listado
@@ -94,7 +95,6 @@ if (isset($_GET['id'])) {
         header('Location: listado.php');
     }
 }
-
 function mostLibrosRelacionados(string $categoria, int $idLibro): string
 {
     global $connection;
@@ -188,6 +188,7 @@ function mostLibrosRelacionados(string $categoria, int $idLibro): string
 </head>
 
 <body>
+    <?php echo $alert; ?>
     <!-- Barra Superior -->
     <?php echo generarBarraNav(); ?>
     <!-- Contenido -->
@@ -280,12 +281,14 @@ function mostLibrosRelacionados(string $categoria, int $idLibro): string
                     <a href="librofisico.php?id=<?php echo $idLibro ?>" class="btn btn-secondary icon-link position-relative">
                         <i class="fa-solid fa-book" aria-hidden="true"></i>
                         Solicitar Libro Físico
+
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info">
                             0
                             <span class="visually-hidden">unread messages</span>
                         </span>
                     </a>
                     <?php echo $botonCreador; ?>
+                    <?php echo $botonEliminar; ?>
                 </div>
             </div>
         </div>

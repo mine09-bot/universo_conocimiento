@@ -4,6 +4,11 @@ require "utils.php";
 require "config.php";
 verificarSesion();
 
+$alerta = '';
+if (isset($_GET) && isset($_GET['borrado'])) {
+    $alerta = '<script>alert("Libro eliminado exitosamente")</script>';
+}
+
 // Consulta para obtener los libros
 function mostrarLibros()
 {
@@ -212,6 +217,7 @@ function mostLibrosRecomendados()
             </div>
         </div>
     </div>
+    <?php echo $alerta; ?>
 </body>
 
 </html>

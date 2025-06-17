@@ -1,44 +1,23 @@
-<ul class="dropdown-menu">
-    <?php foreach ($formatosDisponibles as $ext => $ruta): ?>
-        <li>
-            <a class="dropdown-item" href="descargaLibros.php?archivo=<?php echo urlencode("{$idLibro}.{$ext}"); ?>">
-                <?php echo strtoupper($ext); ?>
-            </a>
-        </li>
-    <?php endforeach; ?>
+if ($creador == ($_SESSION['idUsuario'])) {
 
-    <?php if (empty($formatosDisponibles)): ?>
-        <li><span class="dropdown-item text-muted">No disponible</span></li>
-    <?php endif; ?>
-</ul>
+$instruccion = "DELETE FROM libro
+WHERE idLibro = :libro";
+$borrar = $connection->prepare($instruccion);
+$borrar->bindParam(":libro", $codigoIngresado, PDO::PARAM_STR);
 
+$borrar->execute();
+$msj = "¡Contraseña actualizada exitosamente!";
+header("Location: inicio.php");
+exit;
+$botonBorrar = "";
 
-
-
-function generarMenuFormatos(array $formatosDisponibles, string $idLibro): string {
-$html = '<ul class="dropdown-menu">' . PHP_EOL;
-
-    if (!empty($formatosDisponibles)) {
-    foreach ($formatosDisponibles as $ext => $ruta) {
-    $archivo = urlencode("{$idLibro}.{$ext}");
-    $html .= " <li>\n";
-        $html .= " <a class=\"dropdown-item\" href=\"descargaLibros.php?archivo={$archivo}\">" . strtoupper($ext) . "</a>\n";
-        $html .= " </li>\n";
-    }
-    } else {
-    $html .= ' <li><span class="dropdown-item text-muted">No disponible</span></li>' . PHP_EOL;
-    }
-
-    $html .= '</ul>' . PHP_EOL;
-return $html;
+$botonBorrar =
+<a href="borrar.php?id=<?php echo $idLibro; ?>"
+    class="btn btn-danger"
+    onclick="return confirm('¿Seguro que deseas borrar este libro?')">
+    Borrar
+</a>
+} else {
+// Regresar al usuario al listado
+header('Location: listado.php');
 }
-
-
-<ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="#">EPUB</a></li>
-    <li><a class="dropdown-item" href="#">PDF</a></li>
-    <li>
-        <hr class="dropdown-divider" />
-    </li>
-    <li><a class="dropdown-item" href="#">Otra acción</a></li>
-</ul>
