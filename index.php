@@ -22,6 +22,16 @@
                     <button id="btn__registrarse">Registrarse</button>
                 </div>
             </div>
+            <img
+                src="assets/images/logo.svg"
+                alt="Bootstrap"
+                width="300"
+                height="300" />
+            <h1>¡Bienvenido a Bookia!</h1>
+            <p>Unidos por el saber</p>
+            <p>En esta página podrás encontrar una gran variedad de libros de diferentes categorías, además de poder subir tus propios libros y compartirlos con el mundo.</p>
+            <p>Si ya tienes una cuenta, inicia sesión para comenzar a disfrutar de la lectura.</p>
+
             <!--Formulario de registro-->
             <div class="contenedor__login-register">
                 <form action="" class="formulario__login">
