@@ -86,6 +86,11 @@ $consultas = $Libros->fetch(PDO::FETCH_ASSOC)['visitas'];
                                         <i class="fa-solid fa-pencil"></i>
                                     </a>
                                 </div>
+                                <div class="mb-3 text-end">
+                                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalReporte">
+                                        Levantar Reporte
+                                    </button>
+                                </div>
                                 <div class="container mt-4">
                                     <div class="d-flex flex-column align-items-center">
                                         <div class="col-auto mb-3">
@@ -112,7 +117,7 @@ $consultas = $Libros->fetch(PDO::FETCH_ASSOC)['visitas'];
                                             </a>
                                         </div>
                                         <div class="btn btn-dark icon-link mb-3" style="transform: rotate(0);">
-                                            <img src="uploads/logo/<?php echo $logo; ?>" alt="Foto de perfil" class="img fluid rounded"
+                                            <img src="uploads/universidad/<?php echo $logo; ?>" alt="Foto de perfil" class="img fluid rounded"
                                                 style="width: 1.5rem; height: 1.5rem;">
                                             <?php echo $nomUni; ?>
                                             <a class="stretched-link" href="https://www.buap.mx"></a>
@@ -138,6 +143,28 @@ $consultas = $Libros->fetch(PDO::FETCH_ASSOC)['visitas'];
                         </div>
                     </div>
 
+                </div>
+                <!-- modal-->
+                <div class="modal fade" id="modalReporte" tabindex="-1" aria-labelledby="modalReporteLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form class="modal-content" method="post" action="#">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalReporteLabel">Levantar Reporte</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- campo de texto -->
+                                <div class="mb-3">
+                                    <label for="txtReporte" class="form-label">Describe el problema</label>
+                                    <textarea name="reporte" id="textoreporte" class="form-control" rows="4" required></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Enviar Reporte</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <?php echo generarFooter(); ?>
             </div>

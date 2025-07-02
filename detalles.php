@@ -79,7 +79,11 @@ if (isset($_GET['id'])) {
             // Botones si el usuario es el creador
             $botonCreador = "";
             $botonEliminar = "";
-            if ($creador == ($_SESSION['idUsuario'])) {
+
+            $esCreador = $creador == ($_SESSION['idUsuario']);
+            $esAdmin = $_SESSION['nivel'] == 2;
+
+            if ($esCreador || $esAdmin) {
                 $botonCreador = '<a href="editor.php?id=' . $idLibro . '" class="btn btn-outline-light icon-link">
                         <i class="fa-solid fa-pencil" aria-hidden="true"></i>
                         Editar

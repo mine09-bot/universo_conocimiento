@@ -24,18 +24,20 @@
 -   Registrar Universidad
     -   CRUD Facultades
 -   Borrar libro
+-   Panel de Administración
+    -   Bloquear perfiles
 
 ## Faltantes
 
 -   Pedir Préstamo
--   Prestar libro
-    -   Autorizar préstamo libro
-    -   Denegar préstamo libro
 -   Estatus préstamos
 -   Levantar Reportes
 -   Panel de Administración
-    -   Subir Libros
     -   Eliminar Libros
     -   Ver Reportes
-    -   Bloquear perfiles
--   Editar Universidad
+-   Panel de Universidad
+    -   Subir Libros Fisicos
+    -   Editar Universidad
+    -   Prestar libro
+        -   Autorizar préstamo libro
+        -   Denegar préstamo libro

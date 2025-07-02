@@ -1,12 +1,14 @@
 <?php
-function verificarSesion() {
+function verificarSesion()
+{
     if (!isset($_SESSION['idUsuario'])) {
         header('Location: login.php');
         exit;
     }
 }
 
-function generarEncabezado($titulo) {
+function generarEncabezado($titulo)
+{
     return <<<HTML
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,7 +25,8 @@ function generarEncabezado($titulo) {
     HTML;
 }
 
-function generarFooter() {
+function generarFooter()
+{
     return <<<HTML
     <div class="container-fluid position-relative bg-secondary mt-4" style="overflow: hidden">
         <div class="position-absolute h-100 w-100 z-1" style="overflow: hidden; left: 50%">
@@ -77,7 +80,8 @@ function generarFooter() {
     </div>
     HTML;
 }
-function generarBarraNav() {
+function generarBarraNav()
+{
     return <<<HTML
         <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
             <div class="container-lg">
@@ -143,7 +147,7 @@ function generarBarraNav() {
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a class="dropdown-item" href="perfil.php">Perfil</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="panelAdmin.php">Administrador</a></li>
                                 <li><a class="dropdown-item" href="logout.php">Cerrar Sesión</a></li>
                             </ul>
                         </li>
@@ -154,7 +158,8 @@ function generarBarraNav() {
     HTML;
 }
 
-function aMinusculas($texto) {
+function aMinusculas($texto)
+{
     $texto = trim($texto);
 
     $texto = strtolower($texto);
@@ -162,13 +167,15 @@ function aMinusculas($texto) {
     return $texto;
 }
 
-function primeraMayus($texto) {
+function primeraMayus($texto)
+{
     $texto = aMinusculas($texto);
     $texto = ucwords($texto);
     return $texto;
 }
 
-function agregarVisita(int $idLibro): bool {
+function agregarVisita(int $idLibro): bool
+{
     global $connection;
 
     try {
@@ -182,7 +189,8 @@ function agregarVisita(int $idLibro): bool {
     }
 }
 
-function agregarConsulta(int $idUsuario): bool {
+function agregarConsulta(int $idUsuario): bool
+{
     global $connection;
 
     try {
@@ -196,7 +204,8 @@ function agregarConsulta(int $idUsuario): bool {
     }
 }
 
-function puedeEliminarLibro(int $idLibro): bool {
+function puedeEliminarLibro(int $idLibro): bool
+{
     global $connection;
 
     // Obtener creador del libro

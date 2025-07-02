@@ -19,19 +19,30 @@ if ($respuesta) {
     // Existe
     echo "Usuario existe";
 
-    // Guardar las variables de sesión
-    $_SESSION['idUsuario'] = $respuesta['idUsuario'];
-    $_SESSION['correoElectronico'] = $respuesta['correoElectronico'];
-    $_SESSION['nombre'] = $respuesta['nombre'];
-    $_SESSION['apellidoPaterno'] = $respuesta['apellidoPaterno'];
-    $_SESSION['apellidoMaterno'] = $respuesta['apellidoMaterno'];
-    $_SESSION['facultad'] = $respuesta['idFacultad'];
-    $_SESSION['universidad'] = $respuesta['nombreUniversidad'];
+    if ($respuesta['bloqueado'] == 0) {
 
 
-    // Enviar a inicio
-    header("Location: inicio.php");
-    exit;
+        // Guardar las variables de sesión
+        $_SESSION['idUsuario'] = $respuesta['idUsuario'];
+        $_SESSION['correoElectronico'] = $respuesta['correoElectronico'];
+        $_SESSION['nombre'] = $respuesta['nombre'];
+        $_SESSION['apellidoPaterno'] = $respuesta['apellidoPaterno'];
+        $_SESSION['apellidoMaterno'] = $respuesta['apellidoMaterno'];
+        $_SESSION['facultad'] = $respuesta['idFacultad'];
+        $_SESSION['universidad'] = $respuesta['nombreUniversidad'];
+        $_SESSION['nivel'] = $respuesta['nivelUsuario']; // 'admin' o 'usuario'
+
+
+        // Enviar a inicio
+        header("Location: inicio.php");
+        exit;
+    } else {
+        $msg = "Usuario bloqueado";
+        echo "<script>
+    alert('$msg');
+    window.location.href='login.php';
+    </script>";
+    }
 } else {
     // No existe
     $msg = "Usuario o contraseña incorrectos";

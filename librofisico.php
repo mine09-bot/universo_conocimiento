@@ -142,16 +142,16 @@ WHERE libro.idLibro = :id";
                                                     width="100"
                                                     height="100" />
                                                 <p class="card-text">
-                                                    <strong> Ubicacion: </strong>Universidad
+                                                    <strong> Ubicacion: </strong><?php echo htmlspecialchars($universidad); ?>
                                                 </p>
                                                 <p class="card-text">
-                                                    <strong>Ejemplares disponibles:</strong> 2
+                                                    <strong>Ejemplares disponibles:</strong> <?php echo (int)$ejemplar; ?>
                                                 </p>
                                                 <p class="card-text">
-                                                    <strong>Idioma:</strong> Idioma
+                                                    <strong>Idioma:</strong> <?php echo htmlspecialchars($idioma); ?>
                                                 </p>
                                                 <p class="card-text">
-                                                    <strong>Pais:</strong> Pais
+                                                    <strong>Pais:</strong> <?php echo htmlspecialchars($pais); ?>
                                                 </p>
                                                 <button class="btn btn-primary btn-lg">
                                                     Solicitar

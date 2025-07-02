@@ -46,7 +46,8 @@ function verLibros()
         GROUP_CONCAT(autor.nombre SEPARATOR ', ') AS autor,
         categoria.nombreCategoria,
         formato.nombre,
-        editorial.nombreEditorial
+        editorial.nombreEditorial,
+        subidas.Usuario_idUsuario AS creador
     FROM libro
     LEFT JOIN idioma ON libro.Idioma_idIdioma = idioma.idIdioma
     LEFT JOIN autorlibro ON libro.idLibro = autorlibro.idLibro
@@ -55,6 +56,8 @@ function verLibros()
     LEFT JOIN formatolibro ON formatolibro.idLibro = libro.idLibro
     LEFT JOIN formato ON formato.idFormatos = formatolibro.idFormato
     LEFT JOIN editorial ON libro.Editorial_idEditorial = editorial.idEditorial
+    LEFT JOIN subidas ON libro.idLibro = subidas.Libro_idLibro
+
     $where
     GROUP BY libro.idLibro
     ORDER BY libro.visitas DESC";
@@ -81,6 +84,8 @@ function verLibros()
             $categoria = htmlspecialchars($libro['nombreCategoria']);
             $formato = htmlspecialchars($libro['nombre']);
             $idioma = htmlspecialchars($libro['nombreIdioma']);
+            $creador = ($libro['creador']);
+
 
 
             $html .= "<tr style='transform: rotate(0);'>
@@ -97,13 +102,27 @@ function verLibros()
                             <button class='btn btn-outline-success' type='submit'>
                                 <i class='fa-solid fa-circle-down'></i>
                             </button>
-                        </td>
-                        
-                    </tr>";
-        }
-    }
+                        </td>";
 
-    return $html;
+
+            $esCreador = $creador == ($_SESSION['idUsuario']);
+            $esAdmin = $_SESSION['nivel'] == 2;
+
+            if ($esCreador || $esAdmin) {
+                $html .= " <td>
+                        <button class='btn btn-outline-danger' type= 'submit'>
+                        <i class ='fa-solid fa-trash'></i>
+                        </button>
+
+                        </td>";
+            }
+
+
+            $html .= "</tr>";
+        }
+
+        return $html;
+    }
 }
 
 
