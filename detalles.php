@@ -293,6 +293,11 @@ function mostLibrosRelacionados(string $categoria, int $idLibro): string
                     </a>
                     <?php echo $botonCreador; ?>
                     <?php echo $botonEliminar; ?>
+                    <div class="mb-3 text-end">
+                        <button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#modalReporte">
+                            Levantar Reporte
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -301,7 +306,30 @@ function mostLibrosRelacionados(string $categoria, int $idLibro): string
             <?php echo mostLibrosRelacionados($idCategoria, $idLibro); ?>
         </div>
     </div>
+    <!-- modal-->
+    <div class="modal fade" id="modalReporte" tabindex="-1" aria-labelledby="modalReporteLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form class="modal-content" method="post" action="enviarReporte.php">
+                <div class="modal-header">
+                    <input type="hidden" id="idLibro" name="idLibro" value="<?php echo $idLibro ?? ''; ?>">
 
+                    <h5 class="modal-title" id="modalReporteLabel">Levantar Reporte</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- campo de texto -->
+                    <div class="mb-3">
+                        <label for="txtReporte" class="form-label">Describe el problema</label>
+                        <textarea name="mensaje" id="textoreporte" class="form-control" rows="4" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Enviar Reporte</button>
+                </div>
+            </form>
+        </div>
+    </div>
     <?php echo generarFooter(); ?>
 </body>
 

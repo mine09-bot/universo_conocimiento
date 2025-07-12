@@ -5,6 +5,11 @@ require "utils.php";
 require "config.php";
 verificarSesion();
 
+
+$instruccion = "SELECT COUNT(*) FROM reportes WHERE estadoReporte = 'pendiente'";
+$respuesta = $connection->query($instruccion);
+$pendientes = $respuesta->fetchColumn();
+
 function generarUniversidad(int $idUniversidad = 0)
 {
     global $connection;
@@ -108,10 +113,14 @@ function generarFacultad(int $idFacultades = 0)
                                             </button>
                                         </div>
 
-                                        <div class="mb-3">
-                                            <button type="button" class="btn btn-secondary w-50" data-bs-toggle="modal" data-bs-target="#reportes.php">
+                                        <div class="mb-3 position-relative">
+                                            <a class="btn btn-secondary w-50 position-relative" href="reportes.php" role="button">
                                                 Reportes
-                                            </button>
+                                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                                    <?php echo $pendientes; ?>
+                                                    <span class="visually-hidden">nuevos reportes</span>
+                                                </span>
+                                            </a>
                                         </div>
 
                                     </div>
